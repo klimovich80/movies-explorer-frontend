@@ -1,0 +1,17 @@
+.header {
+    background-color: var(--background-color_grey);
+    margin: 0;
+    padding: 0 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1280px;
+    min-height: 74px;
+}
+
+.header__logo {
+    max-width: 38px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}

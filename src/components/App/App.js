@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header'
-import Navigation from '../Navigation/Navigation'
 import Main from '../Main/Main'
-import Movies from '../Movies'
+import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import Profile from '../Profile/Profile'
 import Login from '../Login/Login'
@@ -19,7 +18,6 @@ function App() {
                 <Route path='/' element={
                     <>
                         <Header />
-                        <Navigation />
                         <Main />
                         <Footer />
                     </>
@@ -27,7 +25,6 @@ function App() {
                 <Route path='/movies' element={
                     <>
                         <Header />
-                        <Navigation />
                         <Movies />
                         <Footer />
                     </>
@@ -35,7 +32,6 @@ function App() {
                 <Route path='/saved-movies' element={
                     <>
                         <Header />
-                        <Navigation />
                         <SavedMovies />
                         <Footer />
                     </>
@@ -43,7 +39,6 @@ function App() {
                 <Route path='/profile' element={
                     <>
                         <Header />
-                        <Navigation />
                         <Profile />
                         <Footer />
                     </>
@@ -51,7 +46,6 @@ function App() {
                 <Route path='/signin' element={
                     <>
                         <Header />
-                        <Navigation />
                         <Login />
                         <Footer />
                     </>
@@ -59,7 +53,6 @@ function App() {
                 <Route path='/signup' element={
                     <>
                         <Header />
-                        <Navigation />
                         <Register />
                         <Footer />
                     </>

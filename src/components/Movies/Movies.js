@@ -2,8 +2,8 @@ import React from 'react'
 import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import Preloader from '../Preloader/Preloader'
-import MoviesCardList from '../MoviesCardList'
-import MoviesCard from '../MoviesCard'
+import MoviesCardList from '../MoviesCardList/MoviesCard'
+import MoviesCard from '../MoviesCard/MoviesCard'
 
 export default function Movies() {
     return (

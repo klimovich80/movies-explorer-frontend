@@ -1,0 +1,11 @@
+.navigation {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navigation__link {
+    text-decoration: none;
+    color: black;
+}

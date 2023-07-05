@@ -1,7 +1,7 @@
 import React from 'react'
 import './SavedMovies.css'
-import MoviesCardList from '../MoviesCardList'
-import MoviesCard from '../MoviesCard'
+import MoviesCardList from '../MoviesCardList/MoviesCard'
+import MoviesCard from '../MoviesCard/MoviesCard'
 
 export default function SavedMovies() {
     return (
