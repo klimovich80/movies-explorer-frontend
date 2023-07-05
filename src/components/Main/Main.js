@@ -1,4 +1,5 @@
 import React from 'react'
+import './Main.css'
 import Promo from '../Promo/Promo'
 import NavTab from '../NavTab/NavTab'
 import AboutProject from '../AboutProject/AboutProject'
@@ -8,13 +9,13 @@ import Portfolio from '../Portfolio'
 
 export default function Main() {
     return (
-        <main className='Main'>
-            <Promo className='Promo' />
-            <NavTab className='NavTab' />
-            <AboutProject className='AboutProject' />
-            <Techs className='Techs' />
-            <AboutMe className='AboutMe' />
-            <Portfolio className='Portfolio' />
+        <main className='main'>
+            <Promo />
+            <NavTab />
+            <AboutProject />
+            <Techs />
+            <AboutMe />
+            <Portfolio />
         </main>
     )
 }

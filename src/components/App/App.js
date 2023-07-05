@@ -3,6 +3,7 @@ import './App.css';
 import Header from '../Header/Header'
 import Navigation from '../Navigation/Navigation'
 import Main from '../Main/Main'
+import Movies from '../Movies'
 import Footer from '../Footer/Footer'
 function App() {
     // constants
@@ -13,10 +14,18 @@ function App() {
             <Routes>
                 <Route path='/' element={
                     <>
-                        <Header className='Header' />
-                        <Navigation className='Navigation' />
-                        <Main className='Name' />
-                        <Footer className='Footer' />
+                        <Header />
+                        <Navigation />
+                        <Main />
+                        <Footer />
+                    </>
+                } />
+                <Route path='/movies' element={
+                    <>
+                        <Header />
+                        <Navigation />
+                        <Movies />
+                        <Footer />
                     </>
                 } />
             </Routes>
