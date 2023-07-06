@@ -1,11 +1,35 @@
 .navigation {
-    margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: center;
+    -moz-column-gap: 30px;
+    column-gap: 30px;
 }
 
 .navigation__link {
     text-decoration: none;
     color: black;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.navigation__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 32px;
+    color: var(--button_text_color);
+    background-color: var(--button_color);
+    border-radius: 3px;
+}
+
+@media screen and (max-width: 767px) {
+    .navigation__link {
+        padding-left: 14px;
+        padding-right: 14px;
+        font-size: 10px;
+    }
 }
