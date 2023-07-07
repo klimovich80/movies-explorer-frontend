@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Router } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
 import Header from '../Header/Header'
@@ -22,25 +22,39 @@ import {
 
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(true);
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const [isLoading, setLoading] = useState(false);
     // functions
     // layout
     return (
         <div className='App'>
-            <Header isLoggedIn={isLoggedIn} />
             <Routes>
                 <Route path={endpointMain} element={
-                    <Main />
+                    <>
+                        <Header isLoggedIn={isLoggedIn} />
+                        <Main />
+                        <Footer />
+                    </>
                 } />
                 <Route path={endpointMovies} element={
-                    <Movies />
+                    <>
+                        <Header isLoggedIn={isLoggedIn} />
+                        <Movies />
+                        <Footer />
+                    </>
                 } />
                 <Route path={endpointSavedMovies} element={
-                    <SavedMovies />
+                    <>
+                        <Header isLoggedIn={isLoggedIn} />
+                        <SavedMovies />
+                        <Footer />
+                    </>
                 } />
                 <Route path={endpointProfile} element={
-                    <Profile />
+                    <>
+                        <Header isLoggedIn={isLoggedIn} />
+                        <Profile />
+                    </>
                 } />
                 <Route path={endpointLogin} element={
                     <Login />
@@ -52,7 +66,6 @@ function App() {
                     <PageNotFound />
                 } />
             </Routes>
-            <Footer />
         </div>
     )
 }

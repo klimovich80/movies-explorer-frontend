@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
 import accountLogo from '../../images/account-icon.svg'
 import './Navigation.css'
-import { endpointLogin, endpointMovies, endpointProfile, endpointRegister, endpointSavedMovies } from '../../vendor/constants/endpoints'
+import {
+    endpointLogin,
+    endpointMovies,
+    endpointProfile,
+    endpointRegister,
+    endpointSavedMovies
+} from '../../vendor/constants/endpoints'
 
 export default function Navigation({ isLoggedIn }) {
     return (
