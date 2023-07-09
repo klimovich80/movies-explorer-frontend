@@ -1,0 +1,143 @@
+.about-me {
+    margin: 0;
+    padding: 110px 70px 101px;
+}
+
+.about-me__article {
+    margin: 0;
+    padding: 66px 0 0;
+    display: grid;
+    grid-template-areas:
+        "title picture"
+        "description picture"
+        "text picture"
+        "link picture";
+    grid-template-columns: 600px 270px;
+    -moz-column-gap: 270px;
+    column-gap: 270px;
+}
+
+.article__image {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    grid-area: picture;
+    border-radius: 10px;
+}
+
+.article__title {
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -2px;
+    grid-area: title;
+}
+
+.article__description {
+    margin: 0;
+    padding: 18px 0 26px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    grid-area: description;
+}
+
+.article__text {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    grid-area: text;
+}
+
+.article__link {
+    margin: 0;
+    padding: 99px 0 0;
+    color: var(--general_text_color);
+    text-decoration: none;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    grid-area: link;
+}
+
+@media screen and (max-width: 1279px) {
+    .about-me {
+        padding: 90px 50px 91px;
+    }
+
+    .about-me__article {
+        grid-template-columns: 364px 255px;
+        -moz-column-gap: 49px;
+        column-gap: 49px;
+    }
+
+    .article__title {
+        font-size: 40px;
+        letter-spacing: -1.6px;
+    }
+
+    .article__description {
+        font-size: 12px;
+        line-height: 18px;
+        padding-top: 16px;
+        padding-bottom: 20px;
+    }
+
+    .article__text {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .article__link {
+        padding-top: 87px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about-me {
+        padding: 70px 14px;
+    }
+
+    .about-me__article {
+        padding-top: 60px;
+        grid-template-areas:
+            "picture"
+            "title"
+            "description"
+            "text"
+            "link";
+        grid-template-columns: 292px;
+        grid-template-rows: 352px 76px 44px 400px 17px;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .article__image {
+        scale: 1.08;
+    }
+
+    .article__title {
+        font-size: 30px;
+        letter-spacing: -1.2px;
+        justify-self: start;
+    }
+
+    .article__description {
+        font-size: 11px;
+        line-height: 16px;
+        justify-self: start;
+    }
+
+    .article__link {
+        padding-top: 0;
+        justify-self: start;
+    }
+}

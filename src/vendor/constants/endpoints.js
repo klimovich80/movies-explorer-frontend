@@ -5,3 +5,4 @@ export const endpointProfile = '/profile';
 export const endpointLogin = '/signin';
 export const endpointRegister = '/signup';
 export const endpointUnknown = '*';
+export const endpointMyGithub = 'https://github.com/users/klimovich80';
