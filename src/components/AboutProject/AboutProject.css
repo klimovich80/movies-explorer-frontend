@@ -1,13 +1,11 @@
 .about-project {
     margin: 0;
     padding: 110px 70px;
-    border: 1px solid #000;
 }
 
 .about-project__title {
     margin: 0;
     padding: 0 0 23px 0;
-    border: 1px solid blue;
     color: var(--general_text_color);
     font-size: 22px;
     font-style: normal;
@@ -20,10 +18,6 @@
 .about-project__articles {
     display: flex;
     flex-direction: row;
-}
-
-.about-project__article {
-    border: 1px solid red;
 }
 
 .article__header {
@@ -48,14 +42,12 @@
 .about-project__duration {
     margin: 0;
     padding: 110px 0 0 0;
-    border: 1px solid red;
     display: flex;
     flex-direction: row;
 }
 
 .duration__one-week {
     width: 25%;
-    border: 1px solid green;
     text-align: center;
 }
 
@@ -70,7 +62,6 @@
 
 .duration__four-week {
     width: 75%;
-    border: 1px solid green;
     text-align: center;
 }
 
@@ -102,6 +93,14 @@
         font-size: 12px;
         line-height: 18px;
     }
+
+    .duration__one-week {
+        width: 21%;
+    }
+
+    .duration__four-week {
+        width: 79%;
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -113,5 +112,35 @@
         font-size: 18px;
         letter-spacing: -0.72px;
         padding-bottom: 28px;
+    }
+
+    .about-project__articles {
+        flex-direction: column;
+        padding: 60px 0;
+        gap: 56px;
+    }
+
+    .about-project__article {
+        padding: 0;
+    }
+
+    .article__header {
+        padding-top: 0;
+        padding-bottom: 16px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .article__text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .duration__one-week {
+        width: 33%;
+    }
+
+    .duration__four-week {
+        width: 67%;
     }
 }
