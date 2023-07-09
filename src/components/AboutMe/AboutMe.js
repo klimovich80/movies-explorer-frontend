@@ -1,4 +1,3 @@
-import React from 'react'
 import './AboutMe.css'
 import { Link } from 'react-router-dom'
 import { endpointMyGithub } from '../../vendor/constants/endpoints'

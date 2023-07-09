@@ -6,3 +6,6 @@ export const endpointLogin = '/signin';
 export const endpointRegister = '/signup';
 export const endpointUnknown = '*';
 export const endpointMyGithub = 'https://github.com/users/klimovich80';
+export const endpointStaticWeb = 'https://github.com/klimovich80/how-to-learn';
+export const endpointAdaptiveWeb = 'https://klimovich80.github.io/russian-travel/index.html';
+export const endpointSPA = 'https://github.com/klimovich80/react-mesto-api-full-gha';

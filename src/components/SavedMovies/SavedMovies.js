@@ -1,4 +1,3 @@
-import React from 'react'
 import './SavedMovies.css'
 import MoviesCardList from '../MoviesCardList/MoviesCard'
 import MoviesCard from '../MoviesCard/MoviesCard'
