@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 0 70px;
+    padding: 0 70px 60px;
     background-color: var(--background-color_grey);
 }
 
@@ -10,6 +10,7 @@
     text-align: left;
     margin: 0;
     padding-top: 50px;
+    padding-bottom: 102px;
     max-width: 626px;
     color: var(--general_text_color);
     font-size: 40px;
@@ -20,49 +21,48 @@
 }
 
 .promo__image {
-    max-width: 722px;
-    padding-top: 102px;
-    padding-bottom: 60px;
-    align-self: flex-end;
+    min-height: 244px;
+    background: url('../../images/promo-image.svg') no-repeat right center;
 }
 
 @media screen and (max-width: 1279px) {
     .promo {
         padding-left: 30px;
         padding-right: 30px;
-        align-items: center;
+        padding-bottom: 70px;
     }
 
     .promo__title {
         max-width: 680px;
         text-align: center;
+        padding-bottom: 140px;
     }
 
     .promo__image {
-        margin: 0 auto;
         max-width: 680px;
+        min-height: 230px;
+        background-size: contain;
+        background-position-x: center;
     }
 }
 
 @media screen and (max-width: 730px) {
     .promo {
-        padding: 0;
-        position: relative;
+        padding: 0 0 40px 0;
         min-height: 528px;
+
     }
 
     .promo__title {
         padding-left: 10px;
         padding-right: 10px;
+        padding-bottom: 60px;
         font-size: 31px;
         line-height: 39px;
         letter-spacing: -1.24px;
     }
 
     .promo__image {
-        position: absolute;
-        bottom: 0;
-        padding-top: 60px;
-        align-self: center;
+        background-size: cover;
     }
 }
