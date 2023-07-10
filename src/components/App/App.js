@@ -1,4 +1,4 @@
-import { Route, Routes, Router } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
 import Header from '../Header/Header'
@@ -20,14 +20,22 @@ import {
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
 
+// TODO PP check
+// TODO состояния ссылок и кнопок
+// TODO check BEM :
+// --Navigation done
+// --Promo done
+// --Header done
+// --App done
+
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(true);
     const [isLoading, setLoading] = useState(false);
     // functions
     // layout
     return (
-        <div className='App'>
+        <div className='app'>
             <Routes>
                 <Route path={endpointMain} element={
                     <>

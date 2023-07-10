@@ -8,7 +8,7 @@ export default function Header({ isLoggedIn }) {
     return (
         <header className={
             isLoggedIn
-                ? 'header header__logged-in'
+                ? 'header header_logged-in'
                 : 'header'
         } >
             <Link to={endpointMain}>
