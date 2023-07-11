@@ -9,7 +9,7 @@ import {
     endpointSavedMovies
 } from '../../vendor/constants/endpoints'
 
-export default function Navigation({ isLoggedIn, onOpen = { onOpen } }) {
+export default function Navigation({ isLoggedIn, onOpen }) {
     return (
         <>
             {isLoggedIn ? (

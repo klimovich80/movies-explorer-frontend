@@ -4,7 +4,7 @@
     background-color: var(--background-color_light-grey-two)
 }
 
-.section__title {
+.section-title {
     margin: 0;
     padding-bottom: 23px;
     font-size: 22px;
@@ -99,7 +99,7 @@
         padding: 70px 18px;
     }
 
-    .section__title {
+    .section-title {
         font-size: 18px;
         letter-spacing: -0.72px;
         padding-bottom: 28px;

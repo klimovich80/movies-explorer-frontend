@@ -20,7 +20,7 @@
     flex-direction: row;
 }
 
-.article__header {
+.about-project__header {
     margin: 0;
     padding: 70px 0 26px 0;
     font-size: 20px;
@@ -30,7 +30,7 @@
     letter-spacing: -0.8px;
 }
 
-.article__text {
+.about-project__text {
     margin: 0;
     padding: 0;
     font-size: 14px;
@@ -46,26 +46,26 @@
     flex-direction: row;
 }
 
-.duration__one-week {
+.about-project__one-week {
     width: 25%;
     text-align: center;
 }
 
-.time__week {
+.one-week {
     color: var(--button_text_color);
     background-color: var(--button_color);
 }
 
-.time__four-weeks {
+.four-weeks {
     background-color: var(--background-color_light-grey);
 }
 
-.duration__four-week {
+.about-project__four-week {
     width: 75%;
     text-align: center;
 }
 
-.duration__time {
+.about-project__time {
     margin: 0;
     padding: 9px 14px;
     font-size: 14px;
@@ -74,7 +74,7 @@
     line-height: normal;
 }
 
-.duration__stage-name {
+.about-project__stage-name {
     color: var(--text-color_grey);
     font-size: 14px;
     font-style: normal;
@@ -89,16 +89,16 @@
         padding: 90px 50px;
     }
 
-    .article__text {
+    .about-project__text {
         font-size: 12px;
         line-height: 18px;
     }
 
-    .duration__one-week {
+    .about-project__one-week {
         width: 21%;
     }
 
-    .duration__four-week {
+    .about-project__four-week {
         width: 79%;
     }
 }
@@ -124,23 +124,23 @@
         padding: 0;
     }
 
-    .article__header {
+    .about-project__header {
         padding-top: 0;
         padding-bottom: 16px;
         font-size: 18px;
         letter-spacing: -0.72px;
     }
 
-    .article__text {
+    .about-project__text {
         font-size: 11px;
         line-height: 16px;
     }
 
-    .duration__one-week {
+    .about-project__one-week {
         width: 33%;
     }
 
-    .duration__four-week {
+    .about-project__four-week {
         width: 67%;
     }
 }

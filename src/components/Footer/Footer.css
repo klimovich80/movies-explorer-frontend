@@ -47,7 +47,7 @@
     padding: 0;
 }
 
-.item__link {
+.footer__link {
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
@@ -87,7 +87,7 @@
         flex-direction: column;
     }
 
-    .item__link {
+    .footer__link {
         font-size: 12px;
     }
 }

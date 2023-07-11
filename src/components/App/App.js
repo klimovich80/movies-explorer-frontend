@@ -24,10 +24,18 @@ import {
 // TODO PP check
 // TODO состояния ссылок и кнопок
 // TODO check BEM :
-// --Navigation done
-// --Promo done
-// --Header done
 // --App done
+// --PopupMenu done
+// --AboutMe done
+// --AboutProject done
+// --Footer done
+// --Header done
+// --Main done
+// --Navigation done
+// --Portfolio done
+// --Promo done
+// --Techs done
+
 
 
 function App() {

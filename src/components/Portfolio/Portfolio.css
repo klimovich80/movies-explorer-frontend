@@ -41,7 +41,7 @@
     padding-bottom: 0;
 }
 
-.item__link {
+.portfolio__link {
     color: var(--general_text_color);
     text-decoration: none
 }

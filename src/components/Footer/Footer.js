@@ -10,10 +10,10 @@ export default function Footer() {
             ><p className='footer__copyright'>&copy; 2023 Pavel Klimovich</p>
                 <ul className='footer__items list'>
                     <li className='footer__item'>
-                        <Link className='item__link link' to={endpointPraktikum}>Яндекс.Практикум</Link>
+                        <Link className='footer__link link' to={endpointPraktikum}>Яндекс.Практикум</Link>
                     </li>
                     <li className='footer__item'>
-                        <Link className='item__link link' to={endpointMyGithub}>Github</Link>
+                        <Link className='footer__link link' to={endpointMyGithub}>Github</Link>
                     </li>
                 </ul>
             </div>

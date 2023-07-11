@@ -4,6 +4,10 @@
     right: 0;
 }
 
+.link_active {
+    text-decoration: underline;
+}
+
 .popup__disabled {
     display: none;
 }
@@ -60,11 +64,7 @@
     line-height: normal;
 }
 
-.popup__item:first-of-type {
-    text-decoration: underline;
-}
-
-.popup__footer {
+.account {
     align-self: end;
     padding-bottom: 99px;
     display: flex;
@@ -74,7 +74,7 @@
     grid-area: footer;
 }
 
-.footer__link {
+.account__link {
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -110,7 +110,7 @@
         padding-bottom: 24px;
     }
 
-    .popup__footer {
+    .account {
         padding-bottom: 48px;
     }
 }
