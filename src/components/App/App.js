@@ -22,6 +22,7 @@ import {
 } from '../../vendor/constants/endpoints';
 
 // TODO PP check
+// --landing 1280 done
 // TODO состояния ссылок и кнопок
 // TODO check BEM :
 // --App done
@@ -40,7 +41,7 @@ import {
 
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(true);
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     // functions
