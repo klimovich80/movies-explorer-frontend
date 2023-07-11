@@ -3,12 +3,12 @@ import './PopupMenu.css'
 import { endpointMain, endpointMovies, endpointSavedMovies, endpointProfile } from '../vendor/constants/endpoints'
 import accountLogo from '../images/account-icon.svg'
 
-export default function PopupMenu({ isPopupOpen }) {
+export default function PopupMenu({ isOpen, onClose }) {
     return (
-        <div className={isPopupOpen ? 'popup' : 'popup__disabled'}>
+        <div className={isOpen ? 'popup' : 'popup__disabled'}>
             <div className='popup__overlay'>
                 <div className='popup__container'>
-                    <button className='popup__close-button'></button>
+                    <button className='popup__close-button' onClick={onClose}></button>
                     <nav className='popup__navigation'>
                         <ul className='popup__list list'>
                             <li className='popup__item'>

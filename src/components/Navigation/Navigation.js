@@ -9,7 +9,7 @@ import {
     endpointSavedMovies
 } from '../../vendor/constants/endpoints'
 
-export default function Navigation({ isLoggedIn }) {
+export default function Navigation({ isLoggedIn, onOpen = { onOpen } }) {
     return (
         <>
             {isLoggedIn ? (
@@ -30,7 +30,7 @@ export default function Navigation({ isLoggedIn }) {
                             <img className='navigation__logo' src={accountLogo} alt='иконка аккаунта' />
                         </li>
                     </ul>
-                    <button className='navigation__popup-button'></button>
+                    <button className='navigation__popup-button' onClick={onOpen}></button>
                 </nav>
             ) : (
                 <nav className='navigation'>

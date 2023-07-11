@@ -29,40 +29,47 @@ import {
 // --Header done
 // --App done
 
+
 function App() {
     // constants
     const [isLoggedIn, setLoggedIn] = useState(true);
-    const [isPopupOpen, setPopupOpen] = useState(true);
+    const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     // functions
+    function openPopup() {
+        setPopupOpen(true)
+    }
+    function closePopup() {
+        setPopupOpen(false)
+    }
     // layout
     return (
         <div className='app'>
             <Routes>
                 <Route path={endpointMain} element={
                     <>
-                        <Header isLoggedIn={isLoggedIn} />
+                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                         <Main />
                         <Footer />
                     </>
                 } />
                 <Route path={endpointMovies} element={
                     <>
-                        <Header isLoggedIn={isLoggedIn} />
+                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                         <Movies />
                         <Footer />
                     </>
                 } />
                 <Route path={endpointSavedMovies} element={
                     <>
-                        <Header isLoggedIn={isLoggedIn} />
+                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                         <SavedMovies />
                         <Footer />
                     </>
                 } />
                 <Route path={endpointProfile} element={
                     <>
-                        <Header isLoggedIn={isLoggedIn} />
+                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                         <Profile />
                     </>
                 } />
@@ -77,7 +84,10 @@ function App() {
                 } />
             </Routes>
             {/* menu popup */}
-            <PopupMenu isPopupOpen={isPopupOpen} />
+            <PopupMenu
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+            />
         </div>
     )
 }
