@@ -12,7 +12,7 @@ export default function PopupMenu({ isPopupOpen }) {
                     <nav className='popup__navigation'>
                         <ul className='popup__list list'>
                             <li className='popup__item'>
-                                <Link className='popup__link link' to={endpointMain}>Главная</Link>
+                                <Link className='popup__link link active__link' to={endpointMain}>Главная</Link>
                             </li>
                             <li className='popup__item'>
                                 <Link className='popup__link link' to={endpointMovies}>Фильмы</Link>
@@ -22,9 +22,9 @@ export default function PopupMenu({ isPopupOpen }) {
                             </li>
                         </ul>
                     </nav>
-                    <div className='ppopup__footer'>
-                        <Link className='popup__link link' to={endpointProfile}>Аккаунт</Link>
-                        <img className='navigation__logo' src={accountLogo} alt='иконка аккаунта' />
+                    <div className='popup__footer'>
+                        <Link className='footer__link link' to={endpointProfile}>Аккаунт</Link>
+                        <img className='logo' src={accountLogo} alt='иконка аккаунта' />
                     </div>
                 </div>
             </div>

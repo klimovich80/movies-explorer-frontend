@@ -17,7 +17,7 @@
     display: grid;
     grid-template-rows: 33px 1fr 1fr;
     grid-template-areas:
-        " icon "
+        "icon"
         "menu"
         "footer";
     align-self: flex-end
@@ -54,14 +54,63 @@
 
 .popup__item {
     padding-bottom: 28px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
-.ppopup__footer {
+.popup__item:first-of-type {
+    text-decoration: underline;
+}
+
+.popup__footer {
     align-self: end;
-    padding-bottom: 92px;
+    padding-bottom: 99px;
     display: flex;
     gap: 22px;
     align-items: center;
     justify-content: center;
     grid-area: footer;
+}
+
+.footer__link {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+@media screen and (max-width: 520px) {
+    .popup__container {
+        background-color: var(--background-color_white);
+        margin: 0;
+        padding: 0 0 92px 0;
+        width: 100vw;
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: 33px 1fr 1fr;
+        grid-template-areas:
+            " icon "
+            "menu"
+            "footer";
+        align-self: flex-end
+    }
+
+    .popup__close-button {
+        padding-top: 35px;
+        padding-right: 35px;
+    }
+
+    .popup__list {
+        padding-top: 100px;
+    }
+
+    .popup__item {
+        padding-bottom: 24px;
+    }
+
+    .popup__footer {
+        padding-bottom: 48px;
+    }
 }
