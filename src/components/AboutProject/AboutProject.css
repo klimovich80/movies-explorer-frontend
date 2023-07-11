@@ -90,6 +90,14 @@
         padding: 90px 50px;
     }
 
+    .about-project__articles {
+        gap: 35px;
+    }
+
+    .about-project__header {
+        padding-bottom: 22px;
+    }
+
     .about-project__text {
         font-size: 12px;
         line-height: 18px;
@@ -101,6 +109,10 @@
 
     .about-project__four-week {
         width: 79%;
+    }
+
+    .about-project__duration {
+        padding-top: 93px;
     }
 }
 

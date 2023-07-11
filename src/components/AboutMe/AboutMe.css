@@ -77,6 +77,7 @@
         grid-template-columns: 364px 255px;
         -moz-column-gap: 49px;
         column-gap: 49px;
+        padding-top: 63px;
     }
 
     .about-me__title {
@@ -87,7 +88,7 @@
     .about-me__description {
         font-size: 12px;
         line-height: 18px;
-        padding-top: 16px;
+        padding-top: 0;
         padding-bottom: 20px;
     }
 

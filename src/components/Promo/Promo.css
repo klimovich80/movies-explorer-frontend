@@ -27,14 +27,13 @@
 
 @media screen and (max-width: 1279px) {
     .promo {
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-bottom: 70px;
+        padding: 251px 30px 70px;
     }
 
     .promo__title {
         max-width: 680px;
         text-align: center;
+        margin: 0 auto;
         padding-bottom: 140px;
     }
 
@@ -43,6 +42,7 @@
         min-height: 230px;
         background-size: contain;
         background-position-x: center;
+        padding-left: 30px;
     }
 }
 
