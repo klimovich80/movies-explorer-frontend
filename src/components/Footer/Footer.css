@@ -72,7 +72,7 @@
     }
 
     .footer__lower-part {
-        padding-top: 30px;
+        padding-top: 27px;
         gap: 30px;
         flex-direction: column-reverse;
     }
@@ -83,7 +83,7 @@
     }
 
     .footer__items {
-        gap: 12px;
+        gap: 8px;
         flex-direction: column;
     }
 

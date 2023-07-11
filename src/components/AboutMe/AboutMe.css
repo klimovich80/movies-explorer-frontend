@@ -104,11 +104,11 @@
 
 @media screen and (max-width: 767px) {
     .about-me {
-        padding: 70px 14px;
+        padding: 70px 14px 20px;
     }
 
     .about-me__article {
-        padding-top: 60px;
+        padding-top: 73px;
         grid-template-areas:
             "picture"
             "title"
@@ -126,12 +126,14 @@
     }
 
     .about-me__title {
+        padding-top: 17px;
         font-size: 30px;
         letter-spacing: -1.2px;
         justify-self: start;
     }
 
     .about-me__description {
+        padding-top: 8px;
         font-size: 11px;
         line-height: 16px;
         justify-self: start;

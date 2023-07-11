@@ -129,8 +129,8 @@
 
     .about-project__articles {
         flex-direction: column;
-        padding: 60px 0;
-        gap: 56px;
+        padding: 62px 0;
+        gap: 59px;
     }
 
     .about-project__article {
@@ -150,10 +150,23 @@
     }
 
     .about-project__one-week {
-        width: 33%;
+        width: 35%;
     }
 
     .about-project__four-week {
-        width: 67%;
+        width: 65%;
+    }
+
+    .about-project__duration {
+        padding-top: 0;
+    }
+
+    .about-project__time {
+        font-size: 11px;
+    }
+
+    .about-project__stage-name {
+        font-size: 11px;
+        padding-top: 10px;
     }
 }

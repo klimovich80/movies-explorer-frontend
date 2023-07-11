@@ -24,6 +24,7 @@ import {
 // TODO PP check
 // --landing 1280 done
 // --landing 768 done
+// --landing 320 done
 // TODO состояния ссылок и кнопок
 // TODO check BEM :
 // --App done
