@@ -18,7 +18,7 @@ export default function AboutMe() {
                     Захотел систематизировать свои знания и подойти к вопросу на профессииональном уровне.
                     Сейчас заканчиваю курс веб-разработки, планирую создать интересный цифровой продукт и немного фрилансить.
                 </p>
-                <Link className='article__link' to={endpointMyGithub} >Github</Link>
+                <Link className='article__link link' to={endpointMyGithub} >Github</Link>
             </article>
         </section>
     )

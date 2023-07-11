@@ -9,7 +9,8 @@ import Profile from '../Profile/Profile'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import PageNotFound from '../PageNotFound/PageNotFound';
-import Footer from '../Footer/Footer'
+import Footer from '../Footer/Footer';
+import PopupMenu from '../../PopupMenu/PopupMenu';
 import {
     endpointLogin,
     endpointMain,
@@ -31,6 +32,7 @@ import {
 function App() {
     // constants
     const [isLoggedIn, setLoggedIn] = useState(true);
+    const [isPopupOpen, setPopupOpen] = useState(true);
     const [isLoading, setLoading] = useState(false);
     // functions
     // layout
@@ -74,6 +76,8 @@ function App() {
                     <PageNotFound />
                 } />
             </Routes>
+            {/* menu popup */}
+            <PopupMenu isPopupOpen={isPopupOpen} />
         </div>
     )
 }

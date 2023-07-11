@@ -8,12 +8,12 @@ export default function Footer() {
             <h2 className='footer__title'>Учебный проект Яндекс.Практикум х BeatFilm.</h2>
             <div className='footer__lower-part'
             ><p className='footer__copyright'>&copy; 2023 Pavel Klimovich</p>
-                <ul className='footer__items'>
+                <ul className='footer__items list'>
                     <li className='footer__item'>
-                        <Link className='item__link' to={endpointPraktikum}>Яндекс.Практикум</Link>
+                        <Link className='item__link link' to={endpointPraktikum}>Яндекс.Практикум</Link>
                     </li>
                     <li className='footer__item'>
-                        <Link className='item__link' to={endpointMyGithub}>Github</Link>
+                        <Link className='item__link link' to={endpointMyGithub}>Github</Link>
                     </li>
                 </ul>
             </div>

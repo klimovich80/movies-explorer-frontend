@@ -1,11 +1,12 @@
 .navigation {
+    position: relative;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: flex-end;
 }
 
-.navigation__logged-in {
+.logged-in {
     justify-content: space-between;
 }
 
@@ -48,7 +49,7 @@
 }
 
 @media screen and (max-width: 1279px) {
-    .navigation__logged-in {
+    .logged-in {
         justify-content: flex-end;
     }
 

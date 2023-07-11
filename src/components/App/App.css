@@ -4,3 +4,12 @@
     font-family: "Inter", Arial, Helvetica, sans-serif;
     background-color: var(--background-color_white);
 }
+
+.list {
+    list-style: none;
+}
+
+.link {
+    color: var(--general_text_color);
+    text-decoration: none
+}
