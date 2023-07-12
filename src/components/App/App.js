@@ -40,6 +40,7 @@ import {
 // --Promo done
 // --Techs done
 // --SearchForm done
+// --FilterCheckbox done
 
 
 

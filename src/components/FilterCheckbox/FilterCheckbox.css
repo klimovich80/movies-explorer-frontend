@@ -2,7 +2,7 @@
     margin: 0;
     padding-top: 26px;
     padding-bottom: 43px;
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid var(--search_border_color);
     display: flex;
     gap: 14px;
 }
