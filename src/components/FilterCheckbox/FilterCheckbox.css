@@ -41,3 +41,9 @@
 .filter__checkbox+.filter__visible-checkbox {
     background: url('../../images/checkbox-inactive.svg')center no-repeat;
 }
+
+@media screen and (max-width: 1279px) {
+    .filter {
+        padding-bottom: 47px;
+    }
+}

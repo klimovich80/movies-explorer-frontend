@@ -21,9 +21,15 @@
 
 .search__button {
     margin: 0;
-    padding: 17px 26px;
+    width: 100px;
     border: none;
     border-radius: 5px;
     background-color: var(--button_color);
     color: var(--button_text_color);
+}
+
+@media screen and (max-width: 1279px) {
+    .search__input {
+        width: 90%;
+    }
 }

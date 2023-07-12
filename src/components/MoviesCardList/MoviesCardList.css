@@ -24,11 +24,29 @@
     border-radius: 6px;
     min-height: 36px;
     margin: 0;
-    padding: 11px 134px 9px;
+    padding: 11px 142px 9px;
     align-self: center;
     cursor: pointer;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .movies-card__button:hover {
     opacity: .8;
+}
+
+@media screen and (max-width: 1279px) {
+
+    .movies-card {
+        padding-top: 80px;
+        align-items: center;
+    }
+
+    .movies-card__list {
+        grid-template-columns: repeat(2, auto);
+        row-gap: 46px;
+        padding-bottom: 60px;
+    }
 }

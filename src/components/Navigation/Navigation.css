@@ -63,6 +63,7 @@
 
 @media screen and (max-width: 1279px) {
     .logged-in {
+        padding-right: 16px;
         justify-content: flex-end;
     }
 
