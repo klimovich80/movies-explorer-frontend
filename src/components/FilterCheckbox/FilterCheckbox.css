@@ -1,0 +1,43 @@
+.filter {
+    margin: 0;
+    padding-top: 26px;
+    padding-bottom: 43px;
+    border-bottom: 1px solid #AAA;
+    display: flex;
+    gap: 14px;
+}
+
+.filter__label {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.filter__checkbox {
+    position: absolute;
+    width: 1px;
+    /* если у элемента не будет размеров, некоторые браузеры посчитают, что его вообще нет */
+    height: 1px;
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+}
+
+.filter__visible-checkbox {
+    display: block;
+    min-height: 20px;
+    width: 36px;
+}
+
+.filter__visible-checkbox {
+    margin: 0;
+    padding: 0;
+}
+
+.filter__checkbox:checked+.filter__visible-checkbox {
+    background: url('../../images/checkbox-active.svg') center no-repeat;
+}
+
+.filter__checkbox+.filter__visible-checkbox {
+    background: url('../../images/checkbox-inactive.svg')center no-repeat;
+}

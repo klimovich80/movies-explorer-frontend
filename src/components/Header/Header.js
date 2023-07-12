@@ -8,11 +8,11 @@ export default function Header({ isLoggedIn, onOpen }) {
     return (
         <header className={
             isLoggedIn
-                ? 'header header_logged-in'
+                ? 'header header__logged-in'
                 : 'header'
         } >
             <Link to={endpointMain}>
-                <img className='header__logo' src={logo} alt='логотип' />
+                <img className='header__logo button' src={logo} alt='логотип' />
             </Link>
             <Navigation isLoggedIn={isLoggedIn} onOpen={onOpen} />
         </header >

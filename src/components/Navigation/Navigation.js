@@ -39,7 +39,7 @@ export default function Navigation({ isLoggedIn, onOpen }) {
                             <Link className='navigation__link link' to={endpointRegister}>Регистрация</Link>
                         </li>
                         <li className='navigation__item'>
-                            <Link className='navigation__link link navigation__button' to={endpointLogin}>Вход</Link>
+                            <Link className='navigation__link link navigation__button button' to={endpointLogin}>Вход</Link>
                         </li>
                     </ul>
                 </nav>

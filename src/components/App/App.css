@@ -13,3 +13,11 @@
     color: var(--general_text_color);
     text-decoration: none
 }
+
+.link:hover {
+    opacity: .7;
+}
+
+.button:hover {
+    opacity: .8;
+}

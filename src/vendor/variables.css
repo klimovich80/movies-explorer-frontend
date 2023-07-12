@@ -11,4 +11,6 @@
     --text-color_grey: #A0A0A0;
     --underline_color: #000;
     --underline-color_grey: #E8E8E8;
+    --link_hover_color: #ccc;
+    --search_border_color: #AAA;
 }

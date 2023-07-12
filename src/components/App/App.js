@@ -21,6 +21,7 @@ import {
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
 
+// TODO check fonts
 // TODO PP check
 // --landing 1280 done
 // --landing 768 done
@@ -38,15 +39,20 @@ import {
 // --Portfolio done
 // --Promo done
 // --Techs done
+// --SearchForm done
 
 
 
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(true);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
+    const [isShort, setShort] = useState(false);
     // functions
+    function setShortMovies() {
+        isShort ? setShort(false) : setShort(true);
+    }
     function openPopup() {
         setPopupOpen(true)
     }
@@ -67,7 +73,7 @@ function App() {
                 <Route path={endpointMovies} element={
                     <>
                         <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <Movies />
+                        <Movies isShort={isShort} setShortMovies={setShortMovies} />
                         <Footer />
                     </>
                 } />

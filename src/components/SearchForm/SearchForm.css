@@ -1,0 +1,32 @@
+.search {
+    /* border: 1px solid #000; */
+}
+
+.search__container {
+    border: 1.5px solid var(--search_border_color);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search__input {
+    border: none;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    background-color: var(--background-color_white);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.search__button {
+    margin: 0;
+    padding: 17px 26px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button_color);
+    color: var(--button_text_color);
+}
