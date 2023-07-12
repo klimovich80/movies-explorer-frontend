@@ -1,10 +1,10 @@
 .header {
     background-color: var(--background-color_grey);
     margin: 0;
-    padding: 18px 70px;
+    padding: 18px 70px 14px;
     max-width: 100%;
     display: grid;
-    grid-template-columns: 38px 58%;
+    grid-template-columns: 38px 59%;
     align-items: center;
     justify-content: space-between;
 }

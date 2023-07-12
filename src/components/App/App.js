@@ -41,6 +41,8 @@ import {
 // --Techs done
 // --SearchForm done
 // --FilterCheckbox done
+// --Movies
+// --MoviesCard
 
 
 

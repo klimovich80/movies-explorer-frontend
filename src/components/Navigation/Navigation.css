@@ -11,9 +11,10 @@
 }
 
 .navigation__link {
+    padding: 0;
     text-decoration: none;
     color: var(--general_text_color);
-    font-size: 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
@@ -29,9 +30,16 @@
     padding: 0;
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 11px;
     align-items: center
 }
+
+.navigation__account {
+    padding-right: 7px;
+    gap: 25px;
+}
+
+
 
 .navigation__item {
     margin: 0;

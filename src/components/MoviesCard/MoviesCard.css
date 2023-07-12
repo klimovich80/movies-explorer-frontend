@@ -36,8 +36,8 @@
 
 .card__title {
     margin: 0;
-    padding: 14px 0 0 14px;
-    font-size: 14px;
+    padding: 11px 0 0 14px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -45,7 +45,7 @@
 
 .card__duration {
     margin: 0;
-    padding: 14px 14px 0 0;
+    padding: 14px 24px 0 0;
     color: var(--text-color_grey);
     font-size: 11px;
     font-style: normal;
