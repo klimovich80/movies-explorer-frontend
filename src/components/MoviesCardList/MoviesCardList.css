@@ -10,7 +10,7 @@
     padding: 0 0 78px 0;
     display: grid;
     grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(4, auto);
+    grid-auto-rows: auto;
     justify-content: space-between;
     justify-items: center;
     -moz-column-gap: 30px;
@@ -27,4 +27,8 @@
     padding: 11px 134px 9px;
     align-self: center;
     cursor: pointer;
+}
+
+.movies-card__button:hover {
+    opacity: .8;
 }
