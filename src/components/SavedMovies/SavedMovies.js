@@ -1,12 +1,12 @@
 import './SavedMovies.css'
-import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import MoviesCard from '../MoviesCard/MoviesCard'
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-export default function SavedMovies() {
+export default function SavedMovies({ isShort, setShortMovies, savedMovies, deleteFromSaved }) {
     return (
-        <section className='saved-movies'>
-            <MoviesCardList />
-            <MoviesCard />
+        <section className='saved-movies movies'>
+            <SearchForm isShort={isShort} setShortMovies={setShortMovies} />
+            <MoviesCardList savedMovies={savedMovies} deleteFromSaved={deleteFromSaved} />
         </section>
     )
 }

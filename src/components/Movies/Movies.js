@@ -2,12 +2,11 @@ import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 
-export default function Movies({ isShort, setShortMovies }) {
+export default function Movies({ isShort, setShortMovies, savedMovies }) {
     return (
         <section className='movies'>
-            {/* Обратите внимание на фильтр с чекбоксом «Только короткометражки». Для него можно воспользоваться отдельным управляемым компонентом FilterCheckbox. */}
             <SearchForm isShort={isShort} setShortMovies={setShortMovies} />
-            <MoviesCardList />
+            <MoviesCardList savedMovies={savedMovies} />
         </section>
     )
 }

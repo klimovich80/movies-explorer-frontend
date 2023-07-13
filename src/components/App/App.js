@@ -56,9 +56,15 @@ function App() {
     function setShortMovies() {
         isShort ? setShort(false) : setShort(true);
     }
+
+    function deleteFromSaved() {
+        console.log('deleting this card from saved');
+    }
+
     function openPopup() {
         setPopupOpen(true)
     }
+
     function closePopup() {
         setPopupOpen(false)
     }
@@ -76,14 +82,23 @@ function App() {
                 <Route path={endpointMovies} element={
                     <>
                         <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <Movies isShort={isShort} setShortMovies={setShortMovies} />
+                        <Movies
+                            isShort={isShort}
+                            setShortMovies={setShortMovies}
+                            savedMovies={false}
+                        />
                         <Footer />
                     </>
                 } />
                 <Route path={endpointSavedMovies} element={
                     <>
                         <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <SavedMovies />
+                        <SavedMovies
+                            isShort={isShort}
+                            setShortMovies={setShortMovies}
+                            savedMovies={true}
+                            deleteFromSaved={deleteFromSaved}
+                        />
                         <Footer />
                     </>
                 } />

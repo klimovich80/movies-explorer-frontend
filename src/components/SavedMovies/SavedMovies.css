@@ -1,0 +1,9 @@
+.card__button_saved-movie {
+    min-height: 21px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    border: none;
+    background: url('../../images/close-card-button.svg') center no-repeat;
+}
