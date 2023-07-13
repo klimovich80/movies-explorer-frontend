@@ -104,6 +104,11 @@
 
     .navigation__popup-button {
         min-height: 43px;
-        max-width: 40px;
+        max-width: 24px;
+    }
+
+    .logged-in {
+        padding-right: 10px;
+        justify-content: flex-end;
     }
 }

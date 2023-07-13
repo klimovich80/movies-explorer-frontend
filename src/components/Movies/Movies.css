@@ -10,3 +10,11 @@
         padding-right: 47px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .movies {
+        padding-top: 68px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

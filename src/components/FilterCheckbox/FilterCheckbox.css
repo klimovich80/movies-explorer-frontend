@@ -47,3 +47,14 @@
         padding-bottom: 47px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .filter {
+        padding-top: 30px;
+        padding-bottom: 63px;
+    }
+
+    .filter__label {
+        font-size: 11px;
+    }
+}

@@ -72,3 +72,19 @@
         padding-right: 9px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    .card__button {
+        top: 10px;
+        right: 10px;
+    }
+
+    .card__title {
+        font-size: 12px;
+        padding-top: 12px;
+    }
+
+    .card__duration {
+        padding-top: 16px;
+    }
+}
