@@ -68,3 +68,17 @@
     font-weight: 500;
     line-height: normal;
 }
+
+@media screen and (max-width: 1279px) {
+    .profile {
+        padding-top: 230px;
+    }
+
+    .profile__form {
+        padding-bottom: 192px;
+    }
+
+    .profile__title {
+        padding-bottom: 80px;
+    }
+}
