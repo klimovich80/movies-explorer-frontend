@@ -9,7 +9,7 @@ export default function MoviesCard({ savedMovies, deleteFromSaved }) {
         isSaved ? setSaved(false) : setSaved(true);
     }
     return (
-        <div div className="card" >
+        <div className="card" >
             <img className="card__image" src={cardImage} alt='кинокартинка' />
             <button className={
                 savedMovies
@@ -27,7 +27,8 @@ export default function MoviesCard({ savedMovies, deleteFromSaved }) {
                         ? ''
                         : isSaved
                             ? ''
-                            : 'Сохранить'}
+                            : 'Сохранить'
+                }
             </button>
             <div className='card__footer'>
                 <p className='card__title'>33 слова о дизайне</p>

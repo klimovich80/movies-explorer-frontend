@@ -85,7 +85,6 @@ function App() {
                         <Movies
                             isShort={isShort}
                             setShortMovies={setShortMovies}
-                            savedMovies={false}
                         />
                         <Footer />
                     </>
@@ -96,7 +95,6 @@ function App() {
                         <SavedMovies
                             isShort={isShort}
                             setShortMovies={setShortMovies}
-                            savedMovies={true}
                             deleteFromSaved={deleteFromSaved}
                         />
                         <Footer />

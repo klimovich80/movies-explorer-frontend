@@ -6,7 +6,7 @@ export default function SavedMovies({ isShort, setShortMovies, savedMovies, dele
     return (
         <section className='saved-movies movies'>
             <SearchForm isShort={isShort} setShortMovies={setShortMovies} />
-            <MoviesCardList savedMovies={savedMovies} deleteFromSaved={deleteFromSaved} />
+            <MoviesCardList savedMovies={true} />
         </section>
     )
 }

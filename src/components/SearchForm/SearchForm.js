@@ -1,7 +1,7 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 
-export default function SearchForm({ isShort, setShortMovies }) {
+export default function SearchForm({ isShort, setShort }) {
     return (
         <section className='search'>
             <form className='search__form'>
@@ -9,7 +9,7 @@ export default function SearchForm({ isShort, setShortMovies }) {
                     <input className='search__input' type='search' placeholder='Фильм' />
                     <button className='search__button button' type='submit'>Поиск</button>
                 </div>
-                <FilterCheckbox isShort={isShort} setShortMovies={setShortMovies} />
+                <FilterCheckbox isShort={isShort} setShort={setShort} />
             </form>
         </section>
     )
