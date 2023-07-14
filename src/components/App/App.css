@@ -21,3 +21,17 @@
 .button:hover {
     opacity: .8;
 }
+
+.error {
+    color: var(--error_text-color);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input {
+    border: none;
+    background-color: var(--background-color_light-grey-tree);
+    outline: none;
+}

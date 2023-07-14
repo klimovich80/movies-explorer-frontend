@@ -10,7 +10,7 @@ export default function FilterCheckbox({ isShort, setShort }) {
                 checked={isShort}
                 onChange={() => { }} />
             <span className="filter__visible-checkbox" onClick={setShort}></span>
-            <p className='filter__label'>Короткометражки</p>
+            <label className='filter__label' htmlFor='search__checkbox'>Короткометражки</label>
         </div>
 
     )

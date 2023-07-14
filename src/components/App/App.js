@@ -10,7 +10,7 @@ import Login from '../Login/Login'
 import Register from '../Register/Register'
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
-import PopupMenu from '../../PopupMenu/PopupMenu';
+import PopupMenu from '../PopupMenu/PopupMenu';
 import {
     endpointLogin,
     endpointMain,
@@ -52,6 +52,7 @@ function App() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isShort, setShort] = useState(false);
+    const [userName, setUserName] = useState('Павел');
     // functions
     function setShortMovies() {
         isShort ? setShort(false) : setShort(true);
@@ -103,14 +104,14 @@ function App() {
                 <Route path={endpointProfile} element={
                     <>
                         <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <Profile />
+                        <Profile userName={userName} isProfile={true} />
                     </>
                 } />
                 <Route path={endpointLogin} element={
-                    <Login />
+                    <Login isProfile={false} />
                 } />
                 <Route path={endpointRegister} element={
-                    <Register />
+                    <Register isProfile={false} />
                 } />
                 <Route path={endpointUnknown} element={
                     <PageNotFound />
