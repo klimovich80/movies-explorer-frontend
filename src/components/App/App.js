@@ -52,7 +52,7 @@ function App() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isShort, setShort] = useState(false);
-    const [userName, setUserName] = useState('Павел');
+    const [userName, setUserName] = useState('Виталий');
     // functions
     function setShortMovies() {
         isShort ? setShort(false) : setShort(true);

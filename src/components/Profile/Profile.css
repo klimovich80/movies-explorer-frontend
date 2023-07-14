@@ -8,8 +8,9 @@
 }
 
 .profile__form {
-    padding: 0 0 220px;
-    width: 410px;
+    margin: 0 auto;
+    padding: 0 0 198px;
+    width: 400px;
 }
 
 .profile__fieldset {
@@ -23,7 +24,7 @@
 
 .profile__title {
     margin: 0;
-    padding: 4px 0 123px;
+    padding: 4px 0 104px;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
