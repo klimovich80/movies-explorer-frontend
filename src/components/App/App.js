@@ -23,9 +23,11 @@ import {
 
 // TODO check fonts
 // TODO PP check
-// --landing 1280 done
-// --landing 768 done
-// --landing 320 done
+// --landing done
+// --profile done
+// --movies done
+// --saved-movies done
+
 // TODO состояния ссылок и кнопок
 // TODO check BEM :
 // --App done
@@ -52,7 +54,8 @@ function App() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isShort, setShort] = useState(false);
-    const [userName, setUserName] = useState('Виталий');
+    const [userName, setUserName] = useState('Павел');
+    const [userEmail, setUserEmail] = useState('test@test.ru')
     // functions
     function setShortMovies() {
         isShort ? setShort(false) : setShort(true);
@@ -104,7 +107,7 @@ function App() {
                 <Route path={endpointProfile} element={
                     <>
                         <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <Profile userName={userName} isProfile={true} />
+                        <Profile userName={userName} userEmail={userEmail} isProfile={true} />
                     </>
                 } />
                 <Route path={endpointLogin} element={

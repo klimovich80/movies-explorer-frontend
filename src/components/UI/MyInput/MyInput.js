@@ -1,20 +1,18 @@
 import './MyInput.css'
+import { forwardRef } from 'react'
 
-export default function MyInput({ children, ...props }) {
+export function MyInput({ children, ...props }, ref) {
     return (
         <div className='my-input__conatiner'>
-            <input className={
-                props.isProfile
-                    ? 'my-input__input_type_profile input'
-                    : 'my-input__input input'
-            } value={props.value} placeholder={props.placeholder} onChange={props.onChange} />
-            <span className={
-                props.isDisabled
-                    ? 'my-input__error_hidden error'
-                    : props.isProfile
-                        ? 'my-input__error_type_profile error'
-                        : 'my-input__error error'
-            }>error</span>
+            <input
+                {...props}
+                ref={ref ? ref : null}
+                className={'my-input__input input'} value={props.value} placeholder={props.placeholder} />
+            <span className={'my-input__error error'}>{props.error}</span>
         </div>
     )
 }
+
+const forwardedMyInput = forwardRef(MyInput);
+
+export default forwardedMyInput;

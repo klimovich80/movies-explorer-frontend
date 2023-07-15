@@ -9,15 +9,15 @@ export default function Portfolio() {
             <ul className='portfolio__items list'>
                 <li className='portfolio__item'>
                     Статичный сайт
-                    <Link className='portfolio__link link' to={endpointStaticWeb}>↗</Link>
+                    <Link className='portfolio__link link' target='_blank' to={endpointStaticWeb}>↗</Link>
                 </li>
                 <li className='portfolio__item'>
                     Адаптивный сайт
-                    <Link className='portfolio__link link' to={endpointAdaptiveWeb}>↗</Link>
+                    <Link className='portfolio__link link' target='_blank' to={endpointAdaptiveWeb}>↗</Link>
                 </li>
                 <li className='portfolio__item'>
                     Одностраничное приложение
-                    <Link className='portfolio__link link' to={endpointSPA}>↗</Link>
+                    <Link className='portfolio__link link' target='_blank' to={endpointSPA}>↗</Link>
                 </li>
             </ul>
         </section>
