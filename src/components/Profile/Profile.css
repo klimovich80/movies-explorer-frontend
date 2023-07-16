@@ -64,6 +64,40 @@
     opacity: .8;
 }
 
+.profile__save-button {
+    margin: 0;
+    padding: 0 167px;
+    min-height: 45px;
+    max-width: 410px;
+    border: none;
+    border-radius: 3px;
+    color: var(--button_text_color);
+    background-color: var(--button_color);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal
+}
+
+.profile__save-button_error {
+    background-color: var(--button-error_color);
+    color: var(--button-error_text-color);
+}
+
+.profile__save--error {
+    display: none;
+}
+
+.profile__save--error_visible {
+    margin: 0;
+    padding: 0 0 20px;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--save_error_text-color)
+}
+
 .profile__link {
     margin: 0;
     padding: 16px 0 0;

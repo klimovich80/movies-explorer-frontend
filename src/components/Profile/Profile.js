@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import MyInput from '../UI/MyInput/MyInput'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './Profile.css'
 import useForm from '../hooks/useForm'
 import { endpointMain } from '../../vendor/constants/endpoints'
 
 export default function Profile({ userName, userEmail, isProfile }) {
     const [isDisabled, setDisabled] = useState(true);
+    const [isSaveError, setSaveError] = useState(false)
+
     const { values, errors, handleChange } = useForm({
         name: userName,
         email: userEmail
@@ -20,7 +22,16 @@ export default function Profile({ userName, userEmail, isProfile }) {
     }, []);
 
     function enableForm() {
-        setDisabled(false)
+        setDisabled(false);
+    }
+
+    function disableForm() {
+        setDisabled(true);
+    }
+
+    function handleSaveForm() {
+        console.log('handling saving data from profile form');
+        disableForm();
     }
 
     return (
@@ -51,14 +62,37 @@ export default function Profile({ userName, userEmail, isProfile }) {
                             required
                             minLength="2"
                             maxLength="30"
-                            placeholder='введите е-майл в формате some@email.any'
+                            placeholder='введите е-майл'
                             value={values.email}
                             onChange={handleChange} />
                     </label>
                 </fieldset>
             </form>
-            <button className='profile__button' onClick={enableForm}>Редактировать</button>
-            <Link className='profile__link link' to={endpointMain}>Выйти из аккаунта</Link>
+            {isDisabled
+                ? <>
+                    <button className='profile__button' onClick={enableForm}>Редактировать</button>
+                    <Link className='profile__link link' to={endpointMain}>Выйти из аккаунта</Link>
+                </>
+                : <>
+                    <span
+                        className={
+                            isSaveError
+                                ? 'profile__save--error_visible'
+                                : 'profile__save--error '
+                        }>
+                        При обновлении профиля произошла ошибка.
+                    </span>
+                    <button
+                        className={
+                            isSaveError
+                                ? 'profile__save-button profile__save-button_error button'
+                                : 'profile__save-button button'
+                        } onClick={handleSaveForm}>
+                        Сохранить
+                    </button>
+                </>
+            }
+
         </section>
     )
 }

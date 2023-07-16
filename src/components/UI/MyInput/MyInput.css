@@ -11,7 +11,7 @@
     padding: 0;
 }
 
-.my-input__input_type_profile {
+/* .my-input__input_type_profile {
     margin: 0;
     padding: 0;
     text-align: right;
@@ -20,13 +20,9 @@
     font-weight: 400;
     line-height: normal;
     color: var(--general_text_color);
-}
+} */
 
-.my-input__error_type_profile {
-    margin: 0;
-    padding: 0;
-}
-
-.my-input__error_hidden {
-    display: none;
+.my-input__error_visible {
+    display: block;
+    color: var(--error_text-color);
 }
