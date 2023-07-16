@@ -59,3 +59,9 @@ input:focus {
     outline: none;
     border-bottom: 1px solid var(--input-focus_underline-color);
 }
+
+@media screen and (max-width:767px) {
+    .input {
+        padding-bottom: 5px;
+    }
+}
