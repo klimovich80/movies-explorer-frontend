@@ -18,6 +18,12 @@
     opacity: .7;
 }
 
+.button {
+    cursor: pointer;
+    border: 1px solid red;
+    background-color: var(--button_color)
+}
+
 .button:hover {
     opacity: .8;
 }

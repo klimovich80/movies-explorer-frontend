@@ -50,7 +50,7 @@ import {
 
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(true);
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isShort, setShort] = useState(false);

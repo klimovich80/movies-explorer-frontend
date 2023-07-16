@@ -29,11 +29,11 @@ export default function Profile({ userName, userEmail, isProfile }) {
         setDisabled(true);
     }
 
-    function handleSaveForm() {
+    function handleSubmit() {
         console.log('handling saving data from profile form');
         disableForm();
     }
-    const disableButton = errors.name !== '' || errors.email !== ''
+    const disableButton = errors.name !== '' || errors.email !== '';
 
     return (
         <section className='profile'>
@@ -90,7 +90,8 @@ export default function Profile({ userName, userEmail, isProfile }) {
                                 : disableButton
                                     ? "profile__save-button profile__save-button_error"
                                     : 'profile__save-button button'
-                        } onClick={handleSaveForm}
+                        }
+                        onClick={handleSubmit}
                         aria-label='Сохранить'
                         disabled={disableButton}>
                         Сохранить
