@@ -30,7 +30,7 @@ export default function Navigation({ isLoggedIn, onOpen }) {
                             <img className='navigation__logo' src={accountLogo} alt='иконка аккаунта' />
                         </li>
                     </ul>
-                    <button className='navigation__popup-button' onClick={onOpen}></button>
+                    <button className='navigation__popup-button' aria-label='' onClick={onOpen}></button>
                 </nav>
             ) : (
                 <nav className='navigation'>

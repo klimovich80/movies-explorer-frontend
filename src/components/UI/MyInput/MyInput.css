@@ -1,6 +1,7 @@
 .my-input__conatiner {
     margin: 0;
     padding: 0;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -23,6 +24,23 @@
 } */
 
 .my-input__error_visible {
+    max-width: 90%;
     display: block;
     color: var(--error_text-color);
+}
+
+.profile__name_input {
+    text-align: right;
+}
+
+.profile__name-error {
+    text-align: right;
+}
+
+.profile__email_input {
+    text-align: right;
+}
+
+.profile__email-error {
+    text-align: right;
 }

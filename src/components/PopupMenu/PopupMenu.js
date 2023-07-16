@@ -8,7 +8,7 @@ export default function PopupMenu({ isOpen, onClose }) {
         <div className={isOpen ? 'popup' : 'popup__disabled'}>
             <div className='popup__overlay'>
                 <div className='popup__container'>
-                    <button className='popup__close-button' onClick={onClose}></button>
+                    <button className='popup__close-button' aria-label='' onClick={onClose}></button>
                     <nav className='popup__navigation'>
                         <ul className='popup__list list'>
                             <li className='popup__item'>

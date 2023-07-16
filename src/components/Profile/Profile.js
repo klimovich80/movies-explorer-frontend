@@ -33,6 +33,7 @@ export default function Profile({ userName, userEmail, isProfile }) {
         console.log('handling saving data from profile form');
         disableForm();
     }
+    const disableButton = errors.name !== '' || errors.email !== ''
 
     return (
         <section className='profile'>
@@ -70,7 +71,7 @@ export default function Profile({ userName, userEmail, isProfile }) {
             </form>
             {isDisabled
                 ? <>
-                    <button className='profile__button' onClick={enableForm}>Редактировать</button>
+                    <button className='profile__button' onClick={enableForm} aria-label='Редактировать'>Редактировать</button>
                     <Link className='profile__link link' to={endpointMain}>Выйти из аккаунта</Link>
                 </>
                 : <>
@@ -86,13 +87,17 @@ export default function Profile({ userName, userEmail, isProfile }) {
                         className={
                             isSaveError
                                 ? 'profile__save-button profile__save-button_error button'
-                                : 'profile__save-button button'
-                        } onClick={handleSaveForm}>
+                                : disableButton
+                                    ? "profile__save-button profile__save-button_error"
+                                    : 'profile__save-button button'
+                        } onClick={handleSaveForm}
+                        aria-label='Сохранить'
+                        disabled={disableButton}>
                         Сохранить
                     </button>
                 </>
             }
 
-        </section>
+        </section >
     )
 }

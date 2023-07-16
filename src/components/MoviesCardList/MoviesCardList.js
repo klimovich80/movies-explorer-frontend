@@ -42,7 +42,7 @@ export default function MoviesCardList({ savedMovies }) {
                     <MoviesCard savedMovies={savedMovies} />
                 </li>
             </ul>
-            <button className='movies-card__button' type='button'>Eщё</button>
+            <button className='movies-card__button' aria-label='Eщё' type='button'>Eщё</button>
         </section>
     )
 }

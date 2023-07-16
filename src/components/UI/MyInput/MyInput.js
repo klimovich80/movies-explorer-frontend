@@ -7,15 +7,15 @@ export function MyInput({ children, ...props }, ref) {
             <input
                 {...props}
                 ref={ref ? ref : null}
-                className={'my-input__input input'}
+                className={`my-input__input input ${props.id}_input`}
                 value={props.value}
                 placeholder={props.placeholder}
             />
             <span
                 className={
                     props.error
-                        ? `my-input__error_visible my-input__error-text ${props.name}-error`
-                        : `my-input__error-text ${props.name}-error`
+                        ? `my-input__error_visible my-input__error-text ${props.id}-error`
+                        : `my-input__error-text ${props.id}-error`
                 }
             >
                 {props.error}

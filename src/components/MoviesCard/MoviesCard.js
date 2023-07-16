@@ -8,6 +8,9 @@ export default function MoviesCard({ savedMovies, deleteFromSaved }) {
     function toggleCardSaved() {
         isSaved ? setSaved(false) : setSaved(true);
     }
+
+    const buttonText = savedMovies ? '' : isSaved ? '' : 'Сохранить';
+
     return (
         <div className="card" >
             <img className="card__image" src={cardImage} alt='кинокартинка' />
@@ -21,14 +24,9 @@ export default function MoviesCard({ savedMovies, deleteFromSaved }) {
                 savedMovies
                     ? deleteFromSaved
                     : toggleCardSaved
-            }>
-                {
-                    savedMovies
-                        ? ''
-                        : isSaved
-                            ? ''
-                            : 'Сохранить'
-                }
+            }
+                aria-label={buttonText}>
+                {buttonText}
             </button>
             <div className='card__footer'>
                 <p className='card__title'>33 слова о дизайне</p>
