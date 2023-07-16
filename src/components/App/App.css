@@ -19,9 +19,15 @@
 }
 
 .button {
+    color: var(--button_text_color);
     cursor: pointer;
-    border: 1px solid red;
-    background-color: var(--button_color)
+    border: none;
+    border-radius: 3px;
+    background-color: var(--button_color);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .button:hover {
@@ -37,7 +43,19 @@
 }
 
 .input {
+    width: 100%;
+    margin: 0;
+    padding: 5px 0 5px;
     border: none;
     background-color: var(--background-color_light-grey-tree);
+    border-bottom: 1px solid var(--underline-color_grey);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+input:focus {
     outline: none;
+    border-bottom: 1px solid var(--input-focus_underline-color);
 }

@@ -1,0 +1,89 @@
+.register {
+    margin: 0;
+    padding: 70px 442px;
+    background-color: var(--background-color_light-grey-tree);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.register__logo {
+    background: none;
+}
+
+.register__form {
+    margin: 0;
+    padding: 0;
+    width: 100%
+}
+
+.register__title {
+    margin: 0;
+    padding: 40px 0 18px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.register__label {
+    margin: 0;
+    width: 116%;
+    padding: 22px 0 5px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color_grey);
+    display: flex;
+    flex-direction: column;
+}
+
+.register__name_input {
+    align-self: flex-start;
+}
+
+.register__name-error {
+    align-self: flex-start;
+}
+
+.register__email_input {
+    align-self: flex-start;
+}
+
+.register__email-error {
+    align-self: flex-start;
+}
+
+.register__password_input {
+    align-self: flex-start;
+    color: var(--error_text-color)
+}
+
+.register__password-error {
+    align-self: flex-start;
+}
+
+.register__button {
+    margin: 134px 0 0;
+    padding: 15px 125px;
+}
+
+.register__paragraph {
+    margin: 0;
+    padding: 16px 0 70px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color_grey);
+}
+
+.register__link {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--button_color);
+}

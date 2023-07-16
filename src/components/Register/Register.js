@@ -36,10 +36,11 @@ export default function Register() {
         <section className='register'>
             <form className='register__form'>
                 <Link to={endpointMain}>
-                    <img className='profile__logo button' src={logo} alt='логотип' />
+                    <img className='register__logo button' src={logo} alt='логотип' />
                 </Link>
                 <h2 className='register__title'>Добро пожаловать!</h2>
                 <label className='register__label' htmlFor='register__name'>
+                    Имя
                     <MyInput
                         id='register__name'
                         name="name"
@@ -54,6 +55,7 @@ export default function Register() {
                     />
                 </label>
                 <label className='register__label' htmlFor='register__email'>
+                    E-mail
                     <MyInput
                         id='register__email'
                         name="email"
@@ -68,6 +70,7 @@ export default function Register() {
                     />
                 </label>
                 <label className='register__label' htmlFor='register__password'>
+                    Пароль
                     <MyInput
                         id='register__password'
                         name="password"
@@ -88,7 +91,8 @@ export default function Register() {
                     {buttonText}
                 </button>
                 <p className='register__paragraph'>
-                    <Link className='register__link link' to={endpointLogin}>Войти</Link>
+                    Уже зарегистрированы ?
+                    <Link className='register__link link' to={endpointLogin}> Войти</Link>
                 </p>
             </form>
 
