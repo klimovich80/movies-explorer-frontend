@@ -23,6 +23,7 @@
 
 .profile__name_input {
     text-align: right;
+    border: none;
 }
 
 .profile__name-error {
@@ -31,6 +32,7 @@
 
 .profile__email_input {
     text-align: right;
+    border: none;
 }
 
 .profile__email-error {

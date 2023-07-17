@@ -30,29 +30,9 @@ import {
 // --register done
 // --login done
 
-// TODO состояния ссылок и кнопок
-// TODO check BEM :
-// --App done
-// --PopupMenu done
-// --AboutMe done
-// --AboutProject done
-// --Footer done
-// --Header done
-// --Main done
-// --Navigation done
-// --Portfolio done
-// --Promo done
-// --Techs done
-// --SearchForm done
-// --FilterCheckbox done
-// --Movies
-// --MoviesCard
-
-
-
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(true);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [isShort, setShort] = useState(false);

@@ -30,7 +30,7 @@
     padding: 0;
     list-style: none;
     display: flex;
-    gap: 11px;
+    gap: 20px;
     align-items: center
 }
 
@@ -108,7 +108,7 @@
     }
 
     .logged-in {
-        padding-right: 10px;
+        padding-right: 5px;
         justify-content: flex-end;
     }
 }

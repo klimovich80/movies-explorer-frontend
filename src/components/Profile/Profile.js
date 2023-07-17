@@ -40,7 +40,8 @@ export default function Profile({ userName, userEmail, isProfile }) {
             <form className='profile__form'>
                 <fieldset className='profile__fieldset' disabled={isDisabled}>
                     <h2 className='profile__title'>Привет, {userName}!</h2>
-                    <label className='profile__label' htmlFor='profile__name'>Имя
+                    <label className='profile__label' htmlFor='profile__name'>
+                        <span className='profile__label_title'>Имя</span>
                         <MyInput
                             id='profile__name'
                             name="name"
@@ -54,7 +55,8 @@ export default function Profile({ userName, userEmail, isProfile }) {
                             onChange={handleChange} />
                     </label>
                     <div className='profile__divider'></div>
-                    <label className='profile__label' htmlFor='profile__email'>E-mail
+                    <label className='profile__label' htmlFor='profile__email'>
+                        <span className='profile__label_title'>E-mail</span>
                         <MyInput
                             id='profile__email'
                             name="email"

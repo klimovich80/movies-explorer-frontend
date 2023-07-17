@@ -1,6 +1,8 @@
 .profile {
     margin: 0;
     padding: 70px;
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,8 +11,9 @@
 
 .profile__form {
     margin: 0 auto;
-    padding: 0 0 198px;
-    width: 400px;
+    padding: 0 357px 200px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .profile__fieldset {
@@ -24,7 +27,7 @@
 
 .profile__title {
     margin: 0;
-    padding: 4px 0 104px;
+    padding: 0 0 107px;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -32,7 +35,7 @@
 }
 
 .profile__label {
-    padding: 16px 0;
+    padding: 7px 0;
     align-self: flex-start;
     width: 100%;
     font-size: 11px;
@@ -44,14 +47,21 @@
     align-items: flex-start;
 }
 
-.profile__label:first-of-type {
+.profile__label_title {
+    margin: 0;
+    padding: 7px 0 0 18px;
+    width: 10%;
+}
+
+.profile__divider {
     border-bottom: 1px solid var(--underline-color_grey);
+    width: 100%;
 }
 
 .profile__button {
     cursor: pointer;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 16px;
     border: none;
     background-color: var(--button_text_color);
     font-size: 13px;
@@ -100,7 +110,7 @@
 
 .profile__link {
     margin: 0;
-    padding: 16px 0 0;
+    padding: 16px 0 0 16px;
     color: var(--text_color-red);
     font-size: 13px;
     font-style: normal;
@@ -114,7 +124,9 @@
     }
 
     .profile__form {
-        padding-bottom: 192px;
+        padding-bottom: 191px;
+        padding-right: 100px;
+        padding-left: 100px;
     }
 
     .profile__title {
@@ -124,12 +136,15 @@
 
 @media screen and (max-width: 767px) {
     .profile {
-        padding: 67px 30px 0;
+        padding: 62px 23px 0;
+        ;
     }
 
     .profile__form {
         width: 100%;
-        padding-bottom: 360px;
+        padding-bottom: 349px;
+        padding-right: 0;
+        padding-left: 0;
     }
 
     .profile__title {
@@ -142,5 +157,9 @@
 
     .profile__link {
         font-size: 12px;
+    }
+
+    .profile__label_title {
+        width: 15%;
     }
 }
