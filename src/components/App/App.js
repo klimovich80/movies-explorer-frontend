@@ -21,8 +21,6 @@ import {
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
 
-// TODO check unlogged header
-
 function App() {
     // constants
     const [isLoggedIn, setLoggedIn] = useState(true);
