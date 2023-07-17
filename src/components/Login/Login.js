@@ -7,7 +7,7 @@ import { endpointMain, endpointRegister } from '../../vendor/constants/endpoints
 import logo from '../../images/logo.svg';
 
 export default function Login() {
-    const buttonText = 'Зарегистрироваться';
+    const buttonText = 'Войти';
 
     const { values, errors, handleChange } = useForm({
         email: '',
