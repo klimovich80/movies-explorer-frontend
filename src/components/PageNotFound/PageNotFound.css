@@ -1,0 +1,35 @@
+.page-not-found {
+    margin: 0;
+    padding: 408px 184px 222px;
+    text-align: center;
+}
+
+.page-not-found__title {
+    margin: 0;
+    padding: 0 0 5px;
+    font-size: 140px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.page-not-found__text {
+    margin: 0;
+    padding: 0 0 184px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.page-not-found__button {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+    cursor: pointer;
+    color: var(--button_text_color-blue);
+}
