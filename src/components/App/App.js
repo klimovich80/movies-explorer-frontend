@@ -21,13 +21,14 @@ import {
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
 
-// TODO check fonts
+// TODO check horizontal bars
 // TODO PP check
 // --landing done
 // --profile done
 // --movies done
 // --saved-movies done
 // --register done
+// --login done
 
 // TODO состояния ссылок и кнопок
 // TODO check BEM :
@@ -90,6 +91,7 @@ function App() {
                         <Movies
                             isShort={isShort}
                             setShortMovies={setShortMovies}
+                            isLoading={isLoading}
                         />
                         <Footer />
                     </>
