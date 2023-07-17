@@ -1,6 +1,6 @@
 .header {
     background-color: var(--background-color_grey);
-    margin: 0 0 0 11px;
+    margin: 0;
     padding: 20px 70px;
     max-width: 100%;
     display: grid;

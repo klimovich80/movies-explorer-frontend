@@ -21,14 +21,7 @@ import {
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
 
-// TODO check horizontal bars
-// TODO PP check
-// --landing done
-// --profile done
-// --movies done
-// --saved-movies done
-// --register done
-// --login done
+// TODO check unlogged header
 
 function App() {
     // constants
