@@ -27,6 +27,7 @@ import {
 // --profile done
 // --movies done
 // --saved-movies done
+// --register done
 
 // TODO состояния ссылок и кнопок
 // TODO check BEM :

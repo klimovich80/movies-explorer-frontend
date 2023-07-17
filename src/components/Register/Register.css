@@ -31,7 +31,7 @@
 
 .register__label {
     margin: 0;
-    width: 116%;
+    width: 100%;
     padding: 22px 0 5px;
     font-size: 10px;
     font-style: normal;
@@ -126,13 +126,12 @@
     }
 
     .register__label {
-        width: 110%;
+        width: 100%;
         align-items: flex-start;
     }
 
     .register__button {
         margin-top: 238px;
-        width: 100%;
         padding: 15px 67px;
         font-size: 12px;
         font-style: normal;
