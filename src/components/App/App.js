@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { useState } from 'react';
 import './App.css';
 import Header from '../Header/Header'
@@ -48,10 +49,13 @@ function App() {
     // layout
     return (
         <div className='app'>
+            <Helmet>
+                <html lang='ru' />
+            </Helmet>
             <Routes>
                 <Route path={endpointMain} element={
                     <>
-                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
+                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} main />
                         <Main />
                         <Footer />
                     </>

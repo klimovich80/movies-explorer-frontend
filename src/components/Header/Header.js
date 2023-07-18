@@ -4,11 +4,11 @@ import Navigation from '../Navigation/Navigation'
 import logo from '../../images/logo.svg'
 import { endpointMain } from '../../vendor/constants/endpoints'
 
-export default function Header({ isLoggedIn, onOpen }) {
+export default function Header({ isLoggedIn, onOpen, main }) {
     return (
         <header className={
-            isLoggedIn
-                ? 'header header__logged-in'
+            main
+                ? 'header header__main'
                 : 'header'
         } >
             <Link to={endpointMain}>

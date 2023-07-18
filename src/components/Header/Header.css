@@ -1,5 +1,5 @@
 .header {
-    background-color: var(--background-color_grey);
+    background-color: var(--background-color_white);
     margin: 0;
     padding: 20px 70px;
     max-width: 100%;
@@ -9,8 +9,8 @@
     justify-content: space-between;
 }
 
-.header__logged-in {
-    background-color: var(--background-color_white)
+.header__main {
+    background-color: var(--background-color_grey);
 }
 
 .header__logo {
