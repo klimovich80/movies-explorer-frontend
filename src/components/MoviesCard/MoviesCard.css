@@ -22,6 +22,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 9px;
+    cursor: pointer;
 }
 
 .card__button_saved {
@@ -32,6 +33,7 @@
     background: url('../../images/card-saved.svg') center no-repeat;
     min-height: 21px;
     aspect-ratio: 1/1;
+    cursor: pointer;
 }
 
 .card__footer {

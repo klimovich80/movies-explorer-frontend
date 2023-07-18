@@ -6,7 +6,7 @@
     justify-content: space-between;
 }
 
-.search__input {
+.search__movie_input {
     border: none;
     width: 100%;
     margin: 0;
@@ -32,8 +32,12 @@
     line-height: 18px;
 }
 
+.search__button_disabled {
+    background-color: var(--button-error_text-color)
+}
+
 @media screen and (max-width: 1279px) {
-    .search__input {
+    .search__movie_input {
         width: 90%;
     }
 }
@@ -43,7 +47,7 @@
         padding: 5px 10px 5px 5px;
     }
 
-    .search__input {
+    .search__movie_input {
         padding: 12px 10px;
         font-size: 16px;
         line-height: 16px;
