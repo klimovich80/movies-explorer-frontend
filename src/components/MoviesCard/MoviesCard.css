@@ -25,6 +25,10 @@
 }
 
 .card__button_saved {
+    border: none;
+    top: 14px;
+    right: 14px;
+    position: absolute;
     background: url('../../images/card-saved.svg') center no-repeat;
     min-height: 21px;
     aspect-ratio: 1/1;
