@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 
-.card__button_saved {
+.saved {
     border: none;
     top: 14px;
     right: 14px;

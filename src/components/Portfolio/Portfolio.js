@@ -11,19 +11,19 @@ export default function Portfolio() {
 
                     <Link className='portfolio__link link' target='_blank' to={endpointStaticWeb}>
                         Статичный сайт
-                        <span className='portfolio__link_arrow'>↗</span>
+                        <span className='portfolio__link-arrow'>↗</span>
                     </Link>
                 </li>
                 <li className='portfolio__item'>
                     <Link className='portfolio__link link' target='_blank' to={endpointAdaptiveWeb}>
                         Адаптивный сайт
-                        <span className='portfolio__link_arrow'>↗</span>
+                        <span className='portfolio__link-arrow'>↗</span>
                     </Link>
                 </li>
                 <li className='portfolio__item'>
                     <Link className='portfolio__link link' target='_blank' to={endpointSPA}>
                         Одностраничное приложение
-                        <span className='portfolio__link_arrow'>↗</span>
+                        <span className='portfolio__link-arrow'>↗</span>
                     </Link>
                 </li>
             </ul>

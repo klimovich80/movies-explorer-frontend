@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 
 export function MyInput({ children, ...props }, ref) {
     return (
-        <div className='my-input__conatiner'>
+        <div className='my-input'>
             <input
                 {...props}
                 ref={ref ? ref : null}

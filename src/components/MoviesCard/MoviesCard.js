@@ -19,9 +19,9 @@ export default function MoviesCard({ savedMovies, deleteFromSaved, cardLink }) {
             </Link>
             <button className={
                 savedMovies
-                    ? 'card__button_saved-movie'
+                    ? 'card__button saved-movie'
                     : isSaved
-                        ? 'card__button_saved'
+                        ? 'card__button saved'
                         : 'card__button'
             } onClick={
                 savedMovies

@@ -41,7 +41,7 @@ export default function Profile({ userName, userEmail, isProfile }) {
                 <fieldset className='profile__fieldset' disabled={isDisabled}>
                     <h2 className='profile__title'>Привет, {userName}!</h2>
                     <label className='profile__label' htmlFor='profile__name'>
-                        <span className='profile__label_title'>Имя</span>
+                        <span className='profile__label-title'>Имя</span>
                         <MyInput
                             id='profile__name'
                             name="name"
@@ -56,7 +56,7 @@ export default function Profile({ userName, userEmail, isProfile }) {
                     </label>
                     <div className='profile__divider'></div>
                     <label className='profile__label' htmlFor='profile__email'>
-                        <span className='profile__label_title'>E-mail</span>
+                        <span className='profile__label-title'>E-mail</span>
                         <MyInput
                             id='profile__email'
                             name="email"
@@ -80,8 +80,8 @@ export default function Profile({ userName, userEmail, isProfile }) {
                     <span
                         className={
                             isSaveError
-                                ? 'profile__save--error_visible'
-                                : 'profile__save--error '
+                                ? 'profile__save-error save-error-visible'
+                                : 'profile__save-error '
                         }>
                         При обновлении профиля произошла ошибка.
                     </span>

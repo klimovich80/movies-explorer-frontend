@@ -5,7 +5,7 @@ import accountLogo from '../../images/account-icon.svg'
 
 export default function PopupMenu({ isOpen, onClose }) {
     return (
-        <div className={isOpen ? 'popup' : 'popup__disabled'}>
+        <div className={isOpen ? 'popup' : 'popup popup_disabled'}>
             <div className='popup__overlay'>
                 <div className='popup__container'>
                     <button className='popup__close-button' aria-label='' onClick={onClose}></button>

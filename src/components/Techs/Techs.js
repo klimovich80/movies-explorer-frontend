@@ -15,7 +15,6 @@ export default function Techs() {
                 <li className='list__item'>Express.js</li>
                 <li className='list__item'>MongoDB</li>
             </ul>
-
         </section>
     )
 }
