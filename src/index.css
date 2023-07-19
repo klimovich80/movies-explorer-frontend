@@ -1,0 +1,8 @@
+@import url('./vendor/normalize');
+@import url('./vendor/font/inter');
+@import url('./vendor/variables');
+
+.root {
+  margin: 0;
+  padding: 0;
+}

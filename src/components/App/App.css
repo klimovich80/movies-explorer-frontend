@@ -1,0 +1,68 @@
+.app {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    background-color: var(--background-color_white);
+}
+
+.list {
+    list-style: none;
+}
+
+.link {
+    color: var(--general_text_color);
+    text-decoration: none
+}
+
+.link:hover {
+    opacity: .7;
+}
+
+.button {
+    color: var(--button_text_color);
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--button_color);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.button:hover {
+    opacity: .8;
+}
+
+.error {
+    color: var(--error_text-color);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input {
+    width: 100%;
+    margin: 0;
+    padding: 5px 0 5px;
+    border: none;
+    background-color: var(--background-color_light-grey-tree);
+    border-bottom: 1px solid var(--underline-color_grey);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 1px solid var(--input-focus_underline-color);
+}
+
+@media screen and (max-width:767px) {
+    .input {
+        padding-bottom: 5px;
+    }
+}

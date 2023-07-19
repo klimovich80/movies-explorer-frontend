@@ -1,0 +1,18 @@
+{
+    "movies": [
+        {
+            "country": "Russia",
+            "director": "Spilberg",
+            "duration": "67",
+            "year": "2000",
+            "description": "Test description",
+            "image": "../images/movie-pic.jpg",
+            "trailerLink": "../images/movie-pic.jpg",
+            "thumbnail": "../images/movie-pic.jpg",
+            "owner": "1",
+            "movieId": "1",
+            "nameRU": "33 слова о дизайне",
+            "nameEN": "33 words about design"
+        }
+    ]
+}

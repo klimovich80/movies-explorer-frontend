@@ -1,0 +1,114 @@
+.navigation {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logged-in {
+    justify-content: space-between;
+}
+
+.navigation__link {
+    padding: 0;
+    text-decoration: none;
+    color: var(--general_text_color);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.navigation__link_active {
+    font-weight: 500;
+    line-height: 18px;
+}
+
+.navigation__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center
+}
+
+.navigation__account {
+    padding-right: 7px;
+    gap: 25px;
+}
+
+
+
+.navigation__item {
+    margin: 0;
+    padding: 0;
+}
+
+.navigation__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    aspect-ratio: 2.375/1;
+    color: var(--button_text_color);
+    background-color: var(--button_color);
+    border-radius: 3px;
+}
+
+.navigation__popup-button {
+    display: none;
+}
+
+@media screen and (max-width: 1279px) {
+    .logged-in {
+        padding-right: 5px;
+        justify-content: flex-end;
+    }
+
+    .navigation__list_logged-in {
+        display: none;
+        justify-content: flex-end
+    }
+
+    .navigation__popup-button {
+        margin: 0;
+        padding: 0;
+        display: block;
+        min-height: 44px;
+        aspect-ratio: 1/1;
+        background: url(../../images/menu-icon.svg) center no-repeat;
+        border: none;
+    }
+
+    .navigation__popup-button:hover {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .navigation__list {
+        gap: 14px;
+    }
+
+    .navigation__link {
+        font-size: 10px;
+    }
+
+    .navigation__button {
+        min-height: 26px;
+        max-width: 54px;
+    }
+
+    .navigation__popup-button {
+        min-height: 43px;
+        max-width: 24px;
+    }
+
+    .logged-in {
+        padding-right: 5px;
+        justify-content: flex-end;
+    }
+}

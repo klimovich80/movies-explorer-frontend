@@ -1,0 +1,116 @@
+.popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.link_active {
+    text-decoration: underline;
+}
+
+.popup_disabled {
+    display: none;
+}
+
+.popup__container {
+    background-color: var(--background-color_white);
+    margin: 0;
+    padding: 0 0 92px 0;
+    width: 61%;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: 33px 1fr 1fr;
+    grid-template-areas:
+        "icon"
+        "menu"
+        "footer";
+    align-self: flex-end
+}
+
+.popup__overlay {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.popup__close-button {
+    justify-self: end;
+    padding-top: 44px;
+    padding-right: 44px;
+    border: none;
+    background: url(../../images/popup_close-button.svg) center no-repeat;
+    grid-area: icon;
+}
+
+.popup__navigation {
+    justify-self: center;
+    grid-area: menu;
+}
+
+.popup__list {
+    margin: 0 auto;
+    padding: 105px 0 0;
+    text-align: center;
+}
+
+.popup__item {
+    padding-bottom: 28px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.account {
+    align-self: end;
+    padding-bottom: 99px;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    justify-content: center;
+    grid-area: footer;
+}
+
+.account__link {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+@media screen and (max-width: 520px) {
+    .popup__container {
+        background-color: var(--background-color_white);
+        margin: 0;
+        padding: 0 0 92px 0;
+        width: 100vw;
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: 33px 1fr 1fr;
+        grid-template-areas:
+            " icon "
+            "menu"
+            "footer";
+        align-self: flex-end
+    }
+
+    .popup__close-button {
+        padding-top: 35px;
+        padding-right: 35px;
+    }
+
+    .popup__list {
+        padding-top: 100px;
+    }
+
+    .popup__item {
+        padding-bottom: 24px;
+    }
+
+    .account {
+        padding-bottom: 48px;
+    }
+}

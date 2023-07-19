@@ -1,0 +1,142 @@
+.login {
+    margin: 0;
+    padding: 70px 442px;
+    background-color: var(--background-color_light-grey-tree);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.login__logo {
+    background: none;
+}
+
+.login__form {
+    margin: 0;
+    padding: 0;
+    width: 100%
+}
+
+.login__title {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    margin: 0;
+    padding: 40px 0 18px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.login__label {
+    margin: 0;
+    width: 100%;
+    padding: 22px 0 5px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color_grey);
+    display: flex;
+    flex-direction: column;
+}
+
+.login__email_input {
+    align-self: flex-start;
+}
+
+.login__email-error {
+    align-self: flex-start;
+}
+
+.login__password_input {
+    align-self: flex-start;
+    color: var(--error_text-color)
+}
+
+.login__password-error {
+    align-self: flex-start;
+}
+
+.login__button {
+    width: 100%;
+    margin: 216px 0 0;
+    padding: 15px 125px;
+}
+
+.login__paragraph {
+    margin: 0;
+    padding: 16px 0 70px;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color_grey);
+}
+
+.login__link {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--button_color);
+}
+
+@media screen and (max-width: 1279px) {
+
+    .login {
+        padding-right: 186px;
+        padding-left: 186px;
+    }
+
+    .login__title {
+        padding-top: 38px;
+    }
+
+    .login__label {
+        padding-top: 20px;
+    }
+
+    .login__button {
+        margin-top: 220px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .login {
+        padding-right: 30px;
+        padding-left: 30px;
+        text-align: center;
+    }
+
+    .login__title {
+        padding-top: 48px;
+        padding-left: 48px;
+        padding-bottom: 63px;
+        margin: 0;
+    }
+
+    .login__label {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .login__button {
+        margin-top: 306px;
+        padding: 15px 67px;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .login__paragraph {
+        font-size: 12px;
+    }
+
+    .login__link {
+        font-size: 12px;
+    }
+}

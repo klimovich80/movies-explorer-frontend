@@ -1,0 +1,172 @@
+.about-project {
+    margin: 0;
+    padding: 112px 70px;
+}
+
+.about-project__title {
+    margin: 0;
+    padding: 0 0 23px 0;
+    color: var(--general_text_color);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+    border-bottom: 1px solid var(--underline_color);
+}
+
+.about-project__articles {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.about-project__header {
+    margin: 0;
+    padding: 70px 0 26px 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.8px;
+}
+
+.about-project__text {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.about-project__duration {
+    margin: 0;
+    padding: 110px 0 0 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.about-project__one-week {
+    width: 20%;
+    text-align: center;
+}
+
+.one-week {
+    color: var(--button_text_color);
+    background-color: var(--button_color);
+}
+
+.four-weeks {
+    background-color: var(--background-color_light-grey);
+}
+
+.about-project__four-week {
+    width: 80%;
+    text-align: center;
+}
+
+.about-project__time {
+    margin: 0;
+    padding: 9px 14px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.about-project__stage-name {
+    color: var(--text-color_grey);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+    margin: 0;
+    padding: 14px 0 0 0;
+}
+
+@media screen and (max-width: 1279px) {
+    .about-project {
+        padding: 90px 50px;
+    }
+
+    .about-project__articles {
+        gap: 35px;
+    }
+
+    .about-project__header {
+        padding-bottom: 22px;
+    }
+
+    .about-project__text {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .about-project__one-week {
+        width: 21%;
+    }
+
+    .about-project__four-week {
+        width: 79%;
+    }
+
+    .about-project__duration {
+        padding-top: 93px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .about-project {
+        padding: 70px 18px;
+    }
+
+    .about-project__title {
+        font-size: 18px;
+        letter-spacing: -0.72px;
+        padding-bottom: 28px;
+    }
+
+    .about-project__articles {
+        flex-direction: column;
+        padding: 62px 0;
+        gap: 59px;
+    }
+
+    .about-project__article {
+        padding: 0;
+    }
+
+    .about-project__header {
+        padding-top: 0;
+        padding-bottom: 16px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .about-project__text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .about-project__one-week {
+        width: 35%;
+    }
+
+    .about-project__four-week {
+        width: 65%;
+    }
+
+    .about-project__duration {
+        padding-top: 0;
+    }
+
+    .about-project__time {
+        font-size: 11px;
+    }
+
+    .about-project__stage-name {
+        font-size: 11px;
+        padding-top: 10px;
+    }
+}
