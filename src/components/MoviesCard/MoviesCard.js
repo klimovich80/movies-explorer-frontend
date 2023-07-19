@@ -1,7 +1,7 @@
 import './MoviesCard.css'
-import { filmApiLink } from '../../utils/config'
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { filmImagesServerLink } from '../../utils/config';
 
 export default function MoviesCard({
     savedMovies,
@@ -12,7 +12,9 @@ export default function MoviesCard({
     const [isSaved, setSaved] = useState(false)
 
     function toggleCardSaved() {
-        isSaved ? setSaved(false) : setSaved(true);
+        isSaved
+            ? setSaved(false)
+            : setSaved(true);
     }
 
     const buttonText = savedMovies ? '' : isSaved ? '' : 'Сохранить';
@@ -21,12 +23,12 @@ export default function MoviesCard({
     const duration = (`
     ${Math.floor(movie.duration / 60)}ч 
     ${movie.duration % 60}м`);
-    const imageLink = movie.image.url;
+    const imageLink = filmImagesServerLink + movie.image.url;
 
     return (
         <div className="card" >
             <Link className='card__link link' to={trailerLink} target='_blank'>
-                <img className="card__image" src={`https://api.nomoreparties.co/${imageLink}`} alt={`картинка "${title}"`} />
+                <img className="card__image" src={imageLink} alt={`картинка "${title}"`} />
             </Link>
             <button className={
                 savedMovies

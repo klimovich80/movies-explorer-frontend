@@ -93,6 +93,8 @@ function App() {
                             isShort={isShort}
                             setShortMovies={setShortMovies}
                             deleteFromSaved={deleteFromSaved}
+                            savedMovies={savedMovies}
+                            setSavedMovies={setSavedMovies}
                         />
                         <Footer />
                     </>

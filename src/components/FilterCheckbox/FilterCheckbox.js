@@ -1,6 +1,6 @@
 import './FilterCheckbox.css'
 
-export default function FilterCheckbox({ isShort, setShort }) {
+export default function FilterCheckbox({ isShort, setShortMovies }) {
     return (
         <div className='filter'>
             <input className='filter__checkbox'
@@ -9,7 +9,7 @@ export default function FilterCheckbox({ isShort, setShort }) {
                 name='filter__checkbox'
                 checked={isShort}
                 onChange={() => { }} />
-            <span className="filter__visible-checkbox" onClick={setShort}></span>
+            <span className="filter__visible-checkbox" onClick={setShortMovies}></span>
             <label className='filter__label' htmlFor='search__checkbox'>Короткометражки</label>
         </div>
 

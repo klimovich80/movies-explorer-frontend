@@ -4,7 +4,7 @@ import MyInput from '../UI/MyInput/MyInput'
 import { useEffect } from 'react'
 import useForm from '../hooks/useForm'
 
-export default function SearchForm({ isShort, setShort }) {
+export default function SearchForm({ isShort, setShortMovies }) {
 
     const buttonText = 'Поиск';
 
@@ -55,7 +55,7 @@ export default function SearchForm({ isShort, setShort }) {
                         {buttonText}
                     </button>
                 </div>
-                <FilterCheckbox isShort={isShort} setShort={setShort} />
+                <FilterCheckbox isShort={isShort} setShortMovies={setShortMovies} />
             </form>
         </section>
     )

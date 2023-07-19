@@ -4,15 +4,15 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 
 export default function Movies({
     isShort,
-    setShort,
+    setShortMovies,
     isLoading,
     movies,
     setSavedMovies
 }) {
-    console.log(movies[0]);
+    console.log(movies);
     return (
         <section className='movies'>
-            <SearchForm isShort={isShort} setShort={setShort} />
+            <SearchForm isShort={isShort} setShortMovies={setShortMovies} />
             <MoviesCardList
                 isSavedMovies={false}
                 setSavedMovies={setSavedMovies}

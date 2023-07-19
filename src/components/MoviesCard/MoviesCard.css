@@ -6,7 +6,10 @@
 }
 
 .card__image {
+    min-height: 200px;
     width: 100%;
+    aspect-ratio: 1.8/1;
+    border-radius: 6px;
 }
 
 .card__button {
@@ -45,6 +48,7 @@
 }
 
 .card__title {
+    max-width: 250px;
     margin: 0;
     padding: 11px 0 0 14px;
     font-size: 13px;

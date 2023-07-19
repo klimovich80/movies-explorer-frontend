@@ -13,13 +13,14 @@ export default function MoviesCardList({
             {isLoading
                 ? <Preloader />
                 : <ul className='movies-card__list list'>
-                    {movies.map(movie =>
-                        <MoviesCard
-                            savedMovies={savedMovies}
-                            setSavedMovies={setSavedMovies}
-                            movie={movie}
-                            key={movie.id}
-                        />)}
+                    {movies.map(movie => (
+                        <li className='movies-card__item' key={movie.id}>
+                            <MoviesCard
+                                savedMovies={savedMovies}
+                                setSavedMovies={setSavedMovies}
+                                movie={movie}
+                            />
+                        </li>))}
                 </ul>
             }
             <button className='movies-card__button' aria-label='Eщё' type='button'>Eщё</button>
