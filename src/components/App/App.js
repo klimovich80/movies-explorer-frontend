@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../Header/Header'
 import Main from '../Main/Main'
@@ -21,15 +21,28 @@ import {
     endpointSavedMovies,
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
     // constants
     const [isLoggedIn, setLoggedIn] = useState(true);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const [isShort, setShort] = useState(false);
     const [userName, setUserName] = useState('Павел');
     const [userEmail, setUserEmail] = useState('test@test.ru')
+    const [movies, setMovies] = useState([])
+    const [savedMovies, setSavedMovies] = useState([])
+
+    useEffect(() => {
+        moviesApi.getMovies()
+            .then((res) => {
+                setMovies(res);
+                setLoading(false);
+            })
+            .catch(err => console.log(err))
+    }, [])
+
     // functions
     function setShortMovies() {
         isShort ? setShort(false) : setShort(true);
@@ -67,6 +80,8 @@ function App() {
                             isShort={isShort}
                             setShortMovies={setShortMovies}
                             isLoading={isLoading}
+                            movies={movies}
+                            setSavedMovies={setSavedMovies}
                         />
                         <Footer />
                     </>
