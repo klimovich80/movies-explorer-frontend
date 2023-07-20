@@ -12,6 +12,8 @@ import Register from '../Register/Register'
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import PopupMenu from '../PopupMenu/PopupMenu';
+import CurrentUserContext from '../../context/CurrentUserContext';
+import ProtectedRoute from './ProtectedRoute';
 import {
     endpointLogin,
     endpointMain,
@@ -22,10 +24,14 @@ import {
     endpointUnknown,
 } from '../../vendor/constants/endpoints';
 import { moviesApi } from '../../utils/MoviesApi';
+import { mainApi } from '../../utils/MainApi';
+import { getUserInfo, register, login } from '../../utils/AuthApi';
 
 function App() {
     // constants
-    const [isLoggedIn, setLoggedIn] = useState(true);
+    const shortMovieDuration = 40;
+    const [currentUser, setCurrentUser] = useState();
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isShort, setShort] = useState(false);
@@ -34,13 +40,12 @@ function App() {
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
 
-    const shortMovies = movies.filter((film) => {
-        return film.duration <= 40
-    })
-
-    // function filter
 
     useEffect(() => {
+        // get user info
+
+        // get saved movies
+        // get movies
         moviesApi.getMovies()
             .then((res) => {
                 setMovies(res);
@@ -50,12 +55,30 @@ function App() {
     }, [])
 
     // functions
-    function setShortMovies() {
-        isShort ? setShort(false) : setShort(true);
+    const filterMovies = (moviesArr) => {
+        const filteredArray = moviesArr.filter((movie) => {
+            return movie.duration <= shortMovieDuration;
+        })
+        return filteredArray;
     }
 
-    function deleteFromSaved() {
-        console.log('deleting this card from saved');
+    function deleteFromSaved(card) {
+        console.log('deleting from saved');
+    }
+
+    function addToSaved(card) {
+        console.log('adding to saved');
+    }
+
+    function handleSavedMovies(movie, saving) {
+        console.log('handleSavedMovies called');
+        saving
+            ? addToSaved(movie)
+            : deleteFromSaved(movie)
+    }
+
+    function setShortMovies() {
+        isShort ? setShort(false) : setShort(true);
     }
 
     function openPopup() {
@@ -65,72 +88,105 @@ function App() {
     function closePopup() {
         setPopupOpen(false)
     }
+
+    function handleRegistration({ email, password, name }) {
+        console.log('registrating');
+        register(email, password, name)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
+    function handleLogin({ password, email }) {
+        login(password, email)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
     // layout
     return (
-        <div className='app'>
-            <Helmet>
-                <html lang='ru' />
-            </Helmet>
-            <Routes>
-                <Route path={endpointMain} element={
-                    <>
-                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} main />
-                        <Main />
-                        <Footer />
-                    </>
-                } />
-                <Route path={endpointMovies} element={
-                    <>
-                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <Movies
-                            isShort={isShort}
-                            setShortMovies={setShortMovies}
-                            isLoading={isLoading}
-                            movies={
-                                isShort
-                                    ? shortMovies
-                                    : movies
-                            }
-                            setSavedMovies={setSavedMovies}
+        <CurrentUserContext.Provider value={currentUser}>
+            <div className='app'>
+                <Helmet>
+                    <html lang='ru' />
+                </Helmet>
+                <Routes>
+                    <Route path={endpointMain} element={
+                        <>
+                            <Header isLoggedIn={isLoggedIn} onOpen={openPopup} main />
+                            <Main />
+                            <Footer />
+                        </>
+                    } />
+                    <Route path={endpointMovies} element={
+                        <ProtectedRoute element={
+                            <>
+                                <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
+                                <Movies
+                                    isShort={isShort}
+                                    setShortMovies={setShortMovies}
+                                    isLoading={isLoading}
+                                    movies={
+                                        isShort
+                                            ? filterMovies(movies)
+                                            : movies
+                                    }
+                                    handleSavedMovies={handleSavedMovies}
+                                />
+                                <Footer />
+                            </>
+                        } />
+
+                    } />
+                    <Route path={endpointSavedMovies} element={
+                        <ProtectedRoute element={
+                            <>
+                                <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
+                                <SavedMovies
+                                    isShort={isShort}
+                                    setShortMovies={setShortMovies}
+                                    savedMovies={
+                                        isShort
+                                            ? filterMovies(savedMovies)
+                                            : savedMovies
+                                    }
+                                    handleSavedMovies={handleSavedMovies}
+                                />
+                                <Footer />
+                            </>
+                        } />
+
+                    } />
+                    <Route path={endpointProfile} element={
+                        <ProtectedRoute element={
+                            <>
+                                <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
+                                <Profile userName={userName} userEmail={userEmail} isProfile={true} />
+                            </>
+                        } />
+
+                    } />
+                    <Route path={endpointLogin} element={
+                        <Login
+                            isProfile={false}
+                            handleLogin={handleLogin}
                         />
-                        <Footer />
-                    </>
-                } />
-                <Route path={endpointSavedMovies} element={
-                    <>
-                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <SavedMovies
-                            isShort={isShort}
-                            setShortMovies={setShortMovies}
-                            deleteFromSaved={deleteFromSaved}
-                            savedMovies={savedMovies}
-                            setSavedMovies={setSavedMovies}
+                    } />
+                    <Route path={endpointRegister} element={
+                        <Register
+                            isProfile={false}
+                            handleRegistration={handleRegistration}
                         />
-                        <Footer />
-                    </>
-                } />
-                <Route path={endpointProfile} element={
-                    <>
-                        <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                        <Profile userName={userName} userEmail={userEmail} isProfile={true} />
-                    </>
-                } />
-                <Route path={endpointLogin} element={
-                    <Login isProfile={false} />
-                } />
-                <Route path={endpointRegister} element={
-                    <Register isProfile={false} />
-                } />
-                <Route path={endpointUnknown} element={
-                    <PageNotFound />
-                } />
-            </Routes>
-            {/* menu popup */}
-            <PopupMenu
-                isOpen={isPopupOpen}
-                onClose={closePopup}
-            />
-        </div>
+                    } />
+                    <Route path={endpointUnknown} element={
+                        <PageNotFound />
+                    } />
+                </Routes>
+                {/* menu popup */}
+                <PopupMenu
+                    isOpen={isPopupOpen}
+                    onClose={closePopup}
+                />
+            </div>
+        </CurrentUserContext.Provider>
     )
 }
 

@@ -6,7 +6,7 @@ import MyInput from '../UI/MyInput/MyInput';
 import { endpointMain, endpointRegister } from '../../vendor/constants/endpoints';
 import logo from '../../images/logo.svg';
 
-export default function Login() {
+export default function Login({ handleLogin }) {
     const buttonText = 'Войти';
 
     const { values, errors, handleChange } = useForm({
@@ -25,8 +25,7 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitting login form');
-        console.log(values);
+        handleLogin(values);
     }
     return (
         <section className='login'>

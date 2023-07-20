@@ -1,4 +1,4 @@
-import { filmApiLink } from "./config";
+import { FILM_API_URL } from "./config";
 
 class MoviesApi {
     constructor(config) {
@@ -23,5 +23,5 @@ class MoviesApi {
 }
 
 export const moviesApi = new MoviesApi({
-    url: filmApiLink,
+    url: FILM_API_URL,
 });

@@ -7,15 +7,17 @@ export default function Movies({
     setShortMovies,
     isLoading,
     movies,
-    setSavedMovies
+    handleSavedMovies
 }) {
     console.log(movies);
     return (
         <section className='movies'>
-            <SearchForm isShort={isShort} setShortMovies={setShortMovies} />
+            <SearchForm
+                isShort={isShort}
+                setShortMovies={setShortMovies} />
             <MoviesCardList
                 isSavedMovies={false}
-                setSavedMovies={setSavedMovies}
+                handleSavedMovies={handleSavedMovies}
                 isLoading={isLoading}
                 movies={movies}
             />
