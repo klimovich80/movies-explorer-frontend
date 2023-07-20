@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 
 export default function MoviesCardList({
-    savedMovies,
+    isSavedMovies,
     setSavedMovies,
     isLoading,
     movies
@@ -16,7 +16,7 @@ export default function MoviesCardList({
                     {movies.map(movie => (
                         <li className='movies-card__item' key={movie.id}>
                             <MoviesCard
-                                savedMovies={savedMovies}
+                                isSavedMovies={isSavedMovies}
                                 setSavedMovies={setSavedMovies}
                                 movie={movie}
                             />

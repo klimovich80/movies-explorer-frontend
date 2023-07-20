@@ -34,6 +34,12 @@ function App() {
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
 
+    const shortMovies = movies.filter((film) => {
+        return film.duration <= 40
+    })
+
+    // function filter
+
     useEffect(() => {
         moviesApi.getMovies()
             .then((res) => {
@@ -80,7 +86,11 @@ function App() {
                             isShort={isShort}
                             setShortMovies={setShortMovies}
                             isLoading={isLoading}
-                            movies={movies}
+                            movies={
+                                isShort
+                                    ? shortMovies
+                                    : movies
+                            }
                             setSavedMovies={setSavedMovies}
                         />
                         <Footer />
