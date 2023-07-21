@@ -6,7 +6,9 @@ export default function SavedMovies({
     isShort,
     setShortMovies,
     savedMovies,
-    handleSavedMovies }) {
+    savedMovie,
+    handleSavedMovies
+}) {
     return (
         <section className='saved-movies movies'>
             <SearchForm
@@ -15,6 +17,7 @@ export default function SavedMovies({
             <MoviesCardList
                 isSavedMovies={true}
                 movies={savedMovies}
+                savedMovie={savedMovie}
                 handleSavedMovies={handleSavedMovies} />
         </section>
     )

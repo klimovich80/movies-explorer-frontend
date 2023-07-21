@@ -6,7 +6,8 @@ export default function MoviesCardList({
     isSavedMovies,
     handleSavedMovies,
     isLoading,
-    movies
+    movies,
+    savedMovie
 }) {
     return (
         movies.length === 0
@@ -26,6 +27,7 @@ export default function MoviesCardList({
                                     isSavedMovies={isSavedMovies}
                                     handleSavedMovies={handleSavedMovies}
                                     movie={movie}
+                                    savedMovie={savedMovie}
                                 />
                             </li>))}
                     </ul>

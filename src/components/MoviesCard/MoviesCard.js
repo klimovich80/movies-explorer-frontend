@@ -1,20 +1,13 @@
 import './MoviesCard.css'
-import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FILM_IMAGES_SERVER_URL } from '../../utils/config';
 
 export default function MoviesCard({
     isSavedMovies,
     handleSavedMovies,
-    movie
+    movie,
+    savedMovie
 }) {
-    const [isSaved, setSaved] = useState(false)
-
-    function toggleCardSaved() {
-        isSaved
-            ? setSaved(false)
-            : setSaved(true);
-    }
 
     function handleClick(e) {
         console.log((e.target.closest('.card')));
@@ -25,7 +18,7 @@ export default function MoviesCard({
 
     }
 
-    const buttonText = isSavedMovies ? '' : isSaved ? '' : 'Сохранить';
+    const buttonText = isSavedMovies ? '' : savedMovie(movie) ? '' : 'Сохранить';
     const trailerLink = movie.trailerLink;
     const title = movie.nameRU;
     const duration = (`
@@ -51,14 +44,11 @@ export default function MoviesCard({
             <button className={
                 isSavedMovies
                     ? 'card__button saved-movie'
-                    : isSaved
+                    : savedMovie(movie)
                         ? 'card__button saved'
                         : 'card__button'
-            } onClick={handleClick
-                // isSavedMovies
-                //     ? handleClick()
-                //     : toggleCardSaved
             }
+                onClick={handleClick}
                 aria-label={buttonText}>
                 {buttonText}
             </button>

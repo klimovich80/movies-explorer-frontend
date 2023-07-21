@@ -7,7 +7,8 @@ export default function Movies({
     setShortMovies,
     isLoading,
     movies,
-    handleSavedMovies
+    savedMovie,
+    handleSavedMovies,
 }) {
     console.log(movies);
     return (
@@ -20,6 +21,7 @@ export default function Movies({
                 handleSavedMovies={handleSavedMovies}
                 isLoading={isLoading}
                 movies={movies}
+                savedMovie={savedMovie}
             />
         </section>
     )

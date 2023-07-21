@@ -161,6 +161,10 @@ function App() {
         setCurrentUser({});
         navigate("/", { replace: true });
     }
+
+    function savedMovie(movie) {
+        return savedMovies.some(item => item.owner === currentUser._id && movie.id === item.movieId)
+    }
     // layout
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -189,6 +193,7 @@ function App() {
                                             ? filterMovies(movies)
                                             : movies
                                     }
+                                    savedMovie={savedMovie}
                                     handleSavedMovies={handleSavedMovies}
                                 />
                                 <Footer />
@@ -207,6 +212,7 @@ function App() {
                                             ? filterMovies(savedMovies)
                                             : savedMovies
                                     }
+                                    savedMovie={savedMovie}
                                     handleSavedMovies={handleSavedMovies}
                                 />
                                 <Footer />
