@@ -6,7 +6,7 @@ import logo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
 import MyInput from '../UI/MyInput/MyInput'
 
-export default function Register() {
+export default function Register({ handleRegistration }) {
     const buttonText = 'Зарегистрироваться';
 
     const { values, errors, handleChange } = useForm({
@@ -28,8 +28,7 @@ export default function Register() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitting register form');
-        console.log(values);
+        handleRegistration(values);
     }
 
     return (

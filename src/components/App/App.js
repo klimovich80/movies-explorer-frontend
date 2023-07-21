@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
 import './App.css';
@@ -31,14 +31,17 @@ function App() {
     // constants
     const shortMovieDuration = 40;
     const [currentUser, setCurrentUser] = useState();
+    const [token, setToken] = useState(null);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isShort, setShort] = useState(false);
+    const [isRegisterSuccess, setRegisterSuccess] = useState(false);
     const [userName, setUserName] = useState('Павел');
     const [userEmail, setUserEmail] = useState('test@test.ru')
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -90,16 +93,31 @@ function App() {
     }
 
     function handleRegistration({ email, password, name }) {
-        console.log('registrating');
         register(email, password, name)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then((res) => {
+                console.log(res)
+                setRegisterSuccess(true);
+                navigate("/signin", { replace: true });
+            })
+            .catch((err) => {
+                console.log(err);
+                setRegisterSuccess(false);
+            })
     }
 
     function handleLogin({ password, email }) {
         login(password, email)
-            .then(res => console.log(res))
+            .then((res) => {
+                console.log(res)
+                localStorage.setItem("token", res.token);
+                setLoggedIn(true)
+                navigate('/', { replace: true })
+            })
             .catch(err => console.log(err))
+    }
+
+    function handleLogout() {
+        console.log('logging out');
     }
     // layout
     return (
