@@ -1,4 +1,4 @@
-import { MAIN_API_URL } from "./config";
+import { MAIN_API_URL, FILM_IMAGES_SERVER_URL } from "./config";
 
 class MainApi {
     constructor(config) {
@@ -32,20 +32,40 @@ class MainApi {
     }
 
     //Cards methods
-    getInitialCards(token) {
+    getSavedMovies(token) {
         return this._request(`/movies`, token);
     }
 
-    postNewCard(movie, token) {
-        return this._request(`/post`, token, "POST", movie);
+    // add movie from saved
+    addMovie({
+        country,
+        description,
+        director,
+        duration,
+        id,
+        image,
+        nameRU,
+        nameEN,
+        trailerLink,
+        year
+    }, token) {
+        return this._request(`/movies`, token, "POST", {
+            country,
+            description,
+            director,
+            duration,
+            movieId: id,
+            image: `${FILM_IMAGES_SERVER_URL + image.url}`,
+            nameRU: nameRU || 'нет названия',
+            nameEN: nameEN || 'no name',
+            trailerLink,
+            year,
+            thumbnail: `${FILM_IMAGES_SERVER_URL + image.formats.thumbnail.url}`
+        });
     }
     // delete movie to saved
     deleteMovie(id, token) {
         return this._request(`/movies/${id}`, token, "DELETE");
-    }
-    // add movie from saved
-    addMovie(id, token) {
-        return this._request(`/movies/${id}/`, token, "PUT");
     }
 
     setLikeStatus(id, isLiked, token) {

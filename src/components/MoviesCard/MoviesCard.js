@@ -16,11 +16,13 @@ export default function MoviesCard({
             : setSaved(true);
     }
 
-    function handleClick() {
+    function handleClick(e) {
+        console.log((e.target.closest('.card')));
         console.log('handling click');
         isSavedMovies
-            ? handleSavedMovies(movie, true)
-            : handleSavedMovies(movie, false)
+            ? handleSavedMovies(movie, false) // adding movie to saved
+            : handleSavedMovies(movie, true) // deleting movie from saved
+
     }
 
     const buttonText = isSavedMovies ? '' : isSaved ? '' : 'Сохранить';
@@ -39,7 +41,11 @@ export default function MoviesCard({
                 target='_blank'>
                 <img
                     className="card__image"
-                    src={imageLink}
+                    src={
+                        movie.thumbnail
+                            ? movie.thumbnail
+                            : imageLink
+                    }
                     alt={`постер "${title}"`} />
             </Link>
             <button className={

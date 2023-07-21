@@ -41,20 +41,27 @@ function App() {
     const [userEmail, setUserEmail] = useState('')
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
+    const [maxMovies, setMaxMovies] = useState(12)
+    const [moviesList, setMoviesList] = useState()
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const jwt = localStorage.getItem("token");
         setToken(jwt);
-        Promise.all([mainApi.getProfileInfo(jwt), moviesApi.getMovies()])
-            .then(([info, movies]) => {
+        Promise.all([
+            mainApi.getProfileInfo(jwt),
+            mainApi.getSavedMovies(jwt),
+            moviesApi.getMovies()
+        ])
+            .then(([info, savedMovies, movies]) => {
                 setUserEmail(info.email);
                 setUserName(info.name);
                 setCurrentUser(info);
+                setSavedMovies(savedMovies);
                 setMovies(movies);
                 setLoading(false);
                 setLoggedIn(true);
+                arrangeMoviesList(movies);
             })
             .catch(err => console.log(err));
 
@@ -76,6 +83,11 @@ function App() {
     }, [token]);
 
     // functions
+    function arrangeMoviesList(moviesArr) {
+        setMoviesList(moviesArr.slice(0, maxMovies))
+        console.log(moviesList);
+    }
+
     const filterMovies = (moviesArr) => {
         const filteredArray = moviesArr.filter((movie) => {
             return movie.duration <= shortMovieDuration;
@@ -83,12 +95,18 @@ function App() {
         return filteredArray;
     }
 
-    function deleteFromSaved(card) {
+    function deleteFromSaved(movie) {
         console.log('deleting from saved');
+        mainApi.deleteMovie(movie._id, token)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
-    function addToSaved(card) {
+    function addToSaved(movie) {
         console.log('adding to saved');
+        mainApi.addMovie(movie, token)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     function handleSavedMovies(movie, saving) {

@@ -55,7 +55,10 @@ export default function SearchForm({ isShort, setShortMovies }) {
                         {buttonText}
                     </button>
                 </div>
-                <FilterCheckbox isShort={isShort} setShortMovies={setShortMovies} />
+                <FilterCheckbox
+                    isShort={isShort}
+                    setShortMovies={setShortMovies}
+                />
             </form>
         </section>
     )

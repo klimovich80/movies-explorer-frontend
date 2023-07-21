@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 export default function SavedMovies({
     isShort,
     setShortMovies,
-    isSavedMovies,
+    savedMovies,
     handleSavedMovies }) {
     return (
         <section className='saved-movies movies'>
@@ -14,6 +14,7 @@ export default function SavedMovies({
                 setShortMovies={setShortMovies} />
             <MoviesCardList
                 isSavedMovies={true}
+                movies={savedMovies}
                 handleSavedMovies={handleSavedMovies} />
         </section>
     )
