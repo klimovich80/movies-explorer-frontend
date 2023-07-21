@@ -30,32 +30,50 @@ import { getUserInfo, register, login } from '../../utils/AuthApi';
 function App() {
     // constants
     const shortMovieDuration = 40;
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState({});
     const [token, setToken] = useState(null);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isShort, setShort] = useState(false);
     const [isRegisterSuccess, setRegisterSuccess] = useState(false);
-    const [userName, setUserName] = useState('Павел');
-    const [userEmail, setUserEmail] = useState('test@test.ru')
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('')
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        // get user info
+        const jwt = localStorage.getItem("token");
+        setToken(jwt);
+        Promise.all([mainApi.getProfileInfo(jwt), moviesApi.getMovies()])
+            .then(([info, movies]) => {
+                setUserEmail(info.email);
+                setUserName(info.name);
+                setCurrentUser(info);
+                setMovies(movies);
+                setLoading(false);
+                setLoggedIn(true);
+            })
+            .catch(err => console.log(err));
 
         // get saved movies
-        // get movies
-        moviesApi.getMovies()
-            .then((res) => {
-                setMovies(res);
-                setLoading(false);
-            })
-            .catch(err => console.log(err))
     }, [])
+
+    useEffect(() => {
+        if (!token) {
+            return;
+        }
+        getUserInfo(token)
+            .then((data) => {
+                setUserEmail(data.email);
+                setUserName(data.name);
+                setLoggedIn(true);
+                setCurrentUser(data);
+            })
+            .catch((err) => console.log(err));
+    }, [token]);
 
     // functions
     const filterMovies = (moviesArr) => {
@@ -107,9 +125,8 @@ function App() {
 
     function handleLogin({ password, email }) {
         login(password, email)
-            .then((res) => {
-                console.log(res)
-                localStorage.setItem("token", res.token);
+            .then(({ token }) => {
+                localStorage.setItem("token", token);
                 setLoggedIn(true)
                 navigate('/', { replace: true })
             })
@@ -118,6 +135,13 @@ function App() {
 
     function handleLogout() {
         console.log('logging out');
+        setToken(null);
+        setLoggedIn(false);
+        setUserEmail('');
+        setUserName('')
+        localStorage.removeItem("token");
+        setCurrentUser({});
+        navigate("/", { replace: true });
     }
     // layout
     return (
@@ -151,8 +175,7 @@ function App() {
                                 />
                                 <Footer />
                             </>
-                        } />
-
+                        } isLoggedIn={isLoggedIn} />
                     } />
                     <Route path={endpointSavedMovies} element={
                         <ProtectedRoute element={
@@ -170,16 +193,23 @@ function App() {
                                 />
                                 <Footer />
                             </>
-                        } />
+                        } isLoggedIn={isLoggedIn} />
 
                     } />
                     <Route path={endpointProfile} element={
                         <ProtectedRoute element={
                             <>
-                                <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                                <Profile userName={userName} userEmail={userEmail} isProfile={true} />
+                                <Header
+                                    isLoggedIn={isLoggedIn}
+                                    onOpen={openPopup}
+                                />
+                                <Profile
+                                    userName={userName}
+                                    userEmail={userEmail}
+                                    handleLogout={handleLogout}
+                                />
                             </>
-                        } />
+                        } isLoggedIn={isLoggedIn} />
 
                     } />
                     <Route path={endpointLogin} element={

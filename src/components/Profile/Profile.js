@@ -5,7 +5,11 @@ import './Profile.css'
 import useForm from '../hooks/useForm'
 import { endpointMain } from '../../vendor/constants/endpoints'
 
-export default function Profile({ userName, userEmail, isProfile }) {
+export default function Profile({
+    userName,
+    userEmail,
+    handleLogout
+}) {
     const [isDisabled, setDisabled] = useState(true);
     const [isSaveError, setSaveError] = useState(false)
 
@@ -73,8 +77,18 @@ export default function Profile({ userName, userEmail, isProfile }) {
             </form>
             {isDisabled
                 ? <>
-                    <button className='profile__button' onClick={enableForm} aria-label='Редактировать'>Редактировать</button>
-                    <Link className='profile__link link' to={endpointMain}>Выйти из аккаунта</Link>
+                    <button
+                        className='profile__button'
+                        onClick={enableForm}
+                        aria-label='Редактировать'
+                    >Редактировать
+                    </button>
+                    <button
+                        className='profile__button profile__button_type_logout'
+                        onClick={handleLogout}
+                        aria-label='Выйти из аккаунта'
+                    >Выйти из аккаунта
+                    </button>
                 </>
                 : <>
                     <span

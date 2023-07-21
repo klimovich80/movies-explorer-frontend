@@ -2,10 +2,8 @@ import { MAIN_API_URL } from "./config";
 
 class MainApi {
     constructor(config) {
-        console.log('calling api')
         this._baseUrl = `${config.baseUrl}`;
         this._headers = config.headers;
-        console.log(this._headers);
     }
 
     _request(url, token, method, body) {
@@ -68,6 +66,6 @@ class MainApi {
     }
 }
 
-export const api = new MainApi({
+export const mainApi = new MainApi({
     baseUrl: MAIN_API_URL,
 });
