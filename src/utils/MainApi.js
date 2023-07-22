@@ -68,14 +68,6 @@ class MainApi {
         return this._request(`/movies/${id}`, token, "DELETE");
     }
 
-    setLikeStatus(id, isLiked, token) {
-        return isLiked ? this.deleteLike(id, token) : this.addLike(id, token);
-    }
-
-    deleteCard(cardId, token) {
-        return this._request(`/movies/${cardId}`, token, "DELETE");
-    }
-
     //profile methods
     getProfileInfo(token) {
         return this._request(`/users/me`, token);

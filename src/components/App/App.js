@@ -36,7 +36,6 @@ function App() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isShort, setShort] = useState(false);
-    const [isRegisterSuccess, setRegisterSuccess] = useState(false);
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('')
     const [movies, setMovies] = useState([])
@@ -44,7 +43,7 @@ function App() {
     const [maxMovies, setMaxMovies] = useState(12)
     const [moviesList, setMoviesList] = useState()
     const navigate = useNavigate();
-
+    // рендеринг при начальной загрузке/перезагрузке страницы
     useEffect(() => {
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -61,14 +60,13 @@ function App() {
                 setMovies(movies);
                 setLoading(false);
                 setLoggedIn(true);
-                arrangeMoviesList(movies);
+                navigate(localStorage.getItem('path'))
             })
-            .catch(err => console.log(err));
-
-        // get saved movies
+            .catch(err => console.log(err.message));
     }, [])
-
+    // рендеринг по условиям
     useEffect(() => {
+        const path = window.location.pathname;
         if (!token) {
             return;
         }
@@ -78,15 +76,16 @@ function App() {
                 setUserName(data.name);
                 setLoggedIn(true);
                 setCurrentUser(data);
+                setLoggedIn(true);
+                localStorage.setItem('path', path)
             })
             .catch((err) => console.log(err));
-    }, [token]);
+    }, [token, navigate]);
 
     // functions
-    function arrangeMoviesList(moviesArr) {
-        setMoviesList(moviesArr.slice(0, maxMovies))
-        console.log(moviesList);
-    }
+    // function arrangeMoviesList(moviesArr) {
+    //     setMoviesList(moviesArr.slice(0, maxMovies))
+    // }
 
     const filterMovies = (moviesArr) => {
         const filteredArray = moviesArr.filter((movie) => {
@@ -96,21 +95,18 @@ function App() {
     }
 
     function deleteFromSaved(movie) {
-        console.log('deleting from saved');
         mainApi.deleteMovie(movie._id, token)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
 
     function addToSaved(movie) {
-        console.log('adding to saved');
         mainApi.addMovie(movie, token)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
 
     function handleSavedMovies(movie, saving) {
-        console.log('handleSavedMovies called');
         saving
             ? addToSaved(movie)
             : deleteFromSaved(movie)
@@ -131,13 +127,11 @@ function App() {
     function handleRegistration({ email, password, name }) {
         register(email, password, name)
             .then((res) => {
-                console.log(res)
-                setRegisterSuccess(true);
+                console.log(res);
                 navigate("/signin", { replace: true });
             })
             .catch((err) => {
                 console.log(err);
-                setRegisterSuccess(false);
             })
     }
 
@@ -159,11 +153,16 @@ function App() {
         setUserName('')
         localStorage.removeItem("token");
         setCurrentUser({});
+        setMovies([])
         navigate("/", { replace: true });
     }
 
     function savedMovie(movie) {
         return savedMovies.some(item => item.owner === currentUser._id && movie.id === item.movieId)
+    }
+
+    function searchMovie(name) {
+        return movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()));
     }
     // layout
     return (
@@ -185,6 +184,7 @@ function App() {
                             <>
                                 <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                 <Movies
+                                    searchMovie={searchMovie}
                                     isShort={isShort}
                                     setShortMovies={setShortMovies}
                                     isLoading={isLoading}
@@ -205,8 +205,10 @@ function App() {
                             <>
                                 <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                 <SavedMovies
+                                    searchMovie={searchMovie}
                                     isShort={isShort}
                                     setShortMovies={setShortMovies}
+                                    isLoading={isLoading}
                                     savedMovies={
                                         isShort
                                             ? filterMovies(savedMovies)

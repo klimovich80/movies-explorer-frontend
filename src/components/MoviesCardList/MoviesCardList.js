@@ -11,7 +11,12 @@ export default function MoviesCardList({
 }) {
     return (
         movies.length === 0
-            ? <p>No movies found!</p>
+            ? <>{
+                isLoading
+                    ? <Preloader />
+                    : <p className='movies-card__not-found'>К сожалению, ничего найти не удалось(((</p>
+            }
+            </>
             :
             <section className='movies-card'>
                 {isLoading

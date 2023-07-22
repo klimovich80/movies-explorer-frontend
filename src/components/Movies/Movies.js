@@ -1,8 +1,10 @@
 import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
+import Preloader from '../Preloader/Preloader'
 
 export default function Movies({
+    searchMovie,
     isShort,
     setShortMovies,
     isLoading,
@@ -10,19 +12,19 @@ export default function Movies({
     savedMovie,
     handleSavedMovies,
 }) {
-    console.log(movies);
-    return (
-        <section className='movies'>
-            <SearchForm
-                isShort={isShort}
-                setShortMovies={setShortMovies} />
-            <MoviesCardList
-                isSavedMovies={false}
-                handleSavedMovies={handleSavedMovies}
-                isLoading={isLoading}
-                movies={movies}
-                savedMovie={savedMovie}
-            />
-        </section>
+    return (<section className='movies'>
+        <SearchForm
+            searchMovie={searchMovie}
+            isShort={isShort}
+            setShortMovies={setShortMovies}
+        />
+        <MoviesCardList
+            isSavedMovies={false}
+            handleSavedMovies={handleSavedMovies}
+            isLoading={isLoading}
+            movies={movies}
+            savedMovie={savedMovie}
+        />
+    </section>
     )
 }

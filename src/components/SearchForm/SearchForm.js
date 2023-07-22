@@ -4,7 +4,11 @@ import MyInput from '../UI/MyInput/MyInput'
 import { useEffect } from 'react'
 import useForm from '../hooks/useForm'
 
-export default function SearchForm({ isShort, setShortMovies }) {
+export default function SearchForm({
+    searchMovie,
+    isShort,
+    setShortMovies
+}) {
 
     const buttonText = 'Поиск';
 
@@ -22,7 +26,8 @@ export default function SearchForm({ isShort, setShortMovies }) {
     function handleSubmit(e) {
         e.preventDefault();
         console.log('submitting search form');
-        console.log(values);
+        console.log(values.movie);
+        console.log(searchMovie(values.movie));
     }
 
     return (

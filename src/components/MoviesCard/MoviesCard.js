@@ -9,9 +9,7 @@ export default function MoviesCard({
     savedMovie
 }) {
 
-    function handleClick(e) {
-        console.log((e.target.closest('.card')));
-        console.log('handling click');
+    function handleClick() {
         isSavedMovies
             ? handleSavedMovies(movie, false) // adding movie to saved
             : handleSavedMovies(movie, true) // deleting movie from saved
