@@ -8,6 +8,7 @@ export default function Movies({
     isShort,
     setShortMovies,
     isLoading,
+    searchInput,
     movies,
     savedMovie,
     handleSavedMovies,
@@ -17,6 +18,7 @@ export default function Movies({
             searchMovie={searchMovie}
             isShort={isShort}
             setShortMovies={setShortMovies}
+            searchInput={searchInput}
         />
         <MoviesCardList
             isSavedMovies={false}

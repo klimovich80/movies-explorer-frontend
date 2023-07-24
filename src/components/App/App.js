@@ -13,7 +13,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import PopupMenu from '../PopupMenu/PopupMenu';
 import CurrentUserContext from '../../context/CurrentUserContext';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {
     endpointLogin,
     endpointMain,
@@ -50,14 +50,12 @@ function App() {
         Promise.all([
             mainApi.getProfileInfo(jwt),
             mainApi.getSavedMovies(jwt),
-            moviesApi.getMovies()
         ])
-            .then(([info, savedMovies, movies]) => {
+            .then(([info, savedMovies]) => {
                 setUserEmail(info.email);
                 setUserName(info.name);
                 setCurrentUser(info);
                 setSavedMovies(savedMovies);
-                setMovies(movies);
                 setLoading(false);
                 setLoggedIn(true);
                 navigate(localStorage.getItem('path'))
@@ -81,11 +79,6 @@ function App() {
             })
             .catch((err) => console.log(err));
     }, [token, navigate]);
-
-    // functions
-    // function arrangeMoviesList(moviesArr) {
-    //     setMoviesList(moviesArr.slice(0, maxMovies))
-    // }
 
     const filterMovies = (moviesArr) => {
         const filteredArray = moviesArr.filter((movie) => {
@@ -151,7 +144,7 @@ function App() {
         setLoggedIn(false);
         setUserEmail('');
         setUserName('')
-        localStorage.removeItem("token");
+        localStorage.clear();
         setCurrentUser({});
         setMovies([])
         navigate("/", { replace: true });
@@ -161,8 +154,27 @@ function App() {
         return savedMovies.some(item => item.owner === currentUser._id && movie.id === item.movieId)
     }
 
-    function searchMovie(name) {
-        return movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()));
+    function searchMovie(name, isShort) {
+        setLoading(true);
+        //идем к moviesApi за фильмами
+        moviesApi.getMovies()
+            .then(movies => {
+                const foundMovies = (
+                    name === '*'
+                        ? movies
+                        : movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
+                );
+                localStorage.setItem('searchInput', name)
+                localStorage.setItem('isShort', isShort);
+                localStorage.setItem('foundMovies', foundMovies);
+                setLoading(false);
+                setMovies(foundMovies)
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+            })
+        return
     }
     // layout
     return (
@@ -188,6 +200,7 @@ function App() {
                                     isShort={isShort}
                                     setShortMovies={setShortMovies}
                                     isLoading={isLoading}
+                                    searchInput={localStorage.getItem('searchInput' || '')}
                                     movies={
                                         isShort
                                             ? filterMovies(movies)

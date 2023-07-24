@@ -7,7 +7,8 @@ import useForm from '../hooks/useForm'
 export default function SearchForm({
     searchMovie,
     isShort,
-    setShortMovies
+    setShortMovies,
+    searchInput
 }) {
 
     const buttonText = 'Поиск';
@@ -17,7 +18,7 @@ export default function SearchForm({
     });
 
     useEffect(() => {
-        values.movie = '';
+        values.movie = searchInput;
         errors.movie = '';
     }, []);
 
@@ -25,9 +26,7 @@ export default function SearchForm({
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitting search form');
-        console.log(values.movie);
-        console.log(searchMovie(values.movie));
+        searchMovie(values.movie, isShort);
     }
 
     return (
@@ -37,13 +36,13 @@ export default function SearchForm({
                     <MyInput
                         id='search__movie'
                         name="movie"
-                        error={errors.movie}
+                        error={errors.movie && 'Нужно ввести ключевое слово'}
                         type='search'
                         required
                         minLength="1"
                         maxLength="50"
                         placeholder='Фильм'
-                        value={values.name}
+                        value={values.movie}
                         onChange={handleChange}
                     />
                     <button
