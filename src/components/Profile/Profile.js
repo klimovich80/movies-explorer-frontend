@@ -19,6 +19,7 @@ export default function Profile({
     });
 
     useEffect(() => {
+        console.log('profile use effect called');
         values.name = userName;
         values.email = userEmail;
         errors.name = "";

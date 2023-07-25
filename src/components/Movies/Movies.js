@@ -1,11 +1,10 @@
 import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import Preloader from '../Preloader/Preloader'
 
 export default function Movies({
     searchMovie,
-    isShort,
+    // isShort,
     setShortMovies,
     isLoading,
     searchInput,
@@ -16,7 +15,7 @@ export default function Movies({
     return (<section className='movies'>
         <SearchForm
             searchMovie={searchMovie}
-            isShort={isShort}
+            // isShort={isShort}
             setShortMovies={setShortMovies}
             searchInput={searchInput}
         />

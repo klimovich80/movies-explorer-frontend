@@ -14,7 +14,7 @@ export default function MoviesCardList({
             ? <>{
                 isLoading
                     ? <Preloader />
-                    : <p className='movies-card__not-found'>К сожалению, ничего найти не удалось(((</p>
+                    : <p className='movies-card__not-found'>Ничего не найдено</p>
             }
             </>
             :

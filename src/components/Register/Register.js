@@ -16,6 +16,7 @@ export default function Register({ handleRegistration }) {
     });
 
     useEffect(() => {
+        console.log('register use effect called');
         values.name = "";
         values.email = "";
         values.password = "";

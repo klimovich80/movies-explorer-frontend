@@ -35,7 +35,6 @@ function App() {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(true);
-    const [isShort, setShort] = useState(false);
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('')
     const [movies, setMovies] = useState([])
@@ -45,6 +44,7 @@ function App() {
     const navigate = useNavigate();
     // рендеринг при начальной загрузке/перезагрузке страницы
     useEffect(() => {
+        console.log('app main use effect called');
         const jwt = localStorage.getItem("token");
         setToken(jwt);
         Promise.all([
@@ -64,6 +64,8 @@ function App() {
     }, [])
     // рендеринг по условиям
     useEffect(() => {
+        console.log('secondary use effect called');
+        console.log(localStorage);
         const path = window.location.pathname;
         if (!token) {
             return;
@@ -103,10 +105,6 @@ function App() {
         saving
             ? addToSaved(movie)
             : deleteFromSaved(movie)
-    }
-
-    function setShortMovies() {
-        isShort ? setShort(false) : setShort(true);
     }
 
     function openPopup() {
@@ -155,6 +153,7 @@ function App() {
     }
 
     function searchMovie(name, isShort) {
+        console.log('searchign movie');
         setLoading(true);
         //идем к moviesApi за фильмами
         moviesApi.getMovies()
@@ -165,7 +164,6 @@ function App() {
                         : movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
                 );
                 localStorage.setItem('searchInput', name)
-                localStorage.setItem('isShort', isShort);
                 localStorage.setItem('foundMovies', foundMovies);
                 setLoading(false);
                 setMovies(foundMovies)
@@ -197,12 +195,10 @@ function App() {
                                 <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                 <Movies
                                     searchMovie={searchMovie}
-                                    isShort={isShort}
-                                    setShortMovies={setShortMovies}
                                     isLoading={isLoading}
                                     searchInput={localStorage.getItem('searchInput' || '')}
                                     movies={
-                                        isShort
+                                        localStorage.getItem('isShort')
                                             ? filterMovies(movies)
                                             : movies
                                     }
@@ -219,11 +215,9 @@ function App() {
                                 <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                 <SavedMovies
                                     searchMovie={searchMovie}
-                                    isShort={isShort}
-                                    setShortMovies={setShortMovies}
                                     isLoading={isLoading}
                                     savedMovies={
-                                        isShort
+                                        localStorage.getItem('isShort')
                                             ? filterMovies(savedMovies)
                                             : savedMovies
                                     }
