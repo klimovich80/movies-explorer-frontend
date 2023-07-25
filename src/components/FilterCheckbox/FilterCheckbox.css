@@ -17,7 +17,6 @@
 .filter__checkbox {
     position: absolute;
     width: 1px;
-    /* если у элемента не будет размеров, некоторые браузеры посчитают, что его вообще нет */
     height: 1px;
     -webkit-clip-path: inset(0 0 0 0);
     clip-path: inset(0 0 0 0);

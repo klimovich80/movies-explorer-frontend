@@ -15,8 +15,6 @@ export default function Movies({
     return (<section className='movies'>
         <SearchForm
             searchMovie={searchMovie}
-            // isShort={isShort}
-            setShortMovies={setShortMovies}
             searchInput={searchInput}
         />
         <MoviesCardList

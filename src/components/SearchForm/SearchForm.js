@@ -6,7 +6,6 @@ import useForm from '../hooks/useForm'
 
 export default function SearchForm({
     searchMovie,
-    setShortMovies,
     searchInput
 }) {
 
