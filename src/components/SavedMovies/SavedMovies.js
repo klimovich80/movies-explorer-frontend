@@ -11,7 +11,10 @@ export default function SavedMovies({
     savedMovies,
     savedMovie,
     handleSavedMovies,
-    filterShortMovies
+    filterShortMovies,
+    maxMovies,
+    setMaxMovies,
+    showMore
 }) {
     return (
         <section className='saved-movies movies'>
@@ -30,7 +33,11 @@ export default function SavedMovies({
                         : savedMovies
                 }
                 savedMovie={savedMovie}
-                handleSavedMovies={handleSavedMovies} />
+                handleSavedMovies={handleSavedMovies}
+                maxMovies={maxMovies}
+                setMaxMovies={setMaxMovies}
+                showMore={showMore}
+            />
         </section>
     )
 }

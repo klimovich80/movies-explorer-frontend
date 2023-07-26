@@ -31,6 +31,7 @@ function App() {
     // constants
     const shortMovieDuration = 40;
     const [isShort, setShort] = useState(false)
+    const [windowSize, setWindowSize] = useState(window.innerWidth)
     const [currentUser, setCurrentUser] = useState({});
     const [token, setToken] = useState(null);
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -41,7 +42,7 @@ function App() {
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
     const [maxMovies, setMaxMovies] = useState(12)
-    const [moviesList, setMoviesList] = useState()
+    const [showMore, setShowMore] = useState(3)
     const navigate = useNavigate();
     // рендеринг при начальной загрузке/перезагрузке страницы
     useEffect(() => {
@@ -63,6 +64,31 @@ function App() {
             .catch(err => console.log(err.message));
     }, [])
     // рендеринг по условиям
+
+    function resizeWindow() {
+        setWindowSize(window.innerWidth)
+    }
+
+    function handleResize() {
+        if (windowSize >= 1280) {
+            setMaxMovies(12)
+            setShowMore(3)
+        } else if (windowSize >= 768) {
+            setMaxMovies(8)
+            setShowMore(2)
+        } else if (windowSize >= 320) {
+            setMaxMovies(5)
+            setShowMore(2)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener(
+            'resize', resizeWindow
+        )
+        handleResize()
+    }, [windowSize])
+
     useEffect(() => {
         const path = window.location.pathname;
         if (!token) {
@@ -88,8 +114,6 @@ function App() {
     }
 
     function deleteFromSaved(movie) {
-        console.log('deleting movie');
-        console.log(savedMovies);
         const movieToDelete = savedMovies.find(
             m => m.owner === currentUser._id && m.movieId === (movie.id || movie.movieId)
         )
@@ -222,6 +246,9 @@ function App() {
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}
+                                        maxMovies={maxMovies}
+                                        setMaxMovies={setMaxMovies}
+                                        showMore={showMore}
                                     />
                                     <Footer />
                                 </>
@@ -242,6 +269,9 @@ function App() {
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}
+                                        maxMovies={maxMovies}
+                                        setMaxMovies={setMaxMovies}
+                                        showMore={showMore}
                                     />
                                     <Footer />
                                 </>

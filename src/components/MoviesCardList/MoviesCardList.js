@@ -7,17 +7,26 @@ export default function MoviesCardList({
     handleSavedMovies,
     isLoading,
     movies,
-    savedMovie
+    savedMovie,
+    maxMovies,
+    setMaxMovies,
+    showMore
 }) {
+
+    function handleMoreClick() {
+        setMaxMovies(maxMovies + showMore);
+    }
+
+    const showMovies = movies.slice(0, maxMovies)
     return (
         <section className='movies-card' >
             {
                 isLoading
                     ? <Preloader />
-                    : movies.length === 0
+                    : showMovies.length === 0
                         ? <p className='movies-card__not-found'>Ничего не найдено</p>
                         : <ul className='movies-card__list list'>
-                            {movies.map(movie => (
+                            {showMovies.map(movie => (
                                 <li className='movies-card__item' key={
                                     movie._id
                                         ? movie._id
@@ -32,7 +41,12 @@ export default function MoviesCardList({
                                 </li>))}
                         </ul>
             }
-            <button className='movies-card__button' aria-label='Eщё' type='button'>Eщё</button>
+            <button
+                className='movies-card__button'
+                aria-label='Eщё'
+                type='button'
+                onClick={handleMoreClick}
+            >Eщё</button>
         </section >
     )
 }

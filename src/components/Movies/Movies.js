@@ -11,7 +11,10 @@ export default function Movies({
     movies,
     savedMovie,
     handleSavedMovies,
-    filterShortMovies
+    filterShortMovies,
+    maxMovies,
+    setMaxMovies,
+    showMore
 }) {
     return (<section className='movies'>
         <SearchForm
@@ -30,6 +33,9 @@ export default function Movies({
                     : movies
             }
             savedMovie={savedMovie}
+            maxMovies={maxMovies}
+            setMaxMovies={setMaxMovies}
+            showMore={showMore}
         />
     </section>
     )
