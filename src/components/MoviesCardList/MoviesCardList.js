@@ -41,12 +41,16 @@ export default function MoviesCardList({
                                 </li>))}
                         </ul>
             }
-            <button
-                className='movies-card__button'
-                aria-label='Eщё'
-                type='button'
-                onClick={handleMoreClick}
-            >Eщё</button>
+            {
+                showMovies.length > 3 && showMovies.length < movies.length
+                    ? <button
+                        className='movies-card__button'
+                        aria-label='Eщё'
+                        type='button'
+                        onClick={handleMoreClick}
+                    >Eщё</button>
+                    : <></>
+            }
         </section >
     )
 }

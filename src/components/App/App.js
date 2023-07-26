@@ -44,6 +44,7 @@ function App() {
     const [maxMovies, setMaxMovies] = useState(12)
     const [showMore, setShowMore] = useState(3)
     const navigate = useNavigate();
+
     // рендеринг при начальной загрузке/перезагрузке страницы
     useEffect(() => {
         const jwt = localStorage.getItem("token");
@@ -63,7 +64,6 @@ function App() {
             })
             .catch(err => console.log(err.message));
     }, [])
-    // рендеринг по условиям
 
     function resizeWindow() {
         setWindowSize(window.innerWidth)
