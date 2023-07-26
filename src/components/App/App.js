@@ -74,8 +74,9 @@ function App() {
                 setUserName(data.name);
                 setLoggedIn(true);
                 setCurrentUser(data);
+                setSavedMovies(savedMovies)
                 setLoggedIn(true);
-                localStorage.setItem('path', path)
+                localStorage.setItem('path', path);
             })
             .catch((err) => console.log(err));
     }, [token, navigate]);
@@ -87,14 +88,27 @@ function App() {
     }
 
     function deleteFromSaved(movie) {
-        mainApi.deleteMovie(movie._id, token)
-            .then(res => console.log(res))
+        console.log('deleting movie');
+        console.log(savedMovies);
+        const movieToDelete = savedMovies.find(
+            m => m.owner === currentUser._id && m.movieId === (movie.id || movie.movieId)
+        )
+        if (!movieToDelete) return
+        mainApi.deleteMovie(movieToDelete._id, token)
+            .then((res) => {
+                console.log(res);
+                setSavedMovies(
+                    savedMovies.filter(m => m._id !== movieToDelete._id)
+                )
+            })
             .catch(err => console.log(err))
     }
 
     function addToSaved(movie) {
         mainApi.addMovie(movie, token)
-            .then(res => console.log(res))
+            .then((movie) => {
+                setSavedMovies([...savedMovies, movie])
+            })
             .catch(err => console.log(err))
     }
 
@@ -146,7 +160,9 @@ function App() {
     }
 
     function savedMovie(movie) {
-        return savedMovies.some(item => item.owner === currentUser._id && movie.id === item.movieId)
+        return savedMovies.some(
+            item => item.owner === currentUser._id && movie.id === item.movieId
+        )
     }
 
     function searchMovie(name) {
@@ -177,82 +193,100 @@ function App() {
                     <html lang='ru' />
                 </Helmet>
                 <Routes>
-                    <Route path={endpointMain} element={
-                        <>
-                            <Header isLoggedIn={isLoggedIn} onOpen={openPopup} main />
-                            <Main />
-                            <Footer />
-                        </>
-                    } />
-                    <Route path={endpointMovies} element={
-                        <ProtectedRoute element={
-                            <>
-                                <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                                <Movies
-                                    isShort={isShort}
-                                    setShort={setShort}
-                                    searchMovie={searchMovie}
-                                    isLoading={isLoading}
-                                    searchInput={localStorage.getItem('searchInput' || '')}
-                                    movies={movies}
-                                    savedMovie={savedMovie}
-                                    handleSavedMovies={handleSavedMovies}
-                                    filterShortMovies={filterShortMovies}
-                                />
-                                <Footer />
-                            </>
-                        } isLoggedIn={isLoggedIn} />
-                    } />
-                    <Route path={endpointSavedMovies} element={
-                        <ProtectedRoute element={
-                            <>
-                                <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
-                                <SavedMovies
-                                    isShort={isShort}
-                                    setShort={setShort}
-                                    searchMovie={searchMovie}
-                                    isLoading={isLoading}
-                                    savedMovies={savedMovies}
-                                    savedMovie={savedMovie}
-                                    handleSavedMovies={handleSavedMovies}
-                                    filterShortMovies={filterShortMovies}
-                                />
-                                <Footer />
-                            </>
-                        } isLoggedIn={isLoggedIn} />
-
-                    } />
-                    <Route path={endpointProfile} element={
-                        <ProtectedRoute element={
+                    <Route
+                        path={endpointMain}
+                        element={
                             <>
                                 <Header
                                     isLoggedIn={isLoggedIn}
-                                    onOpen={openPopup}
-                                />
-                                <Profile
-                                    userName={userName}
-                                    userEmail={userEmail}
-                                    handleLogout={handleLogout}
-                                />
+                                    onOpen={openPopup} />
+                                <Main />
+                                <Footer />
                             </>
-                        } isLoggedIn={isLoggedIn} />
+                        } />
+                    <Route
+                        path={endpointMovies}
+                        element={
+                            <ProtectedRoute element={
+                                <>
+                                    <Header
+                                        isLoggedIn={isLoggedIn}
+                                        onOpen={openPopup} />
+                                    <Movies
+                                        isShort={isShort}
+                                        setShort={setShort}
+                                        searchMovie={searchMovie}
+                                        isLoading={isLoading}
+                                        searchInput={localStorage.getItem('searchInput' || '')}
+                                        movies={movies}
+                                        savedMovie={savedMovie}
+                                        handleSavedMovies={handleSavedMovies}
+                                        filterShortMovies={filterShortMovies}
+                                    />
+                                    <Footer />
+                                </>
+                            } isLoggedIn={isLoggedIn} />
+                        } />
+                    <Route
+                        path={endpointSavedMovies}
+                        element={
+                            <ProtectedRoute element={
+                                <>
+                                    <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
+                                    <SavedMovies
+                                        isShort={isShort}
+                                        setShort={setShort}
+                                        searchMovie={searchMovie}
+                                        isLoading={isLoading}
+                                        savedMovies={savedMovies}
+                                        savedMovie={savedMovie}
+                                        handleSavedMovies={handleSavedMovies}
+                                        filterShortMovies={filterShortMovies}
+                                    />
+                                    <Footer />
+                                </>
+                            } isLoggedIn={isLoggedIn} />
 
-                    } />
-                    <Route path={endpointLogin} element={
-                        <Login
-                            isProfile={false}
-                            handleLogin={handleLogin}
-                        />
-                    } />
-                    <Route path={endpointRegister} element={
-                        <Register
-                            isProfile={false}
-                            handleRegistration={handleRegistration}
-                        />
-                    } />
-                    <Route path={endpointUnknown} element={
-                        <PageNotFound />
-                    } />
+                        } />
+                    <Route
+                        path={endpointProfile}
+                        element={
+                            <ProtectedRoute element={
+                                <>
+                                    <Header
+                                        isLoggedIn={isLoggedIn}
+                                        onOpen={openPopup}
+                                    />
+                                    <Profile
+                                        userName={userName}
+                                        userEmail={userEmail}
+                                        handleLogout={handleLogout}
+                                    />
+                                </>
+                            } isLoggedIn={isLoggedIn} />
+
+                        } />
+                    <Route
+                        path={endpointLogin}
+                        element={
+                            <Login
+                                isProfile={false}
+                                handleLogin={handleLogin}
+                            />
+                        } />
+                    <Route
+                        path={endpointRegister}
+                        element={
+                            <Register
+                                isProfile={false}
+                                handleRegistration={handleRegistration}
+                            />
+                        } />
+                    <Route
+                        path={endpointUnknown}
+                        element={
+                            <PageNotFound />
+                        } />
                 </Routes>
                 {/* menu popup */}
                 <PopupMenu

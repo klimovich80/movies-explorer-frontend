@@ -1,22 +1,35 @@
 import { Link } from 'react-router-dom'
 import './PopupMenu.css'
-import { endpointMain, endpointMovies, endpointSavedMovies, endpointProfile } from '../../vendor/constants/endpoints'
+import {
+    endpointMain,
+    endpointMovies,
+    endpointSavedMovies,
+    endpointProfile
+} from '../../vendor/constants/endpoints'
 import accountLogo from '../../images/account-icon.svg'
 
-export default function PopupMenu({ isOpen, onClose }) {
+export default function PopupMenu({
+    isOpen,
+    onClose
+}) {
     function setActiveLink(e) {
+        const activeClass = 'link_active';
         const links = e.target.closest('ul').querySelectorAll('.popup__link')
         links.forEach(link => {
-            link.classList.remove('link_active')
+            link.classList.remove(activeClass)
         });
-        e.target.classList.add('link_active');
+        e.target.classList.add(activeClass);
         onClose();
     }
     return (
         <div className={isOpen ? 'popup' : 'popup popup_disabled'}>
             <div className='popup__overlay'>
                 <div className='popup__container'>
-                    <button className='popup__close-button' aria-label='' onClick={onClose}></button>
+                    <button
+                        className='popup__close-button'
+                        aria-label=''
+                        onClick={onClose}
+                    ></button>
                     <nav className='popup__navigation'>
                         <ul className='popup__list list'>
                             <li className='popup__item'>
@@ -41,7 +54,10 @@ export default function PopupMenu({ isOpen, onClose }) {
                         </ul>
                     </nav>
                     <div className='account'>
-                        <Link className='account__link link' to={endpointProfile} onClick={onClose}>Аккаунт</Link>
+                        <Link
+                            className='account__link link'
+                            to={endpointProfile}
+                            onClick={onClose}>Аккаунт</Link>
                         <img className='logo' src={accountLogo} alt='иконка аккаунта' />
                     </div>
                 </div>

@@ -9,17 +9,36 @@ import {
     endpointSavedMovies
 } from '../../vendor/constants/endpoints'
 
-export default function Navigation({ isLoggedIn, onOpen }) {
+export default function Navigation({
+    isLoggedIn,
+    onOpen
+}) {
+    function setActiveLink(e) {
+        const activeClass = 'navigation__link_active';
+        const links = e.target.closest('ul').querySelectorAll('.navigation__link')
+        links.forEach(link => {
+            link.classList.remove(activeClass)
+        });
+        e.target.classList.add(activeClass);
+    }
     return (
         <>
             {isLoggedIn ? (
                 <nav className='navigation logged-in'>
                     <ul className='navigation__list list navigation__movies navigation__list_logged-in'>
                         <li className='navigation__item'>
-                            <Link className='navigation__link navigation__link_active link navigation__link_logged-in' to={endpointMovies}>Фильмы</Link>
+                            <Link
+                                className='navigation__link link navigation__link_logged-in'
+                                to={endpointMovies}
+                                onClick={setActiveLink}
+                            >Фильмы</Link>
                         </li>
                         <li className='navigation__item'>
-                            <Link className='navigation__link link navigation__link_logged-in' to={endpointSavedMovies}>Сохранённые фильмы</Link>
+                            <Link
+                                className='navigation__link link navigation__link_logged-in'
+                                to={endpointSavedMovies}
+                                onClick={setActiveLink}
+                            >Сохранённые фильмы</Link>
                         </li>
                     </ul>
                     <ul className='navigation__list list navigation__account navigation__list_logged-in'>

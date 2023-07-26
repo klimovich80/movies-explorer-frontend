@@ -3,16 +3,27 @@ import { Link } from 'react-router-dom';
 import { FILM_IMAGES_SERVER_URL } from '../../utils/config';
 
 export default function MoviesCard({
+    // flags wether we are at movies or saved movies mode
     isSavedMovies,
+    // handling saving or deleting movies from saved list
     handleSavedMovies,
+    // returns recent movie card 
     movie,
+    // flags wether recent movie saved
     savedMovie
 }) {
-
-    function handleClick() {
+    // send add/ delete request depending on it's state
+    function handleClick(e) {
+        //does request commes from saved-movies page?
         isSavedMovies
-            ? handleSavedMovies(movie, false) // adding movie to saved
-            : handleSavedMovies(movie, true) // deleting movie from saved
+            // yes, deleting movie from list
+            ? handleSavedMovies(movie, false)
+            // no, check if movie already being saved
+            : savedMovie(movie)
+                // yes, delete it from saved list
+                ? handleSavedMovies(movie, false)
+                // no, add it to save list
+                : handleSavedMovies(movie, true)
 
     }
 
