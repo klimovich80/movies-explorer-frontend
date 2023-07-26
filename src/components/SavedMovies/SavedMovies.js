@@ -3,24 +3,32 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 export default function SavedMovies({
+    isShort,
+    setShort,
     searchMovie,
-    // isShort,
     setShortMovies,
     isLoading,
     savedMovies,
     savedMovie,
-    handleSavedMovies
+    handleSavedMovies,
+    filterShortMovies
 }) {
     return (
         <section className='saved-movies movies'>
             <SearchForm
                 searchMovie={searchMovie}
-                // isShort={isShort}
-                setShortMovies={setShortMovies} />
+                setShortMovies={setShortMovies}
+                isShort={isShort}
+                setShort={setShort}
+            />
             <MoviesCardList
                 isLoading={isLoading}
                 isSavedMovies={true}
-                movies={savedMovies}
+                movies={
+                    isShort
+                        ? filterShortMovies(savedMovies)
+                        : savedMovies
+                }
                 savedMovie={savedMovie}
                 handleSavedMovies={handleSavedMovies} />
         </section>

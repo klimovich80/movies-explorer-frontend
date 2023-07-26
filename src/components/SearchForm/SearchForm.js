@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import useForm from '../hooks/useForm'
 
 export default function SearchForm({
+    isShort,
+    setShort,
     searchMovie,
     searchInput
 }) {
@@ -16,7 +18,6 @@ export default function SearchForm({
     });
 
     useEffect(() => {
-        console.log('search from use effect called');
         values.movie = (
             searchInput
                 ? searchInput
@@ -29,7 +30,7 @@ export default function SearchForm({
 
     function handleSubmit(e) {
         e.preventDefault();
-        searchMovie(values.movie, localStorage.getItem('isShort'));
+        searchMovie(values.movie);
     }
 
     return (
@@ -62,7 +63,10 @@ export default function SearchForm({
                         {buttonText}
                     </button>
                 </div>
-                <FilterCheckbox />
+                <FilterCheckbox
+                    isShort={isShort}
+                    setShort={setShort}
+                />
             </form>
         </section>
     )

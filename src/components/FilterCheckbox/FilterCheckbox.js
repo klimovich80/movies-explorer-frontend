@@ -1,23 +1,23 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import './FilterCheckbox.css'
 
-export default function FilterCheckbox() {
+export default function FilterCheckbox({
+    isShort,
+    setShort
+}) {
     const inputRef = useRef(null);
-
-    const [checked, setChecked] = useState(false)
 
     function handleCheckbox() {
         const input = inputRef.current.checked;
-        setChecked(!input)
+        setShort(!input)
         setShortFilter(!input)
     }
     function setShortFilter(isShort) {
         localStorage.setItem('isShort', isShort)
-        console.log(localStorage);
     }
 
     useEffect(() => {
-        setChecked(JSON.parse(localStorage.getItem('isShort')))
+        setShort(JSON.parse(localStorage.getItem('isShort')) || false)
     }, [])
 
     return (
@@ -27,7 +27,7 @@ export default function FilterCheckbox() {
                 type='checkbox'
                 id='search__checkbox'
                 name='filter__checkbox'
-                checked={checked}
+                checked={isShort}
                 onChange={() => { }} />
             <span className="filter__visible-checkbox" onClick={handleCheckbox}></span>
             <label className='filter__label' htmlFor='search__checkbox'>Короткометражки</label>

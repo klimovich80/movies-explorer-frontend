@@ -30,6 +30,7 @@ import { getUserInfo, register, login } from '../../utils/AuthApi';
 function App() {
     // constants
     const shortMovieDuration = 40;
+    const [isShort, setShort] = useState(false)
     const [currentUser, setCurrentUser] = useState({});
     const [token, setToken] = useState(null);
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -44,7 +45,6 @@ function App() {
     const navigate = useNavigate();
     // рендеринг при начальной загрузке/перезагрузке страницы
     useEffect(() => {
-        console.log('app main use effect called');
         const jwt = localStorage.getItem("token");
         setToken(jwt);
         Promise.all([
@@ -64,8 +64,6 @@ function App() {
     }, [])
     // рендеринг по условиям
     useEffect(() => {
-        console.log('secondary use effect called');
-        console.log(localStorage);
         const path = window.location.pathname;
         if (!token) {
             return;
@@ -82,11 +80,10 @@ function App() {
             .catch((err) => console.log(err));
     }, [token, navigate]);
 
-    const filterMovies = (moviesArr) => {
-        const filteredArray = moviesArr.filter((movie) => {
+    const filterShortMovies = (moviesArr) => {
+        return moviesArr.filter((movie) => {
             return movie.duration <= shortMovieDuration;
         })
-        return filteredArray;
     }
 
     function deleteFromSaved(movie) {
@@ -152,10 +149,8 @@ function App() {
         return savedMovies.some(item => item.owner === currentUser._id && movie.id === item.movieId)
     }
 
-    function searchMovie(name, isShort) {
-        console.log('searchign movie');
+    function searchMovie(name) {
         setLoading(true);
-        //идем к moviesApi за фильмами
         moviesApi.getMovies()
             .then(movies => {
                 const foundMovies = (
@@ -163,6 +158,7 @@ function App() {
                         ? movies
                         : movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
                 );
+                JSON.parse(localStorage.getItem('isShort'))
                 localStorage.setItem('searchInput', name)
                 localStorage.setItem('foundMovies', foundMovies);
                 setLoading(false);
@@ -172,7 +168,6 @@ function App() {
                 console.log(err);
                 setLoading(false);
             })
-        return
     }
     // layout
     return (
@@ -194,16 +189,15 @@ function App() {
                             <>
                                 <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                 <Movies
+                                    isShort={isShort}
+                                    setShort={setShort}
                                     searchMovie={searchMovie}
                                     isLoading={isLoading}
                                     searchInput={localStorage.getItem('searchInput' || '')}
-                                    movies={
-                                        localStorage.getItem('isShort')
-                                            ? filterMovies(movies)
-                                            : movies
-                                    }
+                                    movies={movies}
                                     savedMovie={savedMovie}
                                     handleSavedMovies={handleSavedMovies}
+                                    filterShortMovies={filterShortMovies}
                                 />
                                 <Footer />
                             </>
@@ -214,15 +208,14 @@ function App() {
                             <>
                                 <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                 <SavedMovies
+                                    isShort={isShort}
+                                    setShort={setShort}
                                     searchMovie={searchMovie}
                                     isLoading={isLoading}
-                                    savedMovies={
-                                        localStorage.getItem('isShort')
-                                            ? filterMovies(savedMovies)
-                                            : savedMovies
-                                    }
+                                    savedMovies={savedMovies}
                                     savedMovie={savedMovie}
                                     handleSavedMovies={handleSavedMovies}
+                                    filterShortMovies={filterShortMovies}
                                 />
                                 <Footer />
                             </>
