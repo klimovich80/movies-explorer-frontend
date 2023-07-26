@@ -4,6 +4,14 @@ import { endpointMain, endpointMovies, endpointSavedMovies, endpointProfile } fr
 import accountLogo from '../../images/account-icon.svg'
 
 export default function PopupMenu({ isOpen, onClose }) {
+    function setActiveLink(e) {
+        const links = e.target.closest('ul').querySelectorAll('.popup__link')
+        links.forEach(link => {
+            link.classList.remove('link_active')
+        });
+        e.target.classList.add('link_active');
+        onClose();
+    }
     return (
         <div className={isOpen ? 'popup' : 'popup popup_disabled'}>
             <div className='popup__overlay'>
@@ -12,13 +20,23 @@ export default function PopupMenu({ isOpen, onClose }) {
                     <nav className='popup__navigation'>
                         <ul className='popup__list list'>
                             <li className='popup__item'>
-                                <Link className='popup__link link link_active' to={endpointMain} onClick={onClose}>Главная</Link>
+                                <Link
+                                    className='popup__link link'
+                                    to={endpointMain}
+                                    onClick={setActiveLink}>Главная</Link>
                             </li>
                             <li className='popup__item'>
-                                <Link className='popup__link link' to={endpointMovies} onClick={onClose}>Фильмы</Link>
+                                <Link
+                                    className='popup__link link'
+                                    to={endpointMovies}
+                                    onClick={setActiveLink}>Фильмы</Link>
                             </li>
                             <li className='popup__item'>
-                                <Link className='popup__link link' to={endpointSavedMovies} onClick={onClose}>Сохранённые фильмы</Link>
+                                <Link
+                                    className='popup__link link'
+                                    to={endpointSavedMovies}
+                                    onClick={setActiveLink}
+                                >Сохранённые фильмы</Link>
                             </li>
                         </ul>
                     </nav>
