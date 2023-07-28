@@ -99,6 +99,7 @@ function App() {
                 setLoading(false)
             });
     }, [token, navigate]);
+
     // rendering on window resize
     useEffect(() => {
         console.log('window resizing rendering');
@@ -176,9 +177,20 @@ function App() {
                 navigate("/signin", { replace: true });
             })
             .catch((err) => {
-                err.includes('409')
-                    ? setErrorMessage('Пользователь с таким email уже существует.')
-                    : setErrorMessage('При регистрации пользователя произошла ошибка.')
+                console.log(err);
+                if (err.message) {
+                    if (err.message.includes('Failed')) {
+                        setErrorMessage('500 На сервере произошла ошибка.')
+                    }
+                } else {
+                    if (err.includes('409')) {
+                        setErrorMessage('Пользователь с таким email уже существует.')
+                    } else if (err.includes('404')) {
+                        setErrorMessage('404 Страница по указанному маршруту не найдена.')
+                    } else {
+                        setErrorMessage('При регистрации пользователя произошла ошибка.')
+                    }
+                }
             })
     }
 

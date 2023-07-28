@@ -16,8 +16,7 @@ export default function Register({
         values,
         handleChange,
         errors,
-        isValid,
-        resetForm
+        isValid
     } = useFormWithValidation({
         name: '',
         email: '',
@@ -37,7 +36,6 @@ export default function Register({
     function handleSubmit(e) {
         e.preventDefault();
         handleRegistration(values);
-        // resetForm();
     }
 
     return (
