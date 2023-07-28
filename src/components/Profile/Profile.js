@@ -1,51 +1,47 @@
 import MyInput from '../UI/MyInput/MyInput'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import './Profile.css'
 import { useFormWithValidation } from '../hooks/useForm'
 
 export default function Profile({
-    userName,
-    userEmail,
-    handleLogout
+    errorMessage,
+    currentUser,
+    handleLogout,
+    handleProfileEdit,
+    isEditableForm,
+    setEditableForm
 }) {
-    const [isDisabled, setDisabled] = useState(true);
-    const [isSaveError, setSaveError] = useState(false)
 
     const {
         values,
         errors,
-        handleChange
+        handleChange,
+        isValid
     } = useFormWithValidation({
-        name: userName,
-        email: userEmail
+        name: currentUser.name,
+        email: currentUser.email
     });
 
     useEffect(() => {
-        values.name = userName;
-        values.email = userEmail;
-        errors.name = "";
-        errors.email = "";
-    }, []);
+        values.name = currentUser.name;
+        values.email = currentUser.email;
+        errors.name = '';
+        errors.email = '';
+    }, [currentUser]);
 
     function enableForm() {
-        setDisabled(false);
-    }
-
-    function disableForm() {
-        setDisabled(true);
+        setEditableForm(true);
     }
 
     function handleSubmit() {
-        console.log('handling saving data from profile form');
-        disableForm();
+        handleProfileEdit(values);
     }
-    const disableButton = errors.name !== '' || errors.email !== '';
 
     return (
         <section className='profile'>
             <form className='profile__form'>
-                <fieldset className='profile__fieldset' disabled={isDisabled}>
-                    <h2 className='profile__title'>Привет, {userName}!</h2>
+                <fieldset className='profile__fieldset' disabled={!isEditableForm}>
+                    <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
                     <label className='profile__label' htmlFor='profile__name'>
                         <span className='profile__label-title'>Имя</span>
                         <MyInput
@@ -77,7 +73,7 @@ export default function Profile({
                     </label>
                 </fieldset>
             </form>
-            {isDisabled
+            {!isEditableForm
                 ? <>
                     <button
                         className='profile__button'
@@ -95,23 +91,21 @@ export default function Profile({
                 : <>
                     <span
                         className={
-                            isSaveError
+                            errorMessage
                                 ? 'profile__save-error save-error-visible'
                                 : 'profile__save-error '
                         }>
-                        При обновлении профиля произошла ошибка.
+                        {errorMessage}
                     </span>
                     <button
                         className={
-                            isSaveError
-                                ? 'profile__save-button profile__save-button_error button'
-                                : disableButton
-                                    ? "profile__save-button profile__save-button_error"
-                                    : 'profile__save-button button'
+                            isValid
+                                ? 'profile__save-button button'
+                                : 'button profile__save-button_disabled profile__save-button'
                         }
                         onClick={handleSubmit}
                         aria-label='Сохранить'
-                        disabled={disableButton}>
+                        disabled={!isValid}>
                         Сохранить
                     </button>
                 </>

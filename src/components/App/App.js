@@ -31,6 +31,7 @@ function App() {
     // states
     const [currentUser, setCurrentUser] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
+    const [isEditableForm, setEditableForm] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
@@ -41,8 +42,6 @@ function App() {
     const [connectionError, setConnectionError] = useState(false)
     const [showMore, setShowMore] = useState(3)
     const [token, setToken] = useState(null);
-    const [userEmail, setUserEmail] = useState('')
-    const [userName, setUserName] = useState('');
     const [windowSize, setWindowSize] = useState(window.innerWidth)
     // constants
     const shortMovieDuration = 40;
@@ -59,10 +58,8 @@ function App() {
             mainApi.getProfileInfo(jwt),
             mainApi.getSavedMovies(jwt),
         ])
-            .then(([info, savedMovies]) => {
-                setUserEmail(info.email);
-                setUserName(info.name);
-                setCurrentUser(info);
+            .then(([{ name, email }, savedMovies]) => {
+                setCurrentUser({ name, email });
                 setSavedMovies(savedMovies);
                 setLoggedIn(true);
                 navigate(localStorage.getItem('path'))
@@ -83,11 +80,9 @@ function App() {
             return;
         }
         getUserInfo(token)
-            .then((data) => {
-                setUserEmail(data.email);
-                setUserName(data.name);
+            .then(({ name, email }) => {
                 setLoggedIn(true);
-                setCurrentUser(data);
+                setCurrentUser({ name, email });
                 setSavedMovies(savedMovies)
                 setLoggedIn(true);
                 localStorage.setItem('path', path);
@@ -197,6 +192,7 @@ function App() {
     function handleLogin({ password, email }) {
         login(password, email)
             .then(({ token }) => {
+                console.log(token);
                 localStorage.setItem("token", token);
                 setToken(token);
                 setLoggedIn(true);
@@ -205,7 +201,7 @@ function App() {
             .catch(err => {
                 console.dir(err)
                 if (err.message) {
-                    setErrorMessage(err.message)
+                    setErrorMessage("Что-то пошло не так...")
                 } else {
                     if (err.includes('401')) {
                         setErrorMessage('Вы ввели неправильный логин или пароль.')
@@ -217,12 +213,28 @@ function App() {
     function handleLogout() {
         setToken(null);
         setLoggedIn(false);
-        setUserEmail('');
-        setUserName('')
-        localStorage.clear();
         setCurrentUser({});
-        setMovies([])
+        setMovies([]);
+        setErrorMessage('');
+        localStorage.clear();
         navigate("/", { replace: true });
+    }
+
+    function handleProfileEdit({ name, email }) {
+        setErrorMessage('');
+        mainApi.editProfileInfo(name, email, token)
+            .then(({ email, name }) => {
+                setEditableForm(false);
+                setCurrentUser({ name, email })
+            })
+            .catch(err => {
+                setEditableForm(true);
+                if (err.includes('409')) {
+                    setErrorMessage('Пользователь с таким email уже существует.')
+                    return;
+                }
+                setErrorMessage('При обновлении профиля произошла ошибка.')
+            })
     }
 
     function savedMovie(movie) {
@@ -344,9 +356,12 @@ function App() {
                                         onOpen={openPopup}
                                     />
                                     <Profile
-                                        userName={userName}
-                                        userEmail={userEmail}
+                                        errorMessage={errorMessage}
+                                        currentUser={currentUser}
                                         handleLogout={handleLogout}
+                                        handleProfileEdit={handleProfileEdit}
+                                        isEditableForm={isEditableForm}
+                                        setEditableForm={setEditableForm}
                                     />
                                 </>
                             } isLoggedIn={isLoggedIn} />

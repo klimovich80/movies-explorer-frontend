@@ -19,7 +19,7 @@ export default function PopupMenu({
             <div className='popup__overlay'>
                 <div className='popup__container'>
                     <button
-                        className='popup__close-button'
+                        className='popup__close-button button'
                         aria-label=''
                         onClick={onClose}
                     ></button>
