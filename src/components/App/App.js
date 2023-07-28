@@ -214,11 +214,9 @@ function App() {
     }
 
     function searchMovie(name) {
-        console.log('initiating search');
         setLoading(true);
         moviesApi.getMovies()
             .then(movies => {
-                console.log('good connection');
                 setConnectionError(false);
                 const foundMovies = findMovies(movies, name);
                 const foundSavedMovies = findMovies(savedMovies, name)

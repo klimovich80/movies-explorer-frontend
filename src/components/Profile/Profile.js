@@ -1,7 +1,7 @@
 import MyInput from '../UI/MyInput/MyInput'
 import { useState, useEffect } from 'react'
 import './Profile.css'
-import useForm from '../hooks/useForm'
+import { useForm } from '../hooks/useForm'
 
 export default function Profile({
     userName,

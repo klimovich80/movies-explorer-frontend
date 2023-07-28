@@ -2,7 +2,7 @@ import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import MyInput from '../UI/MyInput/MyInput'
 import { useEffect } from 'react'
-import useForm from '../hooks/useForm'
+import { useForm } from '../hooks/useForm'
 
 export default function SearchForm({
     isShort,

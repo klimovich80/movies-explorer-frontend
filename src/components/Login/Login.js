@@ -1,7 +1,7 @@
 import './Login.css'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import useForm from '../hooks/useForm';
+import { useForm } from '../hooks/useForm';
 import MyInput from '../UI/MyInput/MyInput';
 import { endpointMain, endpointRegister } from '../../vendor/constants/endpoints';
 import logo from '../../images/logo.svg';

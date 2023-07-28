@@ -1,6 +1,6 @@
 import './Register.css'
 import { useEffect } from 'react'
-import useForm from '../hooks/useForm'
+import { useFormWithValidation } from '../hooks/useForm'
 import { endpointMain, endpointLogin } from '../../vendor/constants/endpoints'
 import logo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,13 @@ import MyInput from '../UI/MyInput/MyInput'
 export default function Register({ handleRegistration }) {
     const buttonText = 'Зарегистрироваться';
 
-    const { values, errors, handleChange } = useForm({
+    const {
+        values,
+        handleChange,
+        errors,
+        isValid,
+        resetForm
+    } = useFormWithValidation({
         name: '',
         email: '',
         password: ''
@@ -25,11 +31,10 @@ export default function Register({ handleRegistration }) {
         errors.password = "";
     }, []);
 
-    const disableButton = errors.name !== "" || errors.email !== "";
-
     function handleSubmit(e) {
         e.preventDefault();
         handleRegistration(values);
+        resetForm();
     }
 
     return (
@@ -83,9 +88,13 @@ export default function Register({ handleRegistration }) {
                     />
                 </label>
                 <button
-                    className='register__button button'
+                    className={
+                        isValid
+                            ? 'register__button button'
+                            : 'register__button button button_disabled'
+                    }
                     aria-label={buttonText}
-                    disabled={disableButton}
+                    disabled={!isValid}
                     onClick={handleSubmit}
                 >
                     {buttonText}

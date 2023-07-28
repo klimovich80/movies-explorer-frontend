@@ -31,6 +31,11 @@
     line-height: normal;
 }
 
+.button_disabled {
+    color: var(--button-error_text-color);
+    background-color: var(--button-error_color);
+}
+
 .button:hover {
     opacity: .8;
 }
