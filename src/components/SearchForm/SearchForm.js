@@ -8,7 +8,7 @@ export default function SearchForm({
     isShort,
     setShort,
     searchMovie,
-    searchInput
+    searchInput,
 }) {
 
     const buttonText = 'Поиск';
@@ -18,11 +18,7 @@ export default function SearchForm({
     });
 
     useEffect(() => {
-        values.movie = (
-            searchInput
-                ? searchInput
-                : ''
-        );
+        values.movie = (searchInput);
         errors.movie = '';
     }, []);
 

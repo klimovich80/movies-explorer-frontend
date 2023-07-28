@@ -28,25 +28,29 @@ import { mainApi } from '../../utils/MainApi';
 import { getUserInfo, register, login } from '../../utils/AuthApi';
 
 function App() {
-    // constants
-    const shortMovieDuration = 40;
-    const [isShort, setShort] = useState(false)
-    const [windowSize, setWindowSize] = useState(window.innerWidth)
+    // states
     const [currentUser, setCurrentUser] = useState({});
-    const [token, setToken] = useState(null);
+    const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [isLoading, setLoading] = useState(true);
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('')
+    const [isShort, setShort] = useState(false)
+    const [maxMovies, setMaxMovies] = useState(12)
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
-    const [maxMovies, setMaxMovies] = useState(12)
     const [showMore, setShowMore] = useState(3)
+    const [token, setToken] = useState(null);
+    const [userEmail, setUserEmail] = useState('')
+    const [userName, setUserName] = useState('');
+    const [windowSize, setWindowSize] = useState(window.innerWidth)
+    // constants
+    const shortMovieDuration = 40;
     const navigate = useNavigate();
 
-    // рендеринг при начальной загрузке/перезагрузке страницы
+    // useEffects
+    // initial rendering
     useEffect(() => {
+        setLoading(true);
+        console.log('initial rendering');
         const jwt = localStorage.getItem("token");
         setToken(jwt);
         Promise.all([
@@ -58,38 +62,21 @@ function App() {
                 setUserName(info.name);
                 setCurrentUser(info);
                 setSavedMovies(savedMovies);
-                setLoading(false);
                 setLoggedIn(true);
+                console.log(localStorage);
                 navigate(localStorage.getItem('path'))
             })
-            .catch(err => console.log(err.message));
+            .catch(err => {
+                console.log(err.message)
+            })
+            .finally(() => {
+                setLoading(false)
+            });
     }, [])
-
-    function resizeWindow() {
-        setWindowSize(window.innerWidth)
-    }
-
-    function handleResize() {
-        if (windowSize >= 1280) {
-            setMaxMovies(12)
-            setShowMore(3)
-        } else if (windowSize >= 768) {
-            setMaxMovies(8)
-            setShowMore(2)
-        } else if (windowSize >= 320) {
-            setMaxMovies(5)
-            setShowMore(2)
-        }
-    }
-
+    // rendering on conditions
     useEffect(() => {
-        window.addEventListener(
-            'resize', resizeWindow
-        )
-        handleResize()
-    }, [windowSize])
-
-    useEffect(() => {
+        setLoading(true);
+        console.log('secondary rendering');
         const path = window.location.pathname;
         if (!token) {
             return;
@@ -103,10 +90,42 @@ function App() {
                 setSavedMovies(savedMovies)
                 setLoggedIn(true);
                 localStorage.setItem('path', path);
+                console.log(localStorage);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                setLoading(false)
+            });
     }, [token, navigate]);
+    // rendering on window resize
+    useEffect(() => {
+        console.log('window resizing rendering');
+        window.addEventListener(
+            'resize', resizeWindow)
+        handleResize()
+    }, [windowSize])
 
+    // functions
+    function resizeWindow() {
+        setWindowSize(window.innerWidth)
+    }
+
+    // set quantity of movies to display
+    function handleResize() {
+        if (windowSize >= 1280) {
+            setMaxMovies(12)
+            setShowMore(3)
+        } else if (windowSize >= 768) {
+            setMaxMovies(8)
+            setShowMore(2)
+        } else if (windowSize >= 320) {
+            setMaxMovies(5)
+            setShowMore(2)
+        }
+    }
+    // filter out short movies function
     const filterShortMovies = (moviesArr) => {
         return moviesArr.filter((movie) => {
             return movie.duration <= shortMovieDuration;
@@ -166,13 +185,12 @@ function App() {
             .then(({ token }) => {
                 localStorage.setItem("token", token);
                 setLoggedIn(true)
-                navigate('/', { replace: true })
+                navigate('/movies', { replace: true })
             })
             .catch(err => console.log(err))
     }
 
     function handleLogout() {
-        console.log('logging out');
         setToken(null);
         setLoggedIn(false);
         setUserEmail('');
@@ -198,17 +216,23 @@ function App() {
                         ? movies
                         : movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
                 );
-                JSON.parse(localStorage.getItem('isShort'))
+                JSON.parse(localStorage.getItem('isShort'));
+                //console.log(JSON.stringify(foundMovies));
+                const stringEntries = JSON.stringify(foundMovies);
                 localStorage.setItem('searchInput', name)
-                localStorage.setItem('foundMovies', foundMovies);
-                setLoading(false);
+                localStorage.setItem('foundMovies', stringEntries);
+                console.log(localStorage.getItem('foundMovies'));
                 setMovies(foundMovies)
+                console.log(movies);
             })
             .catch(err => {
                 console.log(err);
+            })
+            .finally(() => {
                 setLoading(false);
             })
     }
+
     // layout
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -241,8 +265,8 @@ function App() {
                                         setShort={setShort}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
-                                        searchInput={localStorage.getItem('searchInput' || '')}
-                                        movies={movies}
+                                        searchInput={localStorage.getItem('searchInput') || ''}
+                                        movies={JSON.parse(localStorage.getItem('foundMovies')) || null}
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}
@@ -265,6 +289,7 @@ function App() {
                                         setShort={setShort}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
+                                        searchInput={localStorage.getItem('searchInput' || '')}
                                         savedMovies={savedMovies}
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}

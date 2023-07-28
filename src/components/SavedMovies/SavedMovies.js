@@ -6,6 +6,7 @@ export default function SavedMovies({
     isShort,
     setShort,
     searchMovie,
+    searchInput,
     setShortMovies,
     isLoading,
     savedMovies,
@@ -20,6 +21,7 @@ export default function SavedMovies({
         <section className='saved-movies movies'>
             <SearchForm
                 searchMovie={searchMovie}
+                searchInput={searchInput}
                 setShortMovies={setShortMovies}
                 isShort={isShort}
                 setShort={setShort}

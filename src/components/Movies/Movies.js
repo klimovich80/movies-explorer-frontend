@@ -18,10 +18,10 @@ export default function Movies({
 }) {
     return (<section className='movies'>
         <SearchForm
-            searchMovie={searchMovie}
-            searchInput={searchInput}
             isShort={isShort}
             setShort={setShort}
+            searchMovie={searchMovie}
+            searchInput={searchInput}
         />
         <MoviesCardList
             isSavedMovies={false}

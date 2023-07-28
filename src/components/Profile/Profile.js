@@ -1,9 +1,7 @@
-import { Link } from 'react-router-dom'
 import MyInput from '../UI/MyInput/MyInput'
 import { useState, useEffect } from 'react'
 import './Profile.css'
 import useForm from '../hooks/useForm'
-import { endpointMain } from '../../vendor/constants/endpoints'
 
 export default function Profile({
     userName,
@@ -19,7 +17,6 @@ export default function Profile({
     });
 
     useEffect(() => {
-        console.log('profile use effect called');
         values.name = userName;
         values.email = userEmail;
         errors.name = "";

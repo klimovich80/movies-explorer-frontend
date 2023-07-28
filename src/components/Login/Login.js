@@ -15,7 +15,6 @@ export default function Login({ handleLogin }) {
     });
 
     useEffect(() => {
-        console.log('login use effect called');
         values.email = "";
         values.password = "";
         errors.email = "";
