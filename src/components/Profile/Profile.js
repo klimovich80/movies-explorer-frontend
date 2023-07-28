@@ -1,7 +1,7 @@
 import MyInput from '../UI/MyInput/MyInput'
 import { useState, useEffect } from 'react'
 import './Profile.css'
-import { useForm } from '../hooks/useForm'
+import { useFormWithValidation } from '../hooks/useForm'
 
 export default function Profile({
     userName,
@@ -11,7 +11,11 @@ export default function Profile({
     const [isDisabled, setDisabled] = useState(true);
     const [isSaveError, setSaveError] = useState(false)
 
-    const { values, errors, handleChange } = useForm({
+    const {
+        values,
+        errors,
+        handleChange
+    } = useFormWithValidation({
         name: userName,
         email: userEmail
     });

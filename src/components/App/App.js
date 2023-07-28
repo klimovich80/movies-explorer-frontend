@@ -202,7 +202,16 @@ function App() {
                 setLoggedIn(true);
                 navigate('/movies', { replace: true });
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.dir(err)
+                if (err.message) {
+                    setErrorMessage(err.message)
+                } else {
+                    if (err.includes('401')) {
+                        setErrorMessage('Вы ввели неправильный логин или пароль.')
+                    }
+                }
+            })
     }
 
     function handleLogout() {
@@ -347,6 +356,7 @@ function App() {
                         path={endpointLogin}
                         element={
                             <Login
+                                errorMessage={errorMessage}
                                 isProfile={false}
                                 handleLogin={handleLogin}
                             />

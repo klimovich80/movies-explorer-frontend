@@ -2,7 +2,7 @@ import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import MyInput from '../UI/MyInput/MyInput'
 import { useEffect } from 'react'
-import { useForm } from '../hooks/useForm'
+import { useFormWithValidation } from '../hooks/useForm'
 
 export default function SearchForm({
     isShort,
@@ -13,7 +13,12 @@ export default function SearchForm({
 
     const buttonText = 'Поиск';
 
-    const { values, errors, handleChange } = useForm({
+    const {
+        values,
+        errors,
+        handleChange,
+        isValid
+    } = useFormWithValidation({
         movie: ''
     });
 
@@ -21,8 +26,6 @@ export default function SearchForm({
         values.movie = (searchInput);
         errors.movie = '';
     }, []);
-
-    const disableButton = errors.movie !== '';
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -47,13 +50,13 @@ export default function SearchForm({
                     />
                     <button
                         className={
-                            disableButton
-                                ? 'search__button search__button_disabled button'
-                                : 'search__button button'
+                            isValid
+                                ? 'search__button button'
+                                : 'search__button search__button_disabled button'
                         }
                         type='submit'
                         aria-label={buttonText}
-                        disabled={disableButton}
+                        disabled={!isValid}
                         onClick={handleSubmit}
                     >
                         {buttonText}

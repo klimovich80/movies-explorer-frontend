@@ -23,6 +23,7 @@ export default function Register({
         password: ''
     });
 
+    console.log(isValid);
     useEffect(() => {
         console.log('register use effect called');
         values.name = "";

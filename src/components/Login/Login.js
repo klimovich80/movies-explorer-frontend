@@ -1,19 +1,25 @@
 import './Login.css'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useForm } from '../hooks/useForm';
+import { useFormWithValidation } from '../hooks/useForm';
 import MyInput from '../UI/MyInput/MyInput';
 import { endpointMain, endpointRegister } from '../../vendor/constants/endpoints';
 import logo from '../../images/logo.svg';
 
-export default function Login({ handleLogin }) {
+export default function Login({
+    errorMessage,
+    handleLogin
+}) {
     const buttonText = 'Войти';
-
-    const { values, errors, handleChange } = useForm({
+    const {
+        values,
+        errors,
+        handleChange,
+        isValid
+    } = useFormWithValidation({
         email: '',
         password: ''
     });
-
     useEffect(() => {
         values.email = "";
         values.password = "";
@@ -21,9 +27,8 @@ export default function Login({ handleLogin }) {
         errors.password = "";
     }, []);
 
-    const disableButton = errors.password !== "" || errors.email !== "";
-
     function handleSubmit(e) {
+        console.log('sumbitting');
         e.preventDefault();
         handleLogin(values);
     }
@@ -62,10 +67,18 @@ export default function Login({ handleLogin }) {
                         onChange={handleChange}
                     />
                 </label>
+                {errorMessage
+                    ? <p className='form__error-message'>{errorMessage}</p>
+                    : <></>
+                }
                 <button
-                    className='login__button button'
+                    className={
+                        isValid
+                            ? 'login__button button'
+                            : 'login__button button button_disabled'
+                    }
                     aria-label={buttonText}
-                    disabled={disableButton}
+                    disabled={!isValid}
                     onClick={handleSubmit}
                 >
                     {buttonText}
