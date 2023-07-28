@@ -182,8 +182,9 @@ function App() {
         login(password, email)
             .then(({ token }) => {
                 localStorage.setItem("token", token);
-                setLoggedIn(true)
-                navigate('/movies', { replace: true })
+                setToken(token);
+                setLoggedIn(true);
+                navigate('/movies', { replace: true });
             })
             .catch(err => console.log(err))
     }
@@ -205,21 +206,27 @@ function App() {
         )
     }
 
-    function searchMovie(name) {
+    function findMovies(moviesArr, name) {
+        if (name === '*')
+            return moviesArr
+        return moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
+    }
+
+    function searchMovie(name, savedMovieFlag) {
+        console.log('searching movies');
+        console.log(`is it fo save movies? ${savedMovieFlag}`);
         setLoading(true);
         moviesApi.getMovies()
             .then(movies => {
-                const foundMovies = (
-                    name === '*'
-                        ? movies
-                        : movies.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
-                );
+                const foundMovies = findMovies(movies, name);
+                const foundSavedMovies = findMovies(savedMovies, name)
                 JSON.parse(localStorage.getItem('isShort'));
-                //console.log(JSON.stringify(foundMovies));
-                const stringEntries = JSON.stringify(foundMovies);
+                const stringFoundMovies = JSON.stringify(foundMovies);
+                const stringFoundSavedMovies = JSON.stringify(foundSavedMovies);
+
                 localStorage.setItem('searchInput', name)
-                localStorage.setItem('foundMovies', stringEntries);
-                setMovies(foundMovies)
+                localStorage.setItem('foundMovies', stringFoundMovies);
+                localStorage.setItem('foundSavedMovies', stringFoundSavedMovies);
             })
             .catch(err => {
                 console.log(err);
@@ -286,7 +293,7 @@ function App() {
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput' || '')}
-                                        savedMovies={savedMovies}
+                                        savedMovies={JSON.parse(localStorage.getItem('foundSavedMovies')) || savedMovies}
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}

@@ -7,7 +7,6 @@ export default function SavedMovies({
     setShort,
     searchMovie,
     searchInput,
-    setShortMovies,
     isLoading,
     savedMovies,
     savedMovie,
@@ -17,18 +16,18 @@ export default function SavedMovies({
     setMaxMovies,
     showMore
 }) {
+    console.log(savedMovies);
     return (
         <section className='saved-movies movies'>
             <SearchForm
                 searchMovie={searchMovie}
                 searchInput={searchInput}
-                setShortMovies={setShortMovies}
                 isShort={isShort}
                 setShort={setShort}
             />
             <MoviesCardList
-                isLoading={isLoading}
                 isSavedMovies={true}
+                isLoading={isLoading}
                 movies={
                     isShort
                         ? filterShortMovies(savedMovies)
