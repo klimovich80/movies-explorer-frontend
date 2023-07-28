@@ -63,7 +63,6 @@ function App() {
                 setCurrentUser(info);
                 setSavedMovies(savedMovies);
                 setLoggedIn(true);
-                console.log(localStorage);
                 navigate(localStorage.getItem('path'))
             })
             .catch(err => {
@@ -90,7 +89,6 @@ function App() {
                 setSavedMovies(savedMovies)
                 setLoggedIn(true);
                 localStorage.setItem('path', path);
-                console.log(localStorage);
             })
             .catch((err) => {
                 console.log(err);
@@ -221,9 +219,7 @@ function App() {
                 const stringEntries = JSON.stringify(foundMovies);
                 localStorage.setItem('searchInput', name)
                 localStorage.setItem('foundMovies', stringEntries);
-                console.log(localStorage.getItem('foundMovies'));
                 setMovies(foundMovies)
-                console.log(movies);
             })
             .catch(err => {
                 console.log(err);
@@ -266,7 +262,7 @@ function App() {
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput') || ''}
-                                        movies={JSON.parse(localStorage.getItem('foundMovies')) || null}
+                                        movies={JSON.parse(localStorage.getItem('foundMovies')) || movies}
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}

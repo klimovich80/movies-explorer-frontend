@@ -12,15 +12,8 @@ export default function PopupMenu({
     isOpen,
     onClose
 }) {
-    function setActiveLink(e) {
-        const activeClass = 'link_active';
-        const links = e.target.closest('ul').querySelectorAll('.popup__link')
-        links.forEach(link => {
-            link.classList.remove(activeClass)
-        });
-        e.target.classList.add(activeClass);
-        onClose();
-    }
+    const recentPage = localStorage.getItem('path');
+
     return (
         <div className={isOpen ? 'popup' : 'popup popup_disabled'}>
             <div className='popup__overlay'>
@@ -34,21 +27,35 @@ export default function PopupMenu({
                         <ul className='popup__list list'>
                             <li className='popup__item'>
                                 <Link
-                                    className='popup__link link'
+                                    className={
+                                        recentPage === endpointMain
+                                            ? 'account__link link link_active'
+                                            : 'account__link link'
+                                    }
                                     to={endpointMain}
-                                    onClick={setActiveLink}>Главная</Link>
+                                    onClick={onClose}
+                                >Главная</Link>
                             </li>
                             <li className='popup__item'>
                                 <Link
-                                    className='popup__link link'
+                                    className={
+                                        recentPage === endpointMovies
+                                            ? 'account__link link link_active'
+                                            : 'account__link link'
+                                    }
                                     to={endpointMovies}
-                                    onClick={setActiveLink}>Фильмы</Link>
+                                    onClick={onClose}
+                                >Фильмы</Link>
                             </li>
                             <li className='popup__item'>
                                 <Link
-                                    className='popup__link link'
+                                    className={
+                                        recentPage === endpointSavedMovies
+                                            ? 'account__link link link_active'
+                                            : 'account__link link'
+                                    }
                                     to={endpointSavedMovies}
-                                    onClick={setActiveLink}
+                                    onClick={onClose}
                                 >Сохранённые фильмы</Link>
                             </li>
                         </ul>

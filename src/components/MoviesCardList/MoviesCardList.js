@@ -15,7 +15,6 @@ export default function MoviesCardList({
     function handleMoreClick() {
         setMaxMovies(maxMovies + showMore);
     }
-    console.log(movies);
     const showMovies = movies.slice(0, maxMovies)
     return (
         <section className='movies-card' >
