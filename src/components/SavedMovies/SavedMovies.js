@@ -14,9 +14,9 @@ export default function SavedMovies({
     filterShortMovies,
     maxMovies,
     setMaxMovies,
-    showMore
+    showMore,
+    connectionError
 }) {
-    console.log(savedMovies);
     return (
         <section className='saved-movies movies'>
             <SearchForm
@@ -38,6 +38,7 @@ export default function SavedMovies({
                 maxMovies={maxMovies}
                 setMaxMovies={setMaxMovies}
                 showMore={showMore}
+                connectionError={connectionError}
             />
         </section>
     )

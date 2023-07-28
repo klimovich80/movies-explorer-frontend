@@ -37,6 +37,7 @@ function App() {
     const [maxMovies, setMaxMovies] = useState(12)
     const [movies, setMovies] = useState([])
     const [savedMovies, setSavedMovies] = useState([])
+    const [connectionError, setConnectionError] = useState(false)
     const [showMore, setShowMore] = useState(3)
     const [token, setToken] = useState(null);
     const [userEmail, setUserEmail] = useState('')
@@ -212,12 +213,13 @@ function App() {
         return moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
 
-    function searchMovie(name, savedMovieFlag) {
-        console.log('searching movies');
-        console.log(`is it fo save movies? ${savedMovieFlag}`);
+    function searchMovie(name) {
+        console.log('initiating search');
         setLoading(true);
         moviesApi.getMovies()
             .then(movies => {
+                console.log('good connection');
+                setConnectionError(false);
                 const foundMovies = findMovies(movies, name);
                 const foundSavedMovies = findMovies(savedMovies, name)
                 JSON.parse(localStorage.getItem('isShort'));
@@ -230,6 +232,7 @@ function App() {
             })
             .catch(err => {
                 console.log(err);
+                setConnectionError(true);
             })
             .finally(() => {
                 setLoading(false);
@@ -276,6 +279,7 @@ function App() {
                                         maxMovies={maxMovies}
                                         setMaxMovies={setMaxMovies}
                                         showMore={showMore}
+                                        connectionError={connectionError}
                                     />
                                     <Footer />
                                 </>
@@ -292,7 +296,7 @@ function App() {
                                         setShort={setShort}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
-                                        searchInput={localStorage.getItem('searchInput' || '')}
+                                        searchInput={localStorage.getItem('searchInput') || ''}
                                         savedMovies={JSON.parse(localStorage.getItem('foundSavedMovies')) || savedMovies}
                                         savedMovie={savedMovie}
                                         handleSavedMovies={handleSavedMovies}
@@ -300,6 +304,8 @@ function App() {
                                         maxMovies={maxMovies}
                                         setMaxMovies={setMaxMovies}
                                         showMore={showMore}
+                                        connectionError={connectionError
+                                        }
                                     />
                                     <Footer />
                                 </>

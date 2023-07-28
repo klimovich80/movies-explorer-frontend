@@ -14,7 +14,8 @@ export default function Movies({
     filterShortMovies,
     maxMovies,
     setMaxMovies,
-    showMore
+    showMore,
+    connectionError
 }) {
     return (<section className='movies'>
         <SearchForm
@@ -36,6 +37,7 @@ export default function Movies({
             maxMovies={maxMovies}
             setMaxMovies={setMaxMovies}
             showMore={showMore}
+            connectionError={connectionError}
         />
     </section>
     )

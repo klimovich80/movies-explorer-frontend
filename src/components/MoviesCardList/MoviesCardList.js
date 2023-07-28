@@ -10,7 +10,8 @@ export default function MoviesCardList({
     savedMovie,
     maxMovies,
     setMaxMovies,
-    showMore
+    showMore,
+    connectionError
 }) {
     function handleMoreClick() {
         setMaxMovies(maxMovies + showMore);
@@ -19,25 +20,29 @@ export default function MoviesCardList({
     return (
         <section className='movies-card' >
             {
-                isLoading
-                    ? <Preloader />
-                    : showMovies.length === 0
-                        ? <p className='movies-card__not-found'>Ничего не найдено</p>
-                        : <ul className='movies-card__list list'>
-                            {showMovies.map(movie => (
-                                <li className='movies-card__item' key={
-                                    movie._id
-                                        ? movie._id
-                                        : movie.id
-                                }>
-                                    <MoviesCard
-                                        isSavedMovies={isSavedMovies}
-                                        handleSavedMovies={handleSavedMovies}
-                                        movie={movie}
-                                        savedMovie={savedMovie}
-                                    />
-                                </li>))}
-                        </ul>
+                connectionError
+                    ? <p className='movies-card__not-found'>
+                        Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз
+                    </p>
+                    : isLoading
+                        ? <Preloader />
+                        : showMovies.length === 0
+                            ? <p className='movies-card__not-found'>Ничего не найдено</p>
+                            : <ul className='movies-card__list list'>
+                                {showMovies.map(movie => (
+                                    <li className='movies-card__item' key={
+                                        movie._id
+                                            ? movie._id
+                                            : movie.id
+                                    }>
+                                        <MoviesCard
+                                            isSavedMovies={isSavedMovies}
+                                            handleSavedMovies={handleSavedMovies}
+                                            movie={movie}
+                                            savedMovie={savedMovie}
+                                        />
+                                    </li>))}
+                            </ul>
             }
             {
                 showMovies.length > 3 && showMovies.length < movies.length
