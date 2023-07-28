@@ -6,7 +6,10 @@ import logo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
 import MyInput from '../UI/MyInput/MyInput'
 
-export default function Register({ handleRegistration }) {
+export default function Register({
+    errorMessage,
+    handleRegistration
+}) {
     const buttonText = 'Зарегистрироваться';
 
     const {
@@ -34,7 +37,7 @@ export default function Register({ handleRegistration }) {
     function handleSubmit(e) {
         e.preventDefault();
         handleRegistration(values);
-        resetForm();
+        // resetForm();
     }
 
     return (
@@ -87,6 +90,10 @@ export default function Register({ handleRegistration }) {
                         onChange={handleChange}
                     />
                 </label>
+                {errorMessage
+                    ? <p className='form__error-message'>{errorMessage}</p>
+                    : <></>
+                }
                 <button
                     className={
                         isValid

@@ -30,6 +30,7 @@ import { getUserInfo, register, login } from '../../utils/AuthApi';
 function App() {
     // states
     const [currentUser, setCurrentUser] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
@@ -175,7 +176,9 @@ function App() {
                 navigate("/signin", { replace: true });
             })
             .catch((err) => {
-                console.log(err);
+                err.includes('409')
+                    ? setErrorMessage('Пользователь с таким email уже существует.')
+                    : setErrorMessage('При регистрации пользователя произошла ошибка.')
             })
     }
 
@@ -340,6 +343,7 @@ function App() {
                         path={endpointRegister}
                         element={
                             <Register
+                                errorMessage={errorMessage}
                                 isProfile={false}
                                 handleRegistration={handleRegistration}
                             />

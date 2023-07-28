@@ -60,7 +60,6 @@
 
 .register__password_input {
     align-self: flex-start;
-    color: var(--error_text-color)
 }
 
 .register__password-error {

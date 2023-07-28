@@ -25,6 +25,7 @@ const sendRequest = (url, method, body, token) => {
 };
 
 export const register = (email, password, name) => {
+    console.log(email, password, name);
     return sendRequest("/signup", "POST", { email, password, name });
 };
 
