@@ -9,7 +9,7 @@ export default function Movies({
     isLoading,
     searchInput,
     movies,
-    savedMovie,
+    isSavedMovie,
     handleSavedMovies,
     filterShortMovies,
     maxMovies,
@@ -33,7 +33,7 @@ export default function Movies({
                     ? filterShortMovies(movies)
                     : movies
             }
-            savedMovie={savedMovie}
+            isSavedMovie={isSavedMovie}
             maxMovies={maxMovies}
             setMaxMovies={setMaxMovies}
             showMore={showMore}

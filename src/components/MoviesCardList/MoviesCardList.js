@@ -7,7 +7,7 @@ export default function MoviesCardList({
     handleSavedMovies,
     isLoading,
     movies,
-    savedMovie,
+    isSavedMovie,
     maxMovies,
     setMaxMovies,
     showMore,
@@ -16,7 +16,8 @@ export default function MoviesCardList({
     function handleMoreClick() {
         setMaxMovies(maxMovies + showMore);
     }
-    const showMovies = movies.slice(0, maxMovies)
+    let showMovies = movies.slice(0, maxMovies)
+
     return (
         <section className='movies-card' >
             {
@@ -32,16 +33,18 @@ export default function MoviesCardList({
                             ? <p className='movies-card__not-found'>Ничего не найдено</p>
                             : <ul className='movies-card__list list'>
                                 {showMovies.map(movie => (
-                                    <li className='movies-card__item' key={
-                                        movie._id
-                                            ? movie._id
-                                            : movie.id
-                                    }>
+                                    <li
+                                        className='movies-card__item'
+                                        key={
+                                            movie._id
+                                                ? movie._id
+                                                : movie.id
+                                        }>
                                         <MoviesCard
                                             isSavedMovies={isSavedMovies}
                                             handleSavedMovies={handleSavedMovies}
                                             movie={movie}
-                                            savedMovie={savedMovie}
+                                            isSavedMovie={isSavedMovie}
                                         />
                                     </li>))}
                             </ul>

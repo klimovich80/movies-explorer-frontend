@@ -40,7 +40,10 @@ export default function Profile({
     return (
         <section className='profile'>
             <form className='profile__form'>
-                <fieldset className='profile__fieldset' disabled={!isEditableForm}>
+                <fieldset
+                    className='profile__fieldset'
+                    disabled={!isEditableForm}
+                >
                     <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
                     <label className='profile__label' htmlFor='profile__name'>
                         <span className='profile__label-title'>Имя</span>
@@ -73,42 +76,43 @@ export default function Profile({
                     </label>
                 </fieldset>
             </form>
-            {!isEditableForm
-                ? <>
-                    <button
-                        className='profile__button'
-                        onClick={enableForm}
-                        aria-label='Редактировать'
-                    >Редактировать
-                    </button>
-                    <button
-                        className='profile__button profile__button_type_logout'
-                        onClick={handleLogout}
-                        aria-label='Выйти из аккаунта'
-                    >Выйти из аккаунта
-                    </button>
-                </>
-                : <>
-                    <span
-                        className={
-                            errorMessage
-                                ? 'profile__save-error save-error-visible'
-                                : 'profile__save-error '
-                        }>
-                        {errorMessage}
-                    </span>
-                    <button
-                        className={
-                            isValid
-                                ? 'profile__save-button button'
-                                : 'button profile__save-button_disabled profile__save-button'
-                        }
-                        onClick={handleSubmit}
-                        aria-label='Сохранить'
-                        disabled={!isValid}>
-                        Сохранить
-                    </button>
-                </>
+            {
+                isEditableForm
+                    ? <>
+                        <span
+                            className={
+                                errorMessage
+                                    ? 'profile__save-error save-error-visible'
+                                    : 'profile__save-error '
+                            }>
+                            {errorMessage}
+                        </span>
+                        <button
+                            className={
+                                isValid
+                                    ? 'profile__save-button button'
+                                    : 'button profile__save-button_disabled profile__save-button'
+                            }
+                            onClick={handleSubmit}
+                            aria-label='Сохранить'
+                            disabled={!isValid}>
+                            Сохранить
+                        </button>
+                    </>
+                    : <>
+                        <button
+                            className='profile__button'
+                            onClick={enableForm}
+                            aria-label='Редактировать'
+                        >Редактировать
+                        </button>
+                        <button
+                            className='profile__button profile__button_type_logout'
+                            onClick={handleLogout}
+                            aria-label='Выйти из аккаунта'
+                        >Выйти из аккаунта
+                        </button>
+                    </>
             }
 
         </section >

@@ -19,10 +19,12 @@ export default function SearchForm({
         handleChange,
         isValid
     } = useFormWithValidation({
-        movie: ''
+        movie: '',
+        isValid: true
     });
 
     useEffect(() => {
+        console.log('search button use effect');
         values.movie = (searchInput);
         errors.movie = '';
     }, []);

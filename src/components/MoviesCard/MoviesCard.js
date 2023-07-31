@@ -10,16 +10,16 @@ export default function MoviesCard({
     // returns recent movie card 
     movie,
     // flags wether recent movie saved
-    savedMovie
+    isSavedMovie
 }) {
     // send add/ delete request depending on it's state
-    function handleClick(e) {
+    function handleClick() {
         //does request commes from saved-movies page?
         isSavedMovies
             // yes, deleting movie from list
             ? handleSavedMovies(movie, false)
             // no, check if movie already being saved
-            : savedMovie(movie)
+            : isSavedMovie(movie)
                 // yes, delete it from saved list
                 ? handleSavedMovies(movie, false)
                 // no, add it to save list
@@ -27,7 +27,7 @@ export default function MoviesCard({
 
     }
 
-    const buttonText = isSavedMovies ? '' : savedMovie(movie) ? '' : 'Сохранить';
+    const buttonText = isSavedMovies ? '' : isSavedMovie(movie) ? '' : 'Сохранить';
     const trailerLink = movie.trailerLink;
     const title = movie.nameRU;
     const duration = (`
@@ -53,7 +53,7 @@ export default function MoviesCard({
             <button className={
                 isSavedMovies
                     ? 'card__button saved-movie'
-                    : savedMovie(movie)
+                    : isSavedMovie(movie)
                         ? 'card__button saved'
                         : 'card__button'
             }

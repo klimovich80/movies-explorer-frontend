@@ -1,7 +1,7 @@
+import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useEffect, useState } from 'react';
-import './App.css';
 import Header from '../Header/Header'
 import Main from '../Main/Main'
 import Movies from '../Movies/Movies'
@@ -37,8 +37,8 @@ function App() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isShort, setShort] = useState(false)
     const [maxMovies, setMaxMovies] = useState(12)
-    const [movies, setMovies] = useState([])
-    const [savedMovies, setSavedMovies] = useState([])
+    // const [movies, setMovies] = useState([])
+    const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('foundSavedMovies')))
     const [connectionError, setConnectionError] = useState(false)
     const [showMore, setShowMore] = useState(3)
     const [token, setToken] = useState(null);
@@ -58,9 +58,11 @@ function App() {
             mainApi.getProfileInfo(jwt),
             mainApi.getSavedMovies(jwt),
         ])
-            .then(([{ name, email }, savedMovies]) => {
-                setCurrentUser({ name, email });
+            .then(([data, savedMovies]) => {
+                setCurrentUser(data);
                 setSavedMovies(savedMovies);
+                console.log('Saved Movies:');
+                console.log(savedMovies);
                 setLoggedIn(true);
                 navigate(localStorage.getItem('path'))
             })
@@ -79,11 +81,16 @@ function App() {
         if (!token) {
             return;
         }
-        getUserInfo(token)
-            .then(({ name, email }) => {
+        Promise.all([
+            mainApi.getProfileInfo(token),
+            mainApi.getSavedMovies(token),
+        ])
+            .then(([data, savedMovies]) => {
                 setLoggedIn(true);
-                setCurrentUser({ name, email });
+                setCurrentUser(data);
                 setSavedMovies(savedMovies)
+                console.log('Saved Movies');
+                console.log(savedMovies);
                 setLoggedIn(true);
                 localStorage.setItem('path', path);
             })
@@ -97,7 +104,6 @@ function App() {
 
     // rendering on window resize
     useEffect(() => {
-        console.log('window resizing rendering');
         window.addEventListener(
             'resize', resizeWindow)
         handleResize()
@@ -130,31 +136,46 @@ function App() {
 
     function deleteFromSaved(movie) {
         const movieToDelete = savedMovies.find(
-            m => m.owner === currentUser._id && m.movieId === (movie.id || movie.movieId)
+            m => m.owner === currentUser._id && (m.movieId === (movie.id || movie.movieId))
         )
         if (!movieToDelete) return
+        setLoading(true)
         mainApi.deleteMovie(movieToDelete._id, token)
             .then((res) => {
+                console.log('card deleted');
                 console.log(res);
-                setSavedMovies(
-                    savedMovies.filter(m => m._id !== movieToDelete._id)
+                setSavedMovies(state =>
+                    state.filter(mov => mov._id !== movieToDelete._id)
                 )
+                console.log('saved Movies after delete');
+                console.log(savedMovies);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log('cannot delete card');
+                console.log(err)
+            })
+            .finally(() => setLoading(false));
     }
 
     function addToSaved(movie) {
+        setLoading(true)
         mainApi.addMovie(movie, token)
             .then((movie) => {
-                setSavedMovies([...savedMovies, movie])
+                setSavedMovies([movie, ...savedMovies])
+                console.log('saved Movies after add:');
+                console.log(savedMovies);
             })
             .catch(err => console.log(err))
+            .finally(() => setLoading(false))
     }
 
     function handleSavedMovies(movie, saving) {
+        console.log('handling saved movies');
         saving
             ? addToSaved(movie)
             : deleteFromSaved(movie)
+        console.log('found saved movies:');
+        console.log(JSON.parse(localStorage.getItem('foundSavedMovies')));
     }
 
     function openPopup() {
@@ -214,7 +235,8 @@ function App() {
         setToken(null);
         setLoggedIn(false);
         setCurrentUser({});
-        setMovies([]);
+        // setMovies([]);
+        setSavedMovies([]);
         setErrorMessage('');
         localStorage.clear();
         navigate("/", { replace: true });
@@ -237,7 +259,7 @@ function App() {
             })
     }
 
-    function savedMovie(movie) {
+    function isSavedMovie(movie) {
         return savedMovies.some(
             item => item.owner === currentUser._id && movie.id === item.movieId
         )
@@ -259,6 +281,8 @@ function App() {
                 JSON.parse(localStorage.getItem('isShort'));
                 const stringFoundMovies = JSON.stringify(foundMovies);
                 const stringFoundSavedMovies = JSON.stringify(foundSavedMovies);
+                console.log('foundSavedMovies');
+                console.log(JSON.parse(stringFoundSavedMovies));
 
                 localStorage.setItem('searchInput', name)
                 localStorage.setItem('foundMovies', stringFoundMovies);
@@ -287,7 +311,8 @@ function App() {
                             <>
                                 <Header
                                     isLoggedIn={isLoggedIn}
-                                    onOpen={openPopup} />
+                                    onOpen={openPopup}
+                                />
                                 <Main />
                                 <Footer />
                             </>
@@ -306,8 +331,8 @@ function App() {
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput') || ''}
-                                        movies={JSON.parse(localStorage.getItem('foundMovies')) || movies}
-                                        savedMovie={savedMovie}
+                                        movies={JSON.parse(localStorage.getItem('foundMovies'))}
+                                        isSavedMovie={isSavedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}
                                         maxMovies={maxMovies}
@@ -332,7 +357,7 @@ function App() {
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput') || ''}
                                         savedMovies={JSON.parse(localStorage.getItem('foundSavedMovies')) || savedMovies}
-                                        savedMovie={savedMovie}
+                                        isSavedMovie={isSavedMovie}
                                         handleSavedMovies={handleSavedMovies}
                                         filterShortMovies={filterShortMovies}
                                         maxMovies={maxMovies}
@@ -402,3 +427,10 @@ function App() {
 }
 
 export default App;
+
+// TODO film and saved films stopped working due to changes between users
+// TODO check data interchange between different users
+// disable button if new user name === old one
+// close menu popup on esc
+// remove event listeners
+// see if getUserInfo can be replaced by the same func in mainApi and deleted

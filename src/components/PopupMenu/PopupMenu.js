@@ -4,7 +4,7 @@ import {
     endpointMain,
     endpointMovies,
     endpointSavedMovies,
-    endpointProfile
+    endpointProfile,
 } from '../../vendor/constants/endpoints'
 import accountLogo from '../../images/account-icon.svg'
 
@@ -16,7 +16,7 @@ export default function PopupMenu({
 
     return (
         <div className={isOpen ? 'popup' : 'popup popup_disabled'}>
-            <div className='popup__overlay'>
+            <div className='popup__overlay' onClick={onClose}>
                 <div className='popup__container'>
                     <button
                         className='popup__close-button button'

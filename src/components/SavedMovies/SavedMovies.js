@@ -9,7 +9,7 @@ export default function SavedMovies({
     searchInput,
     isLoading,
     savedMovies,
-    savedMovie,
+    isSavedMovie,
     handleSavedMovies,
     filterShortMovies,
     maxMovies,
@@ -27,14 +27,14 @@ export default function SavedMovies({
             />
             <MoviesCardList
                 isSavedMovies={true}
+                handleSavedMovies={handleSavedMovies}
                 isLoading={isLoading}
                 movies={
                     isShort
                         ? filterShortMovies(savedMovies)
                         : savedMovies
                 }
-                savedMovie={savedMovie}
-                handleSavedMovies={handleSavedMovies}
+                isSavedMovie={isSavedMovie}
                 maxMovies={maxMovies}
                 setMaxMovies={setMaxMovies}
                 showMore={showMore}

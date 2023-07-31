@@ -12,10 +12,9 @@ export function useForm(initialState) {
 
 //хук управления формой и валидации формы
 export function useFormWithValidation(initialState) {
-    console.log(initialState);
     const [values, setValues] = useState(initialState);
     const [errors, setErrors] = useState({});
-    const [isValid, setIsValid] = useState(false);
+    const [isValid, setIsValid] = useState(initialState || false);
 
     const handleChange = (event) => {
         const target = event.target;
