@@ -38,6 +38,10 @@ export default function Profile({
         handleProfileEdit(values);
     }
 
+    const changeDataCheck = () => {
+        return values.name === currentUser.name && values.email === currentUser.email
+    }
+
     return (
         <section className='profile'>
             <form className='profile__form'>
@@ -90,7 +94,7 @@ export default function Profile({
                         </span>
                         <button
                             className={
-                                values.name === currentUser.name || values.email === currentUser.email
+                                changeDataCheck()
                                     ? 'button profile__save-button_disabled profile__save-button'
                                     : isValid
                                         ? 'profile__save-button button'
@@ -99,7 +103,7 @@ export default function Profile({
                             onClick={handleSubmit}
                             aria-label='Сохранить'
                             disabled={
-                                values.name === currentUser.name || values.email === currentUser.email
+                                changeDataCheck()
                                     ? true
                                     : !isValid
                             }>
