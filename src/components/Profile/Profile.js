@@ -19,7 +19,8 @@ export default function Profile({
         isValid
     } = useFormWithValidation({
         name: currentUser.name,
-        email: currentUser.email
+        email: currentUser.email,
+        isValid: false
     });
 
     useEffect(() => {
@@ -89,13 +90,19 @@ export default function Profile({
                         </span>
                         <button
                             className={
-                                isValid
-                                    ? 'profile__save-button button'
-                                    : 'button profile__save-button_disabled profile__save-button'
+                                values.name === currentUser.name || values.email === currentUser.email
+                                    ? 'button profile__save-button_disabled profile__save-button'
+                                    : isValid
+                                        ? 'profile__save-button button'
+                                        : 'button profile__save-button_disabled profile__save-button'
                             }
                             onClick={handleSubmit}
                             aria-label='Сохранить'
-                            disabled={!isValid}>
+                            disabled={
+                                values.name === currentUser.name || values.email === currentUser.email
+                                    ? true
+                                    : !isValid
+                            }>
                             Сохранить
                         </button>
                     </>
