@@ -24,7 +24,6 @@ export default function SavedMovies({
                 searchInput={searchInput}
                 isShort={isShort}
                 setShort={setShort}
-                setSavedMovies={setSavedMovies}
             />
             <MoviesCardList
                 currentUser={currentUser}

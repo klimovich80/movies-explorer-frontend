@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useFormWithValidation } from '../hooks/useForm';
 import MyInput from '../UI/MyInput/MyInput';
-import { endpointMain, endpointRegister } from '../../vendor/constants/endpoints';
+import { ENDPOINT_MAIN, ENDPOINT_REGISTER } from '../../vendor/constants/endpoints';
 import logo from '../../images/logo.svg';
 
 export default function Login({
@@ -28,14 +28,13 @@ export default function Login({
     }, []);
 
     function handleSubmit(e) {
-        console.log('sumbitting');
         e.preventDefault();
         handleLogin(values);
     }
     return (
         <section className='login'>
             <form className='login__form'>
-                <Link to={endpointMain}>
+                <Link to={ENDPOINT_MAIN}>
                     <img className='login__logo button' src={logo} alt='логотип' />
                 </Link>
                 <h2 className='login__title'>Рады видеть!</h2>
@@ -85,7 +84,7 @@ export default function Login({
                 </button>
                 <p className='login__paragraph'>
                     Ещё не зарегистрированы ?
-                    <Link className='login__link link' to={endpointRegister}> Регистрация</Link>
+                    <Link className='login__link link' to={ENDPOINT_REGISTER}> Регистрация</Link>
                 </p>
             </form>
 

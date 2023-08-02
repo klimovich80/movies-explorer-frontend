@@ -1,7 +1,7 @@
 import './Register.css'
 import { useEffect } from 'react'
 import { useFormWithValidation } from '../hooks/useForm'
-import { endpointMain, endpointLogin } from '../../vendor/constants/endpoints'
+import { ENDPOINT_MAIN, ENDPOINT_LOGIN } from '../../vendor/constants/endpoints'
 import logo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
 import MyInput from '../UI/MyInput/MyInput'
@@ -23,9 +23,7 @@ export default function Register({
         password: ''
     });
 
-    console.log(isValid);
     useEffect(() => {
-        console.log('register use effect called');
         values.name = "";
         values.email = "";
         values.password = "";
@@ -42,7 +40,7 @@ export default function Register({
     return (
         <section className='register'>
             <form className='register__form'>
-                <Link to={endpointMain}>
+                <Link to={ENDPOINT_MAIN}>
                     <img className='register__logo button' src={logo} alt='логотип' />
                 </Link>
                 <h2 className='register__title'>Добро пожаловать!</h2>
@@ -107,7 +105,7 @@ export default function Register({
                 </button>
                 <p className='register__paragraph'>
                     Уже зарегистрированы ?
-                    <Link className='register__link link' to={endpointLogin}> Войти</Link>
+                    <Link className='register__link link' to={ENDPOINT_LOGIN}> Войти</Link>
                 </p>
             </form>
 

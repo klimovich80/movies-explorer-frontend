@@ -1,4 +1,4 @@
-import { endpointAdaptiveWeb, endpointSPA, endpointStaticWeb } from '../../vendor/constants/endpoints'
+import { ENDPOINT_ADAPTIVE_WEB, ENDPOINT_SPA, ENDPOINT_STATIC_WEB } from '../../vendor/constants/endpoints'
 import './Portfolio.css'
 import { Link } from 'react-router-dom'
 
@@ -9,19 +9,19 @@ export default function Portfolio() {
             <ul className='portfolio__items list'>
                 <li className='portfolio__item'>
 
-                    <Link className='portfolio__link link' target='_blank' to={endpointStaticWeb}>
+                    <Link className='portfolio__link link' target='_blank' to={ENDPOINT_STATIC_WEB}>
                         Статичный сайт
                         <span className='portfolio__link-arrow'>↗</span>
                     </Link>
                 </li>
                 <li className='portfolio__item'>
-                    <Link className='portfolio__link link' target='_blank' to={endpointAdaptiveWeb}>
+                    <Link className='portfolio__link link' target='_blank' to={ENDPOINT_ADAPTIVE_WEB}>
                         Адаптивный сайт
                         <span className='portfolio__link-arrow'>↗</span>
                     </Link>
                 </li>
                 <li className='portfolio__item'>
-                    <Link className='portfolio__link link' target='_blank' to={endpointSPA}>
+                    <Link className='portfolio__link link' target='_blank' to={ENDPOINT_SPA}>
                         Одностраничное приложение
                         <span className='portfolio__link-arrow'>↗</span>
                     </Link>

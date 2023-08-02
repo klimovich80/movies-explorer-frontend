@@ -24,7 +24,6 @@ export default function SearchForm({
     });
 
     useEffect(() => {
-        console.log('search button use effect');
         values.movie = (searchInput);
         errors.movie = '';
     }, []);

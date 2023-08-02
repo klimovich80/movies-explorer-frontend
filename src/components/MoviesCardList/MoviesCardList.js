@@ -32,7 +32,6 @@ export default function MoviesCardList({
     }
 
     function addToList(movie) {
-        console.log('adding to saved list');
         mainApi.addMovie(movie, token)
             .then((res) => {
                 setSavedMovies([res, ...savedMovies])

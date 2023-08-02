@@ -15,13 +15,13 @@ import PopupMenu from '../PopupMenu/PopupMenu';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {
-    endpointLogin,
-    endpointMain,
-    endpointMovies,
-    endpointProfile,
-    endpointRegister,
-    endpointSavedMovies,
-    endpointUnknown,
+    ENDPOINT_LOGIN,
+    ENDPOINT_MAIN,
+    ENDPOINT_MOVIES,
+    ENDPOINT_PROFILE,
+    ENDPOINT_REGISTER,
+    ENDPOINT_SAVED_MOVIES,
+    ENDPOINT_UNKNOWN,
 } from '../../vendor/constants/endpoints';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
@@ -51,7 +51,6 @@ function App() {
     // initial rendering
     useEffect(() => {
         setLoading(true);
-        console.log('initial rendering');
         const jwt = localStorage.getItem("token");
         setToken(jwt);
         mainApi.getProfileInfo(jwt)
@@ -70,7 +69,6 @@ function App() {
     // rendering on conditions
     useEffect(() => {
         setLoading(true);
-        console.log('secondary rendering');
         const path = window.location.pathname;
         if (!token) {
             return;
@@ -81,21 +79,7 @@ function App() {
             moviesApi.getMovies()
         ])
             .then(([data, savedItems, items]) => {
-                console.log('search input: ');
-                const movieName = localStorage.getItem('searchInput');
-                const moviesToShow = () => {
-                    // if there was a search 
-                    if (movieName) {
-                        // initiate search function
-                        searchMovie(movieName)
-                    } else {
-                        //set everything by the values fron server
-                        setMovies(items);
-                        setSavedMovies(savedItems);
-                    }
-                }
-                moviesToShow();
-                console.log(moviesToShow);
+                moviesToShow(savedItems, items);
                 setLoggedIn(true);
                 setCurrentUser(data);
                 setLoggedIn(true);
@@ -111,9 +95,13 @@ function App() {
 
     // rendering on window resize
     useEffect(() => {
-        window.addEventListener(
-            'resize', resizeWindow)
+        window.addEventListener('resize', resizeWindow)
         handleResize()
+
+        // remove the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', resizeWindow);
+        };
     }, [windowSize])
 
     // functions
@@ -134,6 +122,7 @@ function App() {
             setShowMore(2)
         }
     }
+
     // filter out short movies function
     const filterShortMovies = (moviesArr) => {
         return moviesArr.filter((movie) => {
@@ -221,6 +210,19 @@ function App() {
             })
     }
 
+    const moviesToShow = (savedItems, items) => {
+        const movieName = localStorage.getItem('searchInput');
+        // if there was a search 
+        if (movieName) {
+            // initiate search function
+            searchMovie(movieName)
+        } else {
+            //set everything with the values fron server
+            setMovies(items);
+            setSavedMovies(savedItems);
+        }
+    }
+
     function findMovies(moviesArr, name) {
         if (name === '*')
             return moviesArr
@@ -228,7 +230,6 @@ function App() {
     }
 
     function searchMovie(name) {
-        console.log(`searching for moive: ${name}`);
         setLoading(true);
         Promise.all([
             moviesApi.getMovies(),
@@ -240,8 +241,6 @@ function App() {
                 const foundSavedMovies = findMovies(savedItems, name)
                 setMovies(foundMovies);
                 setSavedMovies(foundSavedMovies);
-                console.log(foundSavedMovies);
-                console.log(savedMovies);
                 JSON.parse(localStorage.getItem('isShort'));
                 localStorage.setItem('searchInput', name)
             })
@@ -263,7 +262,7 @@ function App() {
                 </Helmet>
                 <Routes>
                     <Route
-                        path={endpointMain}
+                        path={ENDPOINT_MAIN}
                         element={
                             <>
                                 <Header
@@ -275,7 +274,7 @@ function App() {
                             </>
                         } />
                     <Route
-                        path={endpointMovies}
+                        path={ENDPOINT_MOVIES}
                         element={
                             <ProtectedRoute element={
                                 <>
@@ -303,7 +302,7 @@ function App() {
                             } isLoggedIn={isLoggedIn} />
                         } />
                     <Route
-                        path={endpointSavedMovies}
+                        path={ENDPOINT_SAVED_MOVIES}
                         element={
                             <ProtectedRoute element={
                                 <>
@@ -329,7 +328,7 @@ function App() {
 
                         } />
                     <Route
-                        path={endpointProfile}
+                        path={ENDPOINT_PROFILE}
                         element={
                             <ProtectedRoute element={
                                 <>
@@ -350,7 +349,7 @@ function App() {
 
                         } />
                     <Route
-                        path={endpointLogin}
+                        path={ENDPOINT_LOGIN}
                         element={
                             <Login
                                 errorMessage={errorMessage}
@@ -359,7 +358,7 @@ function App() {
                             />
                         } />
                     <Route
-                        path={endpointRegister}
+                        path={ENDPOINT_REGISTER}
                         element={
                             <Register
                                 errorMessage={errorMessage}
@@ -368,7 +367,7 @@ function App() {
                             />
                         } />
                     <Route
-                        path={endpointUnknown}
+                        path={ENDPOINT_UNKNOWN}
                         element={
                             <PageNotFound />
                         } />
@@ -385,9 +384,4 @@ function App() {
 
 export default App;
 
-// TODO film and saved films stopped working due to changes between users
-// TODO check data interchange between different users
-// disable button if new user name === old one
-// close menu popup on esc
-// remove event listeners
-// see if getUserInfo can be replaced by the same func in mainApi and deleted
+// TODO disable button if new user name === old one

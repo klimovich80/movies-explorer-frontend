@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import './PopupMenu.css'
 import {
-    endpointMain,
-    endpointMovies,
-    endpointSavedMovies,
-    endpointProfile,
+    ENDPOINT_MAIN,
+    ENDPOINT_MOVIES,
+    ENDPOINT_SAVED_MOVIES,
+    ENDPOINT_PROFILE,
 } from '../../vendor/constants/endpoints'
 import accountLogo from '../../images/account-icon.svg'
 
@@ -28,33 +28,33 @@ export default function PopupMenu({
                             <li className='popup__item'>
                                 <Link
                                     className={
-                                        recentPage === endpointMain
+                                        recentPage === ENDPOINT_MAIN
                                             ? 'account__link link link_active'
                                             : 'account__link link'
                                     }
-                                    to={endpointMain}
+                                    to={ENDPOINT_MAIN}
                                     onClick={onClose}
                                 >Главная</Link>
                             </li>
                             <li className='popup__item'>
                                 <Link
                                     className={
-                                        recentPage === endpointMovies
+                                        recentPage === ENDPOINT_MOVIES
                                             ? 'account__link link link_active'
                                             : 'account__link link'
                                     }
-                                    to={endpointMovies}
+                                    to={ENDPOINT_MOVIES}
                                     onClick={onClose}
                                 >Фильмы</Link>
                             </li>
                             <li className='popup__item'>
                                 <Link
                                     className={
-                                        recentPage === endpointSavedMovies
+                                        recentPage === ENDPOINT_SAVED_MOVIES
                                             ? 'account__link link link_active'
                                             : 'account__link link'
                                     }
-                                    to={endpointSavedMovies}
+                                    to={ENDPOINT_SAVED_MOVIES}
                                     onClick={onClose}
                                 >Сохранённые фильмы</Link>
                             </li>
@@ -63,7 +63,7 @@ export default function PopupMenu({
                     <div className='account'>
                         <Link
                             className='account__link link'
-                            to={endpointProfile}
+                            to={ENDPOINT_PROFILE}
                             onClick={onClose}>Аккаунт</Link>
                         <img className='logo' src={accountLogo} alt='иконка аккаунта' />
                     </div>
