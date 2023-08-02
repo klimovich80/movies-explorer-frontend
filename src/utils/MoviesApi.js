@@ -18,7 +18,6 @@ class MoviesApi {
 
     //Movies methods
     getMovies() {
-        console.log('getMovies request');
         return this._request();
     }
 }

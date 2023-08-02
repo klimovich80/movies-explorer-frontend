@@ -6,7 +6,8 @@ export default function MoviesCard({
     // flags wether we are at movies or saved movies mode
     isSavedMovies,
     // handling saving or deleting movies from saved list
-    handleSavedMovies,
+    addToList,
+    deleteFromList,
     // returns recent movie card 
     movie,
     // flags wether recent movie saved
@@ -17,13 +18,13 @@ export default function MoviesCard({
         //does request commes from saved-movies page?
         isSavedMovies
             // yes, deleting movie from list
-            ? handleSavedMovies(movie, false)
+            ? deleteFromList(movie)
             // no, check if movie already being saved
             : isSavedMovie(movie)
                 // yes, delete it from saved list
-                ? handleSavedMovies(movie, false)
+                ? deleteFromList(movie)
                 // no, add it to save list
-                : handleSavedMovies(movie, true)
+                : addToList(movie)
 
     }
 

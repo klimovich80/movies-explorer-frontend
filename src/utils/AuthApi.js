@@ -31,11 +31,3 @@ export const register = (email, password, name) => {
 export const login = (password, email) => {
     return sendRequest("/signin", "POST", { password, email });
 };
-
-export const getUserInfo = (token) => {
-    return sendRequest("/users/me", "GET", null, token);
-};
-// TODO check if it is neccesary
-export const getMovies = (token) => {
-    return sendRequest("/movies", "GET", null, token);
-}

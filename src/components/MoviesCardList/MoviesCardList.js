@@ -1,21 +1,56 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
+import { mainApi } from '../../utils/MainApi';
 
 export default function MoviesCardList({
+    currentUser,
     isSavedMovies,
-    handleSavedMovies,
     isLoading,
     movies,
-    isSavedMovie,
+    setSavedMovies,
+    savedMovies,
     maxMovies,
     setMaxMovies,
     showMore,
     connectionError
 }) {
+
+    const token = localStorage.getItem('token');
+    function deleteFromList(movie) {
+        const movieToDelete = savedMovies.find(
+            m => m.owner === currentUser._id && (m.movieId === (movie.id || movie.movieId))
+        )
+        if (!movieToDelete) return
+        mainApi.deleteMovie(movieToDelete._id, token)
+            .then((res) => {
+                setSavedMovies(savedMovies.filter(m => m._id !== movieToDelete._id))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    function addToList(movie) {
+        console.log('adding to saved list');
+        mainApi.addMovie(movie, token)
+            .then((res) => {
+                setSavedMovies([res, ...savedMovies])
+            })
+            .catch(err => console.log(err))
+    }
+
+
+    function isSavedMovie(movie) {
+        return savedMovies.some(
+            item => item.owner === currentUser._id && movie.id === item.movieId
+        )
+    }
+
     function handleMoreClick() {
         setMaxMovies(maxMovies + showMore);
     }
+
     let showMovies = movies.slice(0, maxMovies)
 
     return (
@@ -42,9 +77,10 @@ export default function MoviesCardList({
                                         }>
                                         <MoviesCard
                                             isSavedMovies={isSavedMovies}
-                                            handleSavedMovies={handleSavedMovies}
                                             movie={movie}
                                             isSavedMovie={isSavedMovie}
+                                            addToList={addToList}
+                                            deleteFromList={deleteFromList}
                                         />
                                     </li>))}
                             </ul>

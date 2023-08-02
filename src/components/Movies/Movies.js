@@ -3,14 +3,15 @@ import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 
 export default function Movies({
+    currentUser,
     isShort,
     setShort,
     searchMovie,
     isLoading,
     searchInput,
     movies,
-    isSavedMovie,
-    handleSavedMovies,
+    setSavedMovies,
+    savedMovies,
     filterShortMovies,
     maxMovies,
     setMaxMovies,
@@ -25,15 +26,16 @@ export default function Movies({
             searchInput={searchInput}
         />
         <MoviesCardList
+            currentUser={currentUser}
             isSavedMovies={false}
-            handleSavedMovies={handleSavedMovies}
             isLoading={isLoading}
             movies={
                 isShort
                     ? filterShortMovies(movies)
                     : movies
             }
-            isSavedMovie={isSavedMovie}
+            setSavedMovies={setSavedMovies}
+            savedMovies={savedMovies}
             maxMovies={maxMovies}
             setMaxMovies={setMaxMovies}
             showMore={showMore}
