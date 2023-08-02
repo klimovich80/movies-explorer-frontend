@@ -81,14 +81,25 @@ function App() {
             moviesApi.getMovies()
         ])
             .then(([data, savedItems, items]) => {
+                console.log('search input: ');
+                const movieName = localStorage.getItem('searchInput');
+                const moviesToShow = () => {
+                    // if there was a search 
+                    if (movieName) {
+                        // initiate search function
+                        searchMovie(movieName)
+                    } else {
+                        //set everything by the values fron server
+                        setMovies(items);
+                        setSavedMovies(savedItems);
+                    }
+                }
+                moviesToShow();
+                console.log(moviesToShow);
                 setLoggedIn(true);
                 setCurrentUser(data);
-                setMovies(items);
-                setSavedMovies(savedItems);
                 setLoggedIn(true);
                 localStorage.setItem('path', path);
-                console.log(movies);
-                console.log(savedMovies);
             })
             .catch((err) => {
                 console.log(err);
@@ -217,16 +228,22 @@ function App() {
     }
 
     function searchMovie(name) {
+        console.log(`searching for moive: ${name}`);
         setLoading(true);
-        moviesApi.getMovies()
-            .then(movies => {
+        Promise.all([
+            moviesApi.getMovies(),
+            mainApi.getSavedMovies(token),
+        ])
+            .then(([items, savedItems]) => {
                 setConnectionError(false);
-                const foundMovies = findMovies(movies, name);
-                const foundSavedMovies = findMovies(savedMovies, name)
+                const foundMovies = findMovies(items, name);
+                const foundSavedMovies = findMovies(savedItems, name)
+                setMovies(foundMovies);
+                setSavedMovies(foundSavedMovies);
+                console.log(foundSavedMovies);
+                console.log(savedMovies);
                 JSON.parse(localStorage.getItem('isShort'));
                 localStorage.setItem('searchInput', name)
-                localStorage.setItem('foundMovies', foundMovies);
-                localStorage.setItem('foundSavedMovies', foundSavedMovies);
             })
             .catch(err => {
                 console.log(err);
