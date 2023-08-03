@@ -143,7 +143,7 @@ function App() {
         register(email, password, name)
             .then((res) => {
                 console.log(res);
-                navigate("/signin", { replace: true });
+                navigate("/movies", { replace: true });
             })
             .catch((err) => {
                 console.log(err);
