@@ -9,9 +9,11 @@ export default function Profile({
     handleLogout,
     handleProfileEdit,
     isEditableForm,
-    setEditableForm
+    setEditableForm,
+    isSaved,
+    setSaved
 }) {
-
+    console.log(`isSaved ${isSaved}`);
     const {
         values,
         errors,
@@ -24,6 +26,7 @@ export default function Profile({
     });
 
     useEffect(() => {
+        console.log('!!');
         values.name = currentUser.name;
         values.email = currentUser.email;
         errors.name = '';
@@ -36,6 +39,7 @@ export default function Profile({
 
     function handleSubmit() {
         handleProfileEdit(values);
+        setSaved(true);
     }
 
     const changeDataCheck = () => {
@@ -111,6 +115,14 @@ export default function Profile({
                         </button>
                     </>
                     : <>
+                        <span
+                            className={
+                                isSaved
+                                    ? 'profile__save-error save-error-visible'
+                                    : 'profile__save-error '
+                            }>
+                            Новые данные успешно сохранены
+                        </span>
                         <button
                             className='profile__button'
                             onClick={enableForm}

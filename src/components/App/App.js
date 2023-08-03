@@ -37,6 +37,7 @@ function App() {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isShort, setShort] = useState(false);
+    const [isSaved, setSaved] = useState(false);
     const [maxMovies, setMaxMovies] = useState(12);
     const [movies, setMovies] = useState([]);
     const [savedMovies, setSavedMovies] = useState([])
@@ -50,6 +51,7 @@ function App() {
     // useEffects
     // initial rendering
     useEffect(() => {
+        console.log('1');
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -68,6 +70,7 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
+        console.log('2');
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -198,15 +201,17 @@ function App() {
         mainApi.editProfileInfo(name, email, token)
             .then(({ email, name }) => {
                 setEditableForm(false);
-                setCurrentUser({ name, email })
+                setCurrentUser({ name, email });
+                setSaved(true);
             })
             .catch(err => {
                 setEditableForm(true);
+                setSaved(false);
                 if (err.includes('409')) {
                     setErrorMessage('Пользователь с таким email уже существует.')
                     return;
                 }
-                setErrorMessage('При обновлении профиля произошла ошибка.')
+                setErrorMessage('При обновлении профиля произошла ошибка.');
             })
     }
 
@@ -343,6 +348,8 @@ function App() {
                                         handleProfileEdit={handleProfileEdit}
                                         isEditableForm={isEditableForm}
                                         setEditableForm={setEditableForm}
+                                        isSaved={isSaved}
+                                        setSaved={setSaved}
                                     />
                                 </>
                             } isLoggedIn={isLoggedIn} />
@@ -383,5 +390,3 @@ function App() {
 }
 
 export default App;
-
-// TODO disable button if new user name === old one

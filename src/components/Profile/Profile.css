@@ -11,7 +11,7 @@
 
 .profile__form {
     margin: 0 auto;
-    padding: 0 357px 200px;
+    padding: 0 357px 212px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -25,9 +25,9 @@
     align-items: center;
 }
 
-.profile_-title {
+.profile__title {
     margin: 0;
-    padding: 0 0 107px;
+    padding: 0 0 114px;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -72,6 +72,7 @@
 
 .profile__button_type_logout {
     color: var(--text_color-red);
+    padding-top: 16px;
 }
 
 .profile__button:hover {
@@ -125,8 +126,8 @@
         padding-left: 100px;
     }
 
-    .profile_-title {
-        padding-bottom: 80px;
+    .profile__title {
+        padding-bottom: 82px;
     }
 }
 
@@ -138,12 +139,12 @@
 
     .profile__form {
         width: 100%;
-        padding-bottom: 349px;
+        padding-bottom: 370px;
         padding-right: 0;
         padding-left: 0;
     }
 
-    .profile_-title {
+    .profile__title {
         padding-bottom: 63px;
     }
 
