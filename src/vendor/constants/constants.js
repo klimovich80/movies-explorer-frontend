@@ -1,0 +1,10 @@
+export const SHORT_MOVIE_DURATION = 40;
+export const DESKTOP_DISPLAY_SIZE = 1280;
+export const PAD_DISPLAY_SIZE = 768;
+export const PHONE_DISPLAY_SIZE = 320;
+export const DESKTOP_CARDS_DISPLAY = 12;
+export const PAD_CARDS_DISPLAY = 8;
+export const PHONE_CARDS_DISPLAY = 5;
+export const DESKTOP_CARDS_MORE = 3;
+export const PAD_CARDS_MORE = 2;
+export const PHONE_CARDS_MORE = 2;

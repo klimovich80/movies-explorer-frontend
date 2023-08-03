@@ -26,6 +26,18 @@ import {
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import { register, login } from '../../utils/AuthApi';
+import {
+    DESKTOP_DISPLAY_SIZE,
+    DESKTOP_CARDS_DISPLAY,
+    DESKTOP_CARDS_MORE,
+    PAD_DISPLAY_SIZE,
+    PAD_CARDS_DISPLAY,
+    PAD_CARDS_MORE,
+    PHONE_DISPLAY_SIZE,
+    PHONE_CARDS_DISPLAY,
+    PHONE_CARDS_MORE,
+    SHORT_MOVIE_DURATION
+} from '../../vendor/constants/constants';
 
 function App() {
     // states
@@ -45,7 +57,6 @@ function App() {
     const [token, setToken] = useState(null);
     const [windowSize, setWindowSize] = useState(window.innerWidth)
     // constants
-    const shortMovieDuration = 40;
     const navigate = useNavigate();
 
     // useEffects
@@ -112,22 +123,22 @@ function App() {
 
     // set quantity of movies to display
     function handleResize() {
-        if (windowSize >= 1280) {
-            setMaxMovies(12)
-            setShowMore(3)
-        } else if (windowSize >= 768) {
-            setMaxMovies(8)
-            setShowMore(2)
-        } else if (windowSize >= 320) {
-            setMaxMovies(5)
-            setShowMore(2)
+        if (windowSize >= DESKTOP_DISPLAY_SIZE) {
+            setMaxMovies(DESKTOP_CARDS_DISPLAY)
+            setShowMore(DESKTOP_CARDS_MORE)
+        } else if (windowSize >= PAD_DISPLAY_SIZE) {
+            setMaxMovies(PAD_CARDS_DISPLAY)
+            setShowMore(PAD_CARDS_MORE)
+        } else if (windowSize >= PHONE_DISPLAY_SIZE) {
+            setMaxMovies(PHONE_CARDS_DISPLAY)
+            setShowMore(PHONE_CARDS_MORE)
         }
     }
 
     // filter out short movies function
     const filterShortMovies = (moviesArr) => {
         return moviesArr.filter((movie) => {
-            return movie.duration <= shortMovieDuration;
+            return movie.duration <= SHORT_MOVIE_DURATION;
         })
     }
 
