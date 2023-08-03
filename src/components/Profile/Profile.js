@@ -26,7 +26,6 @@ export default function Profile({
     });
 
     useEffect(() => {
-        console.log('!!');
         values.name = currentUser.name;
         values.email = currentUser.email;
         errors.name = '';
