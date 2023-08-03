@@ -51,7 +51,6 @@ function App() {
     // useEffects
     // initial rendering
     useEffect(() => {
-        console.log('1');
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -70,7 +69,6 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
-        console.log('2');
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {

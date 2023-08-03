@@ -4,6 +4,8 @@
 Movies Explorer - сервис, в котором можно найти фильмы по запросу и сохранить их в личном кабинете.
 [Публичный адрес готового проекта](klimovich.nomoreparties.sbs)
 
+[Pull request](https://github.com/klimovich80/movies-explorer-frontend/pull/2)
+
 [Репозиторий с API проекта](https://github.com/klimovich80/movies-explorer-frontend)
 
 [Ссылка на макет в Figma](https://disk.yandex.ru/d/LVKgRrC0310Npw)

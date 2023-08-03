@@ -13,7 +13,6 @@ export default function Profile({
     isSaved,
     setSaved
 }) {
-    console.log(`isSaved ${isSaved}`);
     const {
         values,
         errors,
