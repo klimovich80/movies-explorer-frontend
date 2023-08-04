@@ -28,6 +28,8 @@ export default function SearchForm({
                 : searchInput
         );
         errors.movie = '';
+        console.log('calling a function to show movies');
+        searchMovie(isSavedMoviesPage, values.movie);
     }, []);
 
     function handleSubmit(e) {

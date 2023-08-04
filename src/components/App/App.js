@@ -49,12 +49,10 @@ function App() {
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    //const [isShort, setShort] = useState(false);
     const [isSaved, setSaved] = useState(false);
-    const [maxMovies, setMaxMovies] = useState(12);
-    const [movies, setMovies] = useState([]);
+    const [maxMovies, setMaxMovies] = useState(DESKTOP_CARDS_DISPLAY);
     const [savedMovies, setSavedMovies] = useState([])
-    const [showMore, setShowMore] = useState(3);
+    const [showMore, setShowMore] = useState(DESKTOP_CARDS_MORE);
     const [token, setToken] = useState(null);
     const [windowSize, setWindowSize] = useState(window.innerWidth)
     // constants
@@ -63,17 +61,17 @@ function App() {
     // useEffects
     // initial rendering
     useEffect(() => {
+        console.log('1');
         console.log(localStorage);
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
         Promise.all([
-            mainApi.getProfileInfo(jwt),
-            moviesApi.getMovies()
+            mainApi.getProfileInfo(jwt)
         ])
-            .then(([data, items]) => {
+            .then((data) => {
                 setCurrentUser(data);
-                setMovies(items);
+                // setMovies(items);
                 setLoggedIn(true);
                 navigate(localStorage.getItem('path'))
             })
@@ -87,6 +85,7 @@ function App() {
     // rendering on conditions
     useEffect(() => {
         console.log('2');
+        console.log(localStorage);
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -97,12 +96,9 @@ function App() {
             mainApi.getSavedMovies(token)
         ])
             .then(([data, savedItems]) => {
-                //setShort(JSON.parse(localStorage.getItem('isShort')))
-                moviesToShow(movies);
                 setSavedMovies(savedItems);
                 setLoggedIn(true);
                 setCurrentUser(data);
-                setLoggedIn(true);
                 localStorage.setItem('path', path);
             })
             .catch((err) => {
@@ -181,7 +177,7 @@ function App() {
                 localStorage.setItem("token", token);
                 setToken(token);
                 setLoggedIn(true);
-                navigate('/movies', { replace: true });
+                navigate('/movies');
             })
             .catch(err => {
                 console.log(err)
@@ -196,14 +192,24 @@ function App() {
     }
 
     function handleLogout() {
+        // очищаем все стэйты
         setToken(null);
         setLoggedIn(false);
         setCurrentUser({});
         setErrorMessage('');
         setSavedMovies([]);
-        setMovies([]);
+        setConnectionError(false)
+        setFoundMovies('');
+        setEditableForm(false);
+        setLoading(true);
+        setPopupOpen(false);
+        setSaved(false);
+        setMaxMovies(DESKTOP_CARDS_DISPLAY);
+        setShowMore(DESKTOP_CARDS_MORE);
+        setWindowSize(window.innerWidth)
+        // обнуляем всё локальное хранилище
         localStorage.clear();
-        console.log(localStorage);
+        // переходим на главную страницу
         navigate("/", { replace: true });
     }
 
@@ -226,42 +232,75 @@ function App() {
             })
     }
 
-    const moviesToShow = (items) => {
-        console.log(`isShort in moviesToShow: ${JSON.parse(localStorage.getItem('isShort'))}`);
-        const movieName = localStorage.getItem('searchInput');
-        // initiate search function
-        console.log(`there was a search, setting movies`);
-        searchMovie(false, movieName)
-    }
-
-    // filter out short movies function
+    // функция фильтрации короткометражек
     const filterShortMovies = (moviesArr) => {
+        // возвращаем отфильтрованный массив 
         return moviesArr.filter((movie) => {
+            // в который заносятся все фильмы с заданными параметрами длительности
             return movie.duration <= SHORT_MOVIE_DURATION;
         })
     }
-
+    // функция возвращает найденные фильмы
     function findMovies(moviesArr, name) {
+        console.log(`inside find movies : ${moviesArr.length} movies`);
+        // заносим в переменную is Short значение из локального хранилища
         const isShort = JSON.parse(localStorage.getItem('isShort'))
-        console.log(`isShort in findMovies: ${isShort}`);
+        // если искомое значение - звездочка
         if (name === '*') {
+            // исходя из положения чекбокса короткометражек
             return isShort
+                // возвращаем все короктометражные фильмы
                 ? filterShortMovies(moviesArr)
+                // возвращаем все фильмы
                 : moviesArr
         }
+        // исходя из положения чекбокса короткометражек
         return isShort
+            // возвращаем найденные короктометражные фильмы
             ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
+            // возвращаем найденные фильмы
             : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
-
+    // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name) {
         console.log('search movies func called');
+        console.log(localStorage);
+        const movies = JSON.parse(localStorage.getItem('movies')) || [];
+        console.log(movies.length);
+        // если поиск фильмов ещё не производился
+        if (movies.length === 0) {
+            console.log('подгружаем новые фильмы и ...')
+            setLoading(true)
+            moviesApi.getMovies()
+                .then(res => {
+                    console.log(res);
+                    console.log('successfully got movies');
+                    const moviesToStore = JSON.stringify(res);
+                    localStorage.setItem('movies', moviesToStore);
+                    console.log(localStorage);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+        console.log('производим обычный поиск')
         const items = isSavedMoviesPage
+            // если флаг isSavedMoviesPage
+            //true - ищем среди сохраненных фильмов
             ? savedMovies
+            // false - ищем среди фильмов
             : movies
+        // переменная в которую возвращаются найденные фильмы
         const foundItems = findMovies(items, name);
+        // заносим все найденные фильмы в стэйт переменную
         setFoundMovies(foundItems);
-        localStorage.setItem('searchInput', name)
+        // запоминаем значение строки поиска для перезагрузки страницы
+        localStorage.setItem('searchInput', name || '')
+        const moviesToStore = JSON.stringify(movies)
+        localStorage.setItem('movies', moviesToStore || '')
     }
 
     // layout

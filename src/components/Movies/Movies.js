@@ -20,7 +20,7 @@ export default function Movies({
 }) {
 
     useEffect(() => {
-        const name = localStorage.getItem('searchInput')
+        const name = localStorage.getItem('searchInput') || ''
         console.log(name);
         //searchMovie(false, name)
     })
