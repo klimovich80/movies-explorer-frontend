@@ -16,7 +16,7 @@
 
 .filter__checkbox {
     appearance: none;
-    background: #343434;
+    background: var(--checkbox_background_color-black);
     border-radius: 100px;
     cursor: pointer;
     height: 20px;
@@ -27,7 +27,7 @@
 }
 
 .filter__checkbox::after {
-    background: #A0A0A0;
+    background: var(--checkbox_switch_color-grey);
     border-radius: 100%;
     content: '';
     position: absolute;
@@ -38,11 +38,11 @@
 }
 
 .filter__checkbox:checked {
-    background: #2BE080 center;
+    background: var(--checkbox_background_color-green);
 }
 
 .filter__checkbox:checked::after {
-    background: #fff;
+    background: var(--checkbox_switch_color-white);
     left: 18px;
 }
 

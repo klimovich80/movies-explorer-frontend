@@ -1,5 +1,6 @@
 import './Login.css'
 import { Link } from 'react-router-dom';
+import { validate, res } from 'react-email-validator';
 import { useEffect } from 'react';
 import { useFormWithValidation } from '../hooks/useForm';
 import MyInput from '../UI/MyInput/MyInput';
@@ -29,7 +30,7 @@ export default function Login({
 
     function handleSubmit(e) {
         e.preventDefault();
-        handleLogin(values);
+        handleLogin(values)
     }
     return (
         <section className='login'>
@@ -43,14 +44,23 @@ export default function Login({
                     <MyInput
                         id='login__email'
                         name="email"
-                        error={errors.email}
+                        error={
+                            res
+                                ? errors.email
+                                : errors.email
+                                    ? errors.email
+                                    : 'email должен быть в формате user@domain.any'
+                        }
                         type='email'
                         required
                         minLength="2"
                         maxLength="30"
                         placeholder='введите е-майл'
                         value={values.email}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                            validate(e.target.value);
+                            handleChange(e)
+                        }}
                     />
                 </label>
                 <label className='login__label' htmlFor='login__password'>

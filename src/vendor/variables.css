@@ -14,6 +14,10 @@
     --list_background-color: #E8E8E8;
     --preloader_color: #3456F3;
     --text-color_grey: #A0A0A0;
+    --checkbox_switch_color-grey: #A0A0A0;
+    --checkbox_switch_color-white: #fff;
+    --checkbox_background_color-green: #2BE080;
+    --checkbox_background_color-black: #343434;
     --underline_color: #000;
     --underline-color_grey: #E8E8E8;
     --link_hover_color: #ccc;

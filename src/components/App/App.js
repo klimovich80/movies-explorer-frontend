@@ -429,5 +429,3 @@ function App() {
 }
 
 export default App;
-
-// TODO прописать константы для цветов чекбокса в vendor/variables

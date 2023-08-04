@@ -1,4 +1,5 @@
 import MyInput from '../UI/MyInput/MyInput'
+import { validate, res } from 'react-email-validator'
 import { useEffect } from 'react'
 import './Profile.css'
 import { useFormWithValidation } from '../hooks/useForm'
@@ -72,14 +73,23 @@ export default function Profile({
                         <MyInput
                             id='profile__email'
                             name="email"
-                            error={errors.email}
+                            error={
+                                res
+                                    ? errors.email
+                                    : errors.email
+                                        ? errors.email
+                                        : 'email должен быть в формате user@domain.any'
+                            }
                             type='email'
                             required
                             minLength="2"
                             maxLength="30"
                             placeholder='введите е-майл'
                             value={values.email}
-                            onChange={handleChange} />
+                            onChange={(e) => {
+                                validate(e.target.value);
+                                handleChange(e)
+                            }} />
                     </label>
                 </fieldset>
             </form>
