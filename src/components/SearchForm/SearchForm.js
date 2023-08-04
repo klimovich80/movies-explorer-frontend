@@ -1,12 +1,10 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import MyInput from '../UI/MyInput/MyInput'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useFormWithValidation } from '../hooks/useForm'
 
 export default function SearchForm({
-    isShort,
-    setShort,
     searchMovie,
     searchInput,
     isSavedMoviesPage,
@@ -35,13 +33,6 @@ export default function SearchForm({
     function handleSubmit(e) {
         e.preventDefault();
         searchMovie(isSavedMoviesPage, values.movie);
-    }
-
-    //функция установки значения локал сторадже
-    function setShortLocal(shortFlag) {
-        console.log(`isShort on SearchFilter -> localStorage: ${shortFlag}`);
-        // устанавливаем занчение текущего положения чекбокса
-        localStorage.setItem('isShort', shortFlag)
     }
 
     return (
@@ -75,13 +66,9 @@ export default function SearchForm({
                     </button>
                 </div>
                 <FilterCheckbox
-                    isShort={isShort}
-                    setShort={setShort}
                     searchMovie={searchMovie}
                     inputValue={values.movie}
                     isSavedMoviesPage={isSavedMoviesPage}
-                    movies={isSavedMoviesPage}
-                    setShortLocal={setShortLocal}
                 />
             </form>
         </section>

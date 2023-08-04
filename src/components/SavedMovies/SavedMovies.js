@@ -22,8 +22,6 @@ export default function SavedMovies({
             <SearchForm
                 searchMovie={searchMovie}
                 searchInput={searchInput}
-                isShort={isShort}
-                setShort={setShort}
                 isSavedMoviesPage={isSavedMoviesPage}
                 movies={savedMovies}
             />

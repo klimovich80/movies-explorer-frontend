@@ -2,48 +2,32 @@ import { useEffect, useState } from 'react'
 import './FilterCheckbox.css'
 
 export default function FilterCheckbox({
-    isShort,
-    setShort,
     searchMovie,
     inputValue,
     isSavedMoviesPage,
-    setShortLocal,
-    // checked,
-    // setChecked
 }) {
 
     // стэйт для чекбокса
     const [checked, setChecked] = useState(false)
-
+    // при первом рендеринге страницы
     useEffect(() => {
-        setChecked(JSON.parse(localStorage.getItem('isShort')))
+        // если в локальной памяти есть значение isShort
+        localStorage.getItem('isShort') !== null
+            // устанавливаем положение чекбокса согласно isShort
+            ? setChecked(JSON.parse(localStorage.getItem('isShort')))
+            // задаем нужное значение в локальную память
+            : localStorage.setItem('isShort', checked)
     }, [])
 
-    // function handleCheckbox() {
-    //     console.log('checkbox: ' + checked);
-    //     //переменная сохранения текущего состояния чекбокса
-    //     const checkBox = inputRef.current.checked;
-    //     const checkedValue = checkBox.value;
-    //     console.log(checkedValue);
-    //     // устанавливаем значение стэйта короткометражек в текущее положение чекбокса
-    //     setChecked(checkBox);
-    //     // вызываем функцию установки значения локалсторадже
-    //     setShortLocal(checkBox);
-    //     // вызываем функцию поиска фильмов/сохраненных фильмов по искомому значению
-    //     searchMovie(isSavedMoviesPage, inputValue);
-    // }
-
-    // //функция установки значения локал сторадже
-    // function setShortLocal(shortFlag) {
-    //     console.log(`isShort on SearchFilter -> localStorage: ${shortFlag}`);
-    //     // устанавливаем занчение текущего положения чекбокса
-    //     localStorage.setItem('isShort', !shortFlag)
-    // }
+    // по клику на чекбокс
     function handleCheckboxChange(e) {
-        // getting actual checkbox position
+        // получаем актуальное положение чекбокса
         const isCheckBoxSetShort = e.target.checked;
+        // заносим его значение в локальную память
         localStorage.setItem('isShort', isCheckBoxSetShort)
-        console.log(isCheckBoxSetShort);
+        // запускаем функцию поиска фильмов
+        searchMovie(isSavedMoviesPage, inputValue);
+        // меняем его на нужное визуальное положение
         setChecked(!checked);
     }
 

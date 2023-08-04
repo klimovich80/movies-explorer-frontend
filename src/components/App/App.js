@@ -49,8 +49,7 @@ function App() {
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    //const [isShort, setShort] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
-    const [isShort, setShort] = useState(JSON.parse(localStorage.getItem('isShort')));
+    //const [isShort, setShort] = useState(false);
     const [isSaved, setSaved] = useState(false);
     const [maxMovies, setMaxMovies] = useState(12);
     const [movies, setMovies] = useState([]);
@@ -87,8 +86,7 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
-
-        console.log(`isShort in rendering 2 ${isShort}`);
+        console.log('2');
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -99,6 +97,7 @@ function App() {
             mainApi.getSavedMovies(token)
         ])
             .then(([data, savedItems]) => {
+                //setShort(JSON.parse(localStorage.getItem('isShort')))
                 moviesToShow(movies);
                 setSavedMovies(savedItems);
                 setLoggedIn(true);
@@ -228,7 +227,7 @@ function App() {
     }
 
     const moviesToShow = (items) => {
-        console.log(`isShort in moviesToShow: ${isShort}`);
+        console.log(`isShort in moviesToShow: ${JSON.parse(localStorage.getItem('isShort'))}`);
         const movieName = localStorage.getItem('searchInput');
         // initiate search function
         console.log(`there was a search, setting movies`);
@@ -243,7 +242,8 @@ function App() {
     }
 
     function findMovies(moviesArr, name) {
-        console.log(`isShort in findMovies: ${localStorage.getItem('isShort')}`);
+        const isShort = JSON.parse(localStorage.getItem('isShort'))
+        console.log(`isShort in findMovies: ${isShort}`);
         if (name === '*') {
             return isShort
                 ? filterShortMovies(moviesArr)
@@ -255,6 +255,7 @@ function App() {
     }
 
     function searchMovie(isSavedMoviesPage, name) {
+        console.log('search movies func called');
         const items = isSavedMoviesPage
             ? savedMovies
             : movies
@@ -293,8 +294,6 @@ function App() {
                                         onOpen={openPopup} />
                                     <Movies
                                         currentUser={currentUser}
-                                        isShort={isShort}
-                                        setShort={setShort}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput') || ''}
@@ -318,8 +317,6 @@ function App() {
                                     <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
                                     <SavedMovies
                                         currentUser={currentUser}
-                                        isShort={isShort}
-                                        setShort={setShort}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput') || ''}
@@ -394,6 +391,4 @@ function App() {
 
 export default App;
 
-// TODO настроить корректное отображения фильмов при первой загрузке с учетом положения фильтра
-// сейчас при первой загрузке происходит простая загрузка c инвертированнным поиском
-// и при первом поиске все становится на место
+// TODO прописать константы для цветов чекбокса в vendor/variables

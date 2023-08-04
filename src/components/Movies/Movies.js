@@ -26,8 +26,6 @@ export default function Movies({
     })
     return (<section className='movies'>
         <SearchForm
-            isShort={isShort}
-            setShort={setShort}
             searchMovie={searchMovie}
             searchInput={searchInput}
             movies={movies}
