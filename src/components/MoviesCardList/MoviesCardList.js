@@ -5,7 +5,7 @@ import { mainApi } from '../../utils/MainApi';
 
 export default function MoviesCardList({
     currentUser,
-    isSavedMovies,
+    isSavedMoviesPage,
     isLoading,
     movies,
     setSavedMovies,
@@ -75,7 +75,7 @@ export default function MoviesCardList({
                                                 : movie.id
                                         }>
                                         <MoviesCard
-                                            isSavedMovies={isSavedMovies}
+                                            isSavedMoviesPage={isSavedMoviesPage}
                                             movie={movie}
                                             isSavedMovie={isSavedMovie}
                                             addToList={addToList}

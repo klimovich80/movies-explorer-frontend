@@ -62,6 +62,8 @@ function App() {
     // useEffects
     // initial rendering
     useEffect(() => {
+        console.log(localStorage);
+        console.log(('1'));
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -80,6 +82,7 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
+        console.log('2');
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -195,6 +198,7 @@ function App() {
         setSavedMovies([]);
         setMovies([]);
         localStorage.clear();
+        console.log(localStorage);
         navigate("/", { replace: true });
     }
 
@@ -218,13 +222,16 @@ function App() {
     }
 
     const moviesToShow = (savedItems, items) => {
+        console.log(`isShort in rendering 2: ${isShort}`);
         const movieName = localStorage.getItem('searchInput');
         // if there was a search 
         if (movieName) {
             // initiate search function
+            console.log(`there was a search, setting movies`);
             searchMovie(movieName)
         } else {
             //set everything with the values fron server
+            console.log(`setting everything as usual`);
             setMovies(items);
             setSavedMovies(savedItems);
         }
@@ -238,32 +245,25 @@ function App() {
     }
 
     function findMovies(moviesArr, name) {
-        console.log(`is short: ${isShort}`);
+        console.log(`isShort in findMovies: ${isShort}`);
         if (name === '*')
-            return !isShort
+            return isShort
                 ? filterShortMovies(moviesArr)
                 : moviesArr
-        return !isShort
+        return isShort
             ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
             : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
-
     }
 
     function searchMovie(name) {
-        console.log(`search movie initiated: ${name}`);
-        console.log(`is short: ${isShort}`);
+        console.log('search initiated');
         setLoading(true);
-        Promise.all([
-            moviesApi.getMovies(),
-            mainApi.getSavedMovies(token),
-        ])
-            .then(([items, savedItems]) => {
+        moviesApi.getMovies()
+            .then((items) => {
                 setConnectionError(false);
                 const foundMovies = findMovies(items, name);
-                const foundSavedMovies = findMovies(savedItems, name)
+                console.log(foundMovies);
                 setMovies(foundMovies);
-                setSavedMovies(foundSavedMovies);
-                JSON.parse(localStorage.getItem('isShort'));
                 localStorage.setItem('searchInput', name)
             })
             .catch(err => {
@@ -405,3 +405,7 @@ function App() {
 }
 
 export default App;
+
+// TODO настроить корректное отображения фильмов при первой загрузке с учетом положения фильтра
+// сейчас при первой загрузке происходит простая загрузка c инвертированнным поиском
+// и при первом поиске все становится на место

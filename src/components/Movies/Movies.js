@@ -26,7 +26,7 @@ export default function Movies({
         />
         <MoviesCardList
             currentUser={currentUser}
-            isSavedMovies={false}
+            isSavedMoviesPage={false}
             isLoading={isLoading}
             movies={movies}
             setSavedMovies={setSavedMovies}

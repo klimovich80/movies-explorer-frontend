@@ -4,7 +4,7 @@ import { FILM_IMAGES_SERVER_URL } from '../../utils/config';
 
 export default function MoviesCard({
     // flags wether we are at movies or saved movies mode
-    isSavedMovies,
+    isSavedMoviesPage,
     // handling saving or deleting movies from saved list
     addToList,
     deleteFromList,
@@ -16,7 +16,7 @@ export default function MoviesCard({
     // send add/ delete request depending on it's state
     function handleClick() {
         //does request commes from saved-movies page?
-        isSavedMovies
+        isSavedMoviesPage
             // yes, deleting movie from list
             ? deleteFromList(movie)
             // no, check if movie already being saved
@@ -28,7 +28,7 @@ export default function MoviesCard({
 
     }
 
-    const buttonText = isSavedMovies ? '' : isSavedMovie(movie) ? '' : 'Сохранить';
+    const buttonText = isSavedMoviesPage ? '' : isSavedMovie(movie) ? '' : 'Сохранить';
     const trailerLink = movie.trailerLink;
     const title = movie.nameRU;
     const duration = (`
@@ -52,7 +52,7 @@ export default function MoviesCard({
                     alt={`постер "${title}"`} />
             </Link>
             <button className={
-                isSavedMovies
+                isSavedMoviesPage
                     ? 'card__button saved-movie'
                     : isSavedMovie(movie)
                         ? 'card__button saved'

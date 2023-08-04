@@ -16,6 +16,7 @@ export default function SavedMovies({
     showMore,
     connectionError
 }) {
+    const isSavedMoviesPage = true;
     return (
         <section className='saved-movies movies'>
             <SearchForm
@@ -23,10 +24,11 @@ export default function SavedMovies({
                 searchInput={searchInput}
                 isShort={isShort}
                 setShort={setShort}
+                isSavedMoviesPage={isSavedMoviesPage}
             />
             <MoviesCardList
                 currentUser={currentUser}
-                isSavedMovies={true}
+                isSavedMoviesPage={isSavedMoviesPage}
                 isLoading={isLoading}
                 movies={savedMovies}
                 setSavedMovies={setSavedMovies}
