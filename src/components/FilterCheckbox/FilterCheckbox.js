@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './FilterCheckbox.css'
 
 export default function FilterCheckbox({
@@ -12,8 +12,12 @@ export default function FilterCheckbox({
     // setChecked
 }) {
 
-    const [checked, setChecked] = useState(false)
     // стэйт для чекбокса
+    const [checked, setChecked] = useState(false)
+
+    useEffect(() => {
+        setChecked(JSON.parse(localStorage.getItem('isShort')))
+    }, [])
 
     // function handleCheckbox() {
     //     console.log('checkbox: ' + checked);
@@ -35,8 +39,11 @@ export default function FilterCheckbox({
     //     // устанавливаем занчение текущего положения чекбокса
     //     localStorage.setItem('isShort', !shortFlag)
     // }
-    function func() {
-        console.log('calling function');
+    function handleCheckboxChange(e) {
+        // getting actual checkbox position
+        const isCheckBoxSetShort = e.target.checked;
+        localStorage.setItem('isShort', isCheckBoxSetShort)
+        console.log(isCheckBoxSetShort);
         setChecked(!checked);
     }
 
@@ -47,7 +54,7 @@ export default function FilterCheckbox({
                 id='search__checkbox'
                 name='filter__checkbox'
                 checked={checked}
-                onChange={func} />
+                onChange={handleCheckboxChange} />
             <label
                 className='filter__label'
                 htmlFor='search__checkbox'

@@ -11,8 +11,6 @@ export default function SearchForm({
     searchInput,
     isSavedMoviesPage,
 }) {
-
-    const [checked, setChecked] = useState(localStorage.getItem('isShort'))
     const buttonText = 'Поиск';
 
     const {
@@ -32,12 +30,10 @@ export default function SearchForm({
                 : searchInput
         );
         errors.movie = '';
-        //setShort(!JSON.parse(localStorage.getItem('isShort')))
     }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(`isShort on search button ${checked}`);
         searchMovie(isSavedMoviesPage, values.movie);
     }
 
@@ -86,8 +82,6 @@ export default function SearchForm({
                     isSavedMoviesPage={isSavedMoviesPage}
                     movies={isSavedMoviesPage}
                     setShortLocal={setShortLocal}
-                    checked={checked}
-                    setChecked={setChecked}
                 />
             </form>
         </section>

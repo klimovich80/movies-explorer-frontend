@@ -46,27 +46,6 @@
     background: #fff
 }
 
-
-.filter__visible-checkbox {
-    display: block;
-    min-height: 20px;
-    width: 36px;
-}
-
-
-.filter__visible-checkbox {
-    margin: 0;
-    padding: 0;
-}
-
-.filter__checkbox:checked + .filter__visible-checkbox {
-    background: url('../../images/checkbox-active.svg') center no-repeat;
-}
-
-.filter__checkbox + .filter__visible-checkbox {
-    background: url('../../images/checkbox-inactive.svg')center no-repeat;
-}
-
 @media screen and (max-width: 1279px) {
     .filter {
         padding-bottom: 47px;
