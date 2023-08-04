@@ -18,8 +18,7 @@ export default function Profile({
         values,
         errors,
         handleChange,
-        isValid,
-        setIsValid
+        isValid
     } = useFormWithValidation({
         name: currentUser.name,
         email: currentUser.email,
@@ -27,6 +26,7 @@ export default function Profile({
     });
 
     useEffect(() => {
+        validate(currentUser.email)
         values.name = currentUser.name;
         values.email = currentUser.email;
         errors.name = '';
@@ -65,7 +65,7 @@ export default function Profile({
                             minLength="2"
                             maxLength="30"
                             placeholder='введите имя'
-                            value={values.name}
+                            value={values.name || ''}
                             onChange={handleChange} />
                     </label>
                     <div className='profile__divider'></div>
@@ -86,12 +86,9 @@ export default function Profile({
                             minLength="2"
                             maxLength="30"
                             placeholder='введите е-майл'
-                            value={values.email}
+                            value={values.email || ''}
                             onChange={(e) => {
                                 validate(e.target.value);
-                                res
-                                    ? setIsValid(true)
-                                    : setIsValid(false)
                                 handleChange(e);
                             }} />
                     </label>
@@ -112,7 +109,7 @@ export default function Profile({
                             className={
                                 changeDataCheck()
                                     ? 'button profile__save-button_disabled profile__save-button'
-                                    : isValid
+                                    : isValid && res
                                         ? 'profile__save-button button'
                                         : 'button profile__save-button_disabled profile__save-button'
                             }
@@ -121,7 +118,7 @@ export default function Profile({
                             disabled={
                                 changeDataCheck()
                                     ? true
-                                    : !isValid
+                                    : !(isValid && res)
                             }>
                             Сохранить
                         </button>
