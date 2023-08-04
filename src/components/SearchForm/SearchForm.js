@@ -1,7 +1,7 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import MyInput from '../UI/MyInput/MyInput'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormWithValidation } from '../hooks/useForm'
 
 export default function SearchForm({
@@ -12,6 +12,7 @@ export default function SearchForm({
     isSavedMoviesPage,
 }) {
 
+    const [checked, setChecked] = useState(localStorage.getItem('isShort'))
     const buttonText = 'Поиск';
 
     const {
@@ -25,16 +26,26 @@ export default function SearchForm({
     });
 
     useEffect(() => {
-        values.movie = (isSavedMoviesPage
-            ? ''
-            : searchInput
+        values.movie = (
+            isSavedMoviesPage
+                ? ''
+                : searchInput
         );
         errors.movie = '';
+        //setShort(!JSON.parse(localStorage.getItem('isShort')))
     }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
+        console.log(`isShort on search button ${checked}`);
         searchMovie(isSavedMoviesPage, values.movie);
+    }
+
+    //функция установки значения локал сторадже
+    function setShortLocal(shortFlag) {
+        console.log(`isShort on SearchFilter -> localStorage: ${shortFlag}`);
+        // устанавливаем занчение текущего положения чекбокса
+        localStorage.setItem('isShort', shortFlag)
     }
 
     return (
@@ -71,9 +82,12 @@ export default function SearchForm({
                     isShort={isShort}
                     setShort={setShort}
                     searchMovie={searchMovie}
-                    movie={values.movie}
+                    inputValue={values.movie}
                     isSavedMoviesPage={isSavedMoviesPage}
                     movies={isSavedMoviesPage}
+                    setShortLocal={setShortLocal}
+                    checked={checked}
+                    setChecked={setChecked}
                 />
             </form>
         </section>

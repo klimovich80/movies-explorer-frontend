@@ -49,7 +49,8 @@ function App() {
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [isShort, setShort] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
+    //const [isShort, setShort] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
+    const [isShort, setShort] = useState(JSON.parse(localStorage.getItem('isShort')));
     const [isSaved, setSaved] = useState(false);
     const [maxMovies, setMaxMovies] = useState(12);
     const [movies, setMovies] = useState([]);
@@ -64,7 +65,6 @@ function App() {
     // initial rendering
     useEffect(() => {
         console.log(localStorage);
-        console.log(('1'));
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -87,7 +87,8 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
-        console.log('2');
+
+        console.log(`isShort in rendering 2 ${isShort}`);
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -98,7 +99,6 @@ function App() {
             mainApi.getSavedMovies(token)
         ])
             .then(([data, savedItems]) => {
-                console.log(movies);
                 moviesToShow(movies);
                 setSavedMovies(savedItems);
                 setLoggedIn(true);
@@ -228,20 +228,11 @@ function App() {
     }
 
     const moviesToShow = (items) => {
-        console.log(`isShort in rendering 2: ${isShort}`);
+        console.log(`isShort in moviesToShow: ${isShort}`);
         const movieName = localStorage.getItem('searchInput');
-        // if there was a search 
-        if (movieName) {
-            // initiate search function
-            console.log(`there was a search, setting movies`);
-            console.log(movieName);
-            searchMovie(false, movieName)
-            return
-        } else {
-            //set everything with the values fron server
-            console.log(`setting everything as usual`);
-            return items
-        }
+        // initiate search function
+        console.log(`there was a search, setting movies`);
+        searchMovie(false, movieName)
     }
 
     // filter out short movies function
@@ -252,28 +243,22 @@ function App() {
     }
 
     function findMovies(moviesArr, name) {
-        console.log('findMovies funct ->');
-        console.log(moviesArr);
-        console.log(name);
-        console.log(`isShort in findMovies: ${isShort}`);
-        if (name === '*')
+        console.log(`isShort in findMovies: ${localStorage.getItem('isShort')}`);
+        if (name === '*') {
             return isShort
                 ? filterShortMovies(moviesArr)
                 : moviesArr
+        }
         return isShort
             ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
             : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
 
     function searchMovie(isSavedMoviesPage, name) {
-        console.log('search initiated');
-        console.log(name);
         const items = isSavedMoviesPage
             ? savedMovies
             : movies
-        console.log(items);
         const foundItems = findMovies(items, name);
-        console.log(foundItems);
         setFoundMovies(foundItems);
         localStorage.setItem('searchInput', name)
     }

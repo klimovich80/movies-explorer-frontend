@@ -1,55 +1,53 @@
-import { useEffect, useRef } from 'react'
+import { useState } from 'react'
 import './FilterCheckbox.css'
 
 export default function FilterCheckbox({
     isShort,
     setShort,
     searchMovie,
-    movie,
-    isSavedMoviesPage
+    inputValue,
+    isSavedMoviesPage,
+    setShortLocal,
+    // checked,
+    // setChecked
 }) {
-    const inputRef = useRef(null);
 
-    function handleCheckbox() {
-        const input = inputRef.current.checked;
-        if (isSavedMoviesPage) {
-            console.log('set checkbox for short movies');
-            setShort(input)
-            return
-        }
-        setShort(input);
-        setShortFilter(input);
-        searchMovie(isSavedMoviesPage, movie);
-    }
-    function setShortFilter(shortFlag) {
-        console.log(`isShort on SearchFilter: ${shortFlag}`);
-        isSavedMoviesPage
-            ? setShort(shortFlag)
-            : localStorage.setItem('isShort', shortFlag)
-    }
+    const [checked, setChecked] = useState(false)
+    // стэйт для чекбокса
 
-    useEffect(() => {
-        //this goes well
-        console.log('filterCheckbox useEffect');
-        console.log('setting checkbox position on first rendering');
-        isSavedMoviesPage
-            ? setShort(true)
-            : setShort(JSON.parse(localStorage.getItem('isShort')))
-    }, [])
+    // function handleCheckbox() {
+    //     console.log('checkbox: ' + checked);
+    //     //переменная сохранения текущего состояния чекбокса
+    //     const checkBox = inputRef.current.checked;
+    //     const checkedValue = checkBox.value;
+    //     console.log(checkedValue);
+    //     // устанавливаем значение стэйта короткометражек в текущее положение чекбокса
+    //     setChecked(checkBox);
+    //     // вызываем функцию установки значения локалсторадже
+    //     setShortLocal(checkBox);
+    //     // вызываем функцию поиска фильмов/сохраненных фильмов по искомому значению
+    //     searchMovie(isSavedMoviesPage, inputValue);
+    // }
+
+    // //функция установки значения локал сторадже
+    // function setShortLocal(shortFlag) {
+    //     console.log(`isShort on SearchFilter -> localStorage: ${shortFlag}`);
+    //     // устанавливаем занчение текущего положения чекбокса
+    //     localStorage.setItem('isShort', !shortFlag)
+    // }
+    function func() {
+        console.log('calling function');
+        setChecked(!checked);
+    }
 
     return (
         <div className='filter'>
             <input className='filter__checkbox'
-                ref={inputRef}
                 type='checkbox'
                 id='search__checkbox'
                 name='filter__checkbox'
-                checked={!isShort}
-                onChange={() => { }} />
-            <span
-                className="filter__visible-checkbox"
-                onClick={handleCheckbox}
-            ></span>
+                checked={checked}
+                onChange={func} />
             <label
                 className='filter__label'
                 htmlFor='search__checkbox'
