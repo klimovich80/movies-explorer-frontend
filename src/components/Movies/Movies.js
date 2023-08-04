@@ -23,6 +23,7 @@ export default function Movies({
             setShort={setShort}
             searchMovie={searchMovie}
             searchInput={searchInput}
+            movies={movies}
         />
         <MoviesCardList
             currentUser={currentUser}

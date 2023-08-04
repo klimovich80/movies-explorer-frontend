@@ -19,7 +19,7 @@ export default function FilterCheckbox({
         }
         setShort(input);
         setShortFilter(input);
-        searchMovie(movie);
+        searchMovie(isSavedMoviesPage, movie);
     }
     function setShortFilter(shortFlag) {
         console.log(`isShort on SearchFilter: ${shortFlag}`);
@@ -46,8 +46,14 @@ export default function FilterCheckbox({
                 name='filter__checkbox'
                 checked={!isShort}
                 onChange={() => { }} />
-            <span className="filter__visible-checkbox" onClick={handleCheckbox}></span>
-            <label className='filter__label' htmlFor='search__checkbox'>Короткометражки</label>
+            <span
+                className="filter__visible-checkbox"
+                onClick={handleCheckbox}
+            ></span>
+            <label
+                className='filter__label'
+                htmlFor='search__checkbox'
+            >Короткометражки</label>
         </div>
 
     )

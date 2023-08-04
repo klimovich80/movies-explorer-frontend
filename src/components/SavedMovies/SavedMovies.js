@@ -25,6 +25,7 @@ export default function SavedMovies({
                 isShort={isShort}
                 setShort={setShort}
                 isSavedMoviesPage={isSavedMoviesPage}
+                movies={savedMovies}
             />
             <MoviesCardList
                 currentUser={currentUser}

@@ -9,7 +9,7 @@ export default function SearchForm({
     setShort,
     searchMovie,
     searchInput,
-    isSavedMoviesPage
+    isSavedMoviesPage,
 }) {
 
     const buttonText = 'Поиск';
@@ -34,7 +34,7 @@ export default function SearchForm({
 
     function handleSubmit(e) {
         e.preventDefault();
-        searchMovie(values.movie);
+        searchMovie(isSavedMoviesPage, values.movie);
     }
 
     return (
@@ -73,6 +73,7 @@ export default function SearchForm({
                     searchMovie={searchMovie}
                     movie={values.movie}
                     isSavedMoviesPage={isSavedMoviesPage}
+                    movies={isSavedMoviesPage}
                 />
             </form>
         </section>

@@ -44,6 +44,7 @@ function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [connectionError, setConnectionError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
+    const [foundMovies, setFoundMovies] = useState('');
     const [isEditableForm, setEditableForm] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -67,9 +68,13 @@ function App() {
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
-        mainApi.getProfileInfo(jwt)
-            .then((data) => {
+        Promise.all([
+            mainApi.getProfileInfo(jwt),
+            moviesApi.getMovies()
+        ])
+            .then(([data, items]) => {
                 setCurrentUser(data);
+                setMovies(items);
                 setLoggedIn(true);
                 navigate(localStorage.getItem('path'))
             })
@@ -90,11 +95,12 @@ function App() {
         }
         Promise.all([
             mainApi.getProfileInfo(token),
-            mainApi.getSavedMovies(token),
-            moviesApi.getMovies()
+            mainApi.getSavedMovies(token)
         ])
-            .then(([data, savedItems, items]) => {
-                moviesToShow(savedItems, items);
+            .then(([data, savedItems]) => {
+                console.log(movies);
+                moviesToShow(movies);
+                setSavedMovies(savedItems);
                 setLoggedIn(true);
                 setCurrentUser(data);
                 setLoggedIn(true);
@@ -221,19 +227,20 @@ function App() {
             })
     }
 
-    const moviesToShow = (savedItems, items) => {
+    const moviesToShow = (items) => {
         console.log(`isShort in rendering 2: ${isShort}`);
         const movieName = localStorage.getItem('searchInput');
         // if there was a search 
         if (movieName) {
             // initiate search function
             console.log(`there was a search, setting movies`);
-            searchMovie(movieName)
+            console.log(movieName);
+            searchMovie(false, movieName)
+            return
         } else {
             //set everything with the values fron server
             console.log(`setting everything as usual`);
-            setMovies(items);
-            setSavedMovies(savedItems);
+            return items
         }
     }
 
@@ -245,6 +252,9 @@ function App() {
     }
 
     function findMovies(moviesArr, name) {
+        console.log('findMovies funct ->');
+        console.log(moviesArr);
+        console.log(name);
         console.log(`isShort in findMovies: ${isShort}`);
         if (name === '*')
             return isShort
@@ -255,24 +265,17 @@ function App() {
             : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
 
-    function searchMovie(name) {
+    function searchMovie(isSavedMoviesPage, name) {
         console.log('search initiated');
-        setLoading(true);
-        moviesApi.getMovies()
-            .then((items) => {
-                setConnectionError(false);
-                const foundMovies = findMovies(items, name);
-                console.log(foundMovies);
-                setMovies(foundMovies);
-                localStorage.setItem('searchInput', name)
-            })
-            .catch(err => {
-                console.log(err);
-                setConnectionError(true);
-            })
-            .finally(() => {
-                setLoading(false);
-            })
+        console.log(name);
+        const items = isSavedMoviesPage
+            ? savedMovies
+            : movies
+        console.log(items);
+        const foundItems = findMovies(items, name);
+        console.log(foundItems);
+        setFoundMovies(foundItems);
+        localStorage.setItem('searchInput', name)
     }
 
     // layout
@@ -310,7 +313,7 @@ function App() {
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
                                         searchInput={localStorage.getItem('searchInput') || ''}
-                                        movies={movies}
+                                        movies={foundMovies}
                                         setSavedMovies={setSavedMovies}
                                         savedMovies={savedMovies}
                                         maxMovies={maxMovies}
