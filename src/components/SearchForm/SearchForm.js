@@ -66,6 +66,8 @@ export default function SearchForm({
                 <FilterCheckbox
                     isShort={isShort}
                     setShort={setShort}
+                    searchMovie={searchMovie}
+                    movie={values.movie}
                 />
             </form>
         </section>

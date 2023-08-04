@@ -3,14 +3,17 @@ import './FilterCheckbox.css'
 
 export default function FilterCheckbox({
     isShort,
-    setShort
+    setShort,
+    searchMovie,
+    movie
 }) {
     const inputRef = useRef(null);
 
     function handleCheckbox() {
         const input = inputRef.current.checked;
-        setShort(!input)
-        setShortFilter(!input)
+        setShort(!input);
+        setShortFilter(!input);
+        searchMovie(movie);
     }
     function setShortFilter(isShort) {
         localStorage.setItem('isShort', isShort)

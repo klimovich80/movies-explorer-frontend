@@ -12,7 +12,6 @@ export default function Movies({
     movies,
     setSavedMovies,
     savedMovies,
-    filterShortMovies,
     maxMovies,
     setMaxMovies,
     showMore,
@@ -29,11 +28,7 @@ export default function Movies({
             currentUser={currentUser}
             isSavedMovies={false}
             isLoading={isLoading}
-            movies={
-                isShort
-                    ? filterShortMovies(movies)
-                    : movies
-            }
+            movies={movies}
             setSavedMovies={setSavedMovies}
             savedMovies={savedMovies}
             maxMovies={maxMovies}

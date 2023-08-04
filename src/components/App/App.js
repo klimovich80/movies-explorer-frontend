@@ -48,7 +48,7 @@ function App() {
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [isShort, setShort] = useState(false);
+    const [isShort, setShort] = useState(JSON.parse(localStorage.getItem('isShort')) || false);
     const [isSaved, setSaved] = useState(false);
     const [maxMovies, setMaxMovies] = useState(12);
     const [movies, setMovies] = useState([]);
@@ -133,13 +133,6 @@ function App() {
             setMaxMovies(PHONE_CARDS_DISPLAY)
             setShowMore(PHONE_CARDS_MORE)
         }
-    }
-
-    // filter out short movies function
-    const filterShortMovies = (moviesArr) => {
-        return moviesArr.filter((movie) => {
-            return movie.duration <= SHORT_MOVIE_DURATION;
-        })
     }
 
     function openPopup() {
@@ -237,13 +230,28 @@ function App() {
         }
     }
 
+    // filter out short movies function
+    const filterShortMovies = (moviesArr) => {
+        return moviesArr.filter((movie) => {
+            return movie.duration <= SHORT_MOVIE_DURATION;
+        })
+    }
+
     function findMovies(moviesArr, name) {
+        console.log(`is short: ${isShort}`);
         if (name === '*')
-            return moviesArr
-        return moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
+            return !isShort
+                ? filterShortMovies(moviesArr)
+                : moviesArr
+        return !isShort
+            ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
+            : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
+
     }
 
     function searchMovie(name) {
+        console.log(`search movie initiated: ${name}`);
+        console.log(`is short: ${isShort}`);
         setLoading(true);
         Promise.all([
             moviesApi.getMovies(),
@@ -305,7 +313,6 @@ function App() {
                                         movies={movies}
                                         setSavedMovies={setSavedMovies}
                                         savedMovies={savedMovies}
-                                        filterShortMovies={filterShortMovies}
                                         maxMovies={maxMovies}
                                         setMaxMovies={setMaxMovies}
                                         showMore={showMore}
@@ -330,7 +337,6 @@ function App() {
                                         searchInput={localStorage.getItem('searchInput') || ''}
                                         savedMovies={savedMovies}
                                         setSavedMovies={setSavedMovies}
-                                        filterShortMovies={filterShortMovies}
                                         maxMovies={maxMovies}
                                         setMaxMovies={setMaxMovies}
                                         showMore={showMore}
