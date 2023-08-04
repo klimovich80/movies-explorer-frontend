@@ -1,4 +1,5 @@
 import './Register.css'
+import { validate, res } from 'react-email-validator'
 import { useEffect } from 'react'
 import { useFormWithValidation } from '../hooks/useForm'
 import { ENDPOINT_MAIN, ENDPOINT_LOGIN } from '../../vendor/constants/endpoints'
@@ -14,8 +15,8 @@ export default function Register({
 
     const {
         values,
-        handleChange,
         errors,
+        handleChange,
         isValid
     } = useFormWithValidation({
         name: '',
@@ -24,6 +25,7 @@ export default function Register({
     });
 
     useEffect(() => {
+        console.log('register use effect');
         values.name = "";
         values.email = "";
         values.password = "";
@@ -64,14 +66,30 @@ export default function Register({
                     <MyInput
                         id='register__email'
                         name="email"
-                        error={errors.email}
+                        error={
+                            // валидация прошла успешно
+                            res
+                                // да пишем то что определено в ошибках
+                                ? errors.email
+                                // нет, а есть ли дефолтные ошибки
+                                : errors.email
+                                    // они есть, их и пишем
+                                    ? errors.email
+                                    // их нет, пишем свою
+                                    : 'email должен быть в формате user@domain.any'
+                        }
                         type='email'
                         required
                         minLength="2"
                         maxLength="30"
                         placeholder='введите е-майл'
                         value={values.email}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                            // валидируем данные
+                            validate(e.target.value);
+                            // реагируем на изменения через валидатор хука формы
+                            handleChange(e)
+                        }}
                     />
                 </label>
                 <label className='register__label' htmlFor='register__password'>

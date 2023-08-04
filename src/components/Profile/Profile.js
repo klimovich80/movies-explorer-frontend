@@ -18,7 +18,8 @@ export default function Profile({
         values,
         errors,
         handleChange,
-        isValid
+        isValid,
+        setIsValid
     } = useFormWithValidation({
         name: currentUser.name,
         email: currentUser.email,
@@ -88,7 +89,10 @@ export default function Profile({
                             value={values.email}
                             onChange={(e) => {
                                 validate(e.target.value);
-                                handleChange(e)
+                                res
+                                    ? setIsValid(true)
+                                    : setIsValid(false)
+                                handleChange(e);
                             }} />
                     </label>
                 </fieldset>
