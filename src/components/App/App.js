@@ -213,25 +213,6 @@ function App() {
         navigate("/", { replace: true });
     }
 
-    function handleProfileEdit({ name, email }) {
-        setErrorMessage('');
-        mainApi.editProfileInfo(name, email, token)
-            .then(({ email, name }) => {
-                setEditableForm(false);
-                setCurrentUser({ name, email });
-                setSaved(true);
-            })
-            .catch(err => {
-                setEditableForm(true);
-                setSaved(false);
-                if (err.includes('409')) {
-                    setErrorMessage('Пользователь с таким email уже существует.')
-                    return;
-                }
-                setErrorMessage('При обновлении профиля произошла ошибка.');
-            })
-    }
-
     // функция фильтрации короткометражек
     const filterShortMovies = (moviesArr) => {
         // возвращаем отфильтрованный массив 
@@ -265,33 +246,44 @@ function App() {
     function searchMovie(isSavedMoviesPage, name) {
         console.log('search movies func called');
         console.log(localStorage);
+        // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
         console.log(movies.length);
-        // если поиск фильмов ещё не производился
+        // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
             console.log('подгружаем новые фильмы и ...')
+            // включаем прелоадер
             setLoading(true)
+            // обращаемся к апишке за фильмамиа
             moviesApi.getMovies()
+                // если данные из сервера пришли
                 .then(res => {
                     console.log(res);
                     console.log('successfully got movies');
+                    // формируем из полученных фильмов строку 
                     const moviesToStore = JSON.stringify(res);
+                    // и кладём в локальное хранилище
                     localStorage.setItem('movies', moviesToStore);
                     console.log(localStorage);
                 })
+                // если пришла ошибка
                 .catch(err => {
+                    // отображаем её
                     console.log(err);
                 })
+                // в любом случае
                 .finally(() => {
+                    // отключаем прелоадер
                     setLoading(false)
                 })
         }
         console.log('производим обычный поиск')
+        // в переменную массива для поиска заносим значение
         const items = isSavedMoviesPage
             // если флаг isSavedMoviesPage
-            //true - ищем среди сохраненных фильмов
+            //true - передаем массив сохраненных фильмов
             ? savedMovies
-            // false - ищем среди фильмов
+            // false - передаем массив фильмов
             : movies
         // переменная в которую возвращаются найденные фильмы
         const foundItems = findMovies(items, name);
@@ -299,7 +291,9 @@ function App() {
         setFoundMovies(foundItems);
         // запоминаем значение строки поиска для перезагрузки страницы
         localStorage.setItem('searchInput', name || '')
+        // формируем из полученных фильмов строку 
         const moviesToStore = JSON.stringify(movies)
+        // и кладём в локальное хранилище
         localStorage.setItem('movies', moviesToStore || '')
     }
 
@@ -335,7 +329,7 @@ function App() {
                                         currentUser={currentUser}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
-                                        searchInput={localStorage.getItem('searchInput') || ''}
+                                        searchInput={localStorage.getItem('searchInput')}
                                         movies={foundMovies}
                                         setSavedMovies={setSavedMovies}
                                         savedMovies={savedMovies}
@@ -358,7 +352,7 @@ function App() {
                                         currentUser={currentUser}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
-                                        searchInput={localStorage.getItem('searchInput') || ''}
+                                        //searchInput={localStorage.getItem('searchInput') || ''}
                                         savedMovies={savedMovies}
                                         setSavedMovies={setSavedMovies}
                                         maxMovies={maxMovies}
@@ -382,9 +376,10 @@ function App() {
                                     />
                                     <Profile
                                         errorMessage={errorMessage}
+                                        setErrorMessage={setErrorMessage}
                                         currentUser={currentUser}
+                                        setCurrentUser={setCurrentUser}
                                         handleLogout={handleLogout}
-                                        handleProfileEdit={handleProfileEdit}
                                         isEditableForm={isEditableForm}
                                         setEditableForm={setEditableForm}
                                         isSaved={isSaved}

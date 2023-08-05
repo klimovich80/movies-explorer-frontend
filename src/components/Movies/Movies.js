@@ -5,8 +5,6 @@ import { useEffect } from 'react'
 
 export default function Movies({
     currentUser,
-    isShort,
-    setShort,
     searchMovie,
     isLoading,
     searchInput,
@@ -22,7 +20,6 @@ export default function Movies({
     useEffect(() => {
         const name = localStorage.getItem('searchInput') || ''
         console.log(name);
-        //searchMovie(false, name)
     })
     return (<section className='movies'>
         <SearchForm

@@ -1,14 +1,16 @@
 import MyInput from '../UI/MyInput/MyInput'
 import { validate, res } from 'react-email-validator'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './Profile.css'
 import { useFormWithValidation } from '../hooks/useForm'
+import { mainApi } from '../../utils/MainApi'
 
 export default function Profile({
     errorMessage,
+    setErrorMessage,
     currentUser,
+    setCurrentUser,
     handleLogout,
-    handleProfileEdit,
     isEditableForm,
     setEditableForm,
     isSaved,
@@ -18,23 +20,54 @@ export default function Profile({
         values,
         errors,
         handleChange,
-        isValid
+        isValid,
+        resetForm
     } = useFormWithValidation({
         name: currentUser.name,
         email: currentUser.email,
         isValid: false
     });
 
+    const [errorText, setErrorText] = useState('')
+
     useEffect(() => {
+        setErrorText(errorText)
         validate(currentUser.email)
         values.name = currentUser.name;
         values.email = currentUser.email;
         errors.name = '';
         errors.email = '';
-    }, [currentUser]);
+    }, [currentUser, errorText]);
 
     function enableForm() {
         setEditableForm(true);
+    }
+
+    function handleProfileEdit({ name, email }) {
+        setErrorMessage('');
+        const token = localStorage.getItem('token')
+        mainApi.editProfileInfo(name, email, token)
+            .then(({ email, name }) => {
+                setEditableForm(false);
+                setCurrentUser({ name, email });
+                setSaved(true);
+                setErrorText('Новые данные успешно сохранены');
+            })
+            .catch(err => {
+                resetForm(currentUser);
+                // сделать форму редактируемой
+                setEditableForm(false);
+                // установить стэйт несохраненных данных
+                setSaved(false);
+                // если возникла ошибка подключения
+                err instanceof TypeError
+                    // показать ошибку пользователю
+                    ? setErrorText('При обновлении профиля произошла ошибка.')
+                    : err.includes('409')
+                        ? setErrorText('Пользователь с таким email уже существует.')
+                        : setErrorText('При обновлении профиля произошла ошибка.')
+                console.log(errorText);
+            })
     }
 
     function handleSubmit() {
@@ -126,11 +159,10 @@ export default function Profile({
                     : <>
                         <span
                             className={
-                                isSaved
+                                isSaved || errorText !== ''
                                     ? 'profile__save-error save-error-visible'
                                     : 'profile__save-error '
-                            }>
-                            Новые данные успешно сохранены
+                            }>{errorText}
                         </span>
                         <button
                             className='profile__button'
