@@ -6,7 +6,6 @@ export default function FilterCheckbox({
     inputValue,
     isSavedMoviesPage,
 }) {
-
     // стэйт для чекбокса
     const [checked, setChecked] = useState(false)
     // при первом рендеринге страницы
@@ -17,6 +16,10 @@ export default function FilterCheckbox({
             ? setChecked(JSON.parse(localStorage.getItem('isShort')))
             // задаем нужное значение в локальную память
             : localStorage.setItem('isShort', checked)
+        if (isSavedMoviesPage) {
+            setChecked(false);
+            localStorage.setItem('isShort', checked)
+        }
     }, [])
 
     // по клику на чекбокс
