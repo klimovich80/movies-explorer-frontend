@@ -62,16 +62,17 @@ function App() {
     // useEffects
     // initial rendering
     useEffect(() => {
-        console.log('1');
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
         Promise.all([
-            mainApi.getProfileInfo(jwt)
+            mainApi.getProfileInfo(jwt),
+            mainApi.getSavedMovies(jwt)
         ])
-            .then((data) => {
+            .then(([data, items]) => {
                 setCurrentUser(data);
                 setLoggedIn(true);
+                setSavedMovies(items);
                 navigate(localStorage.getItem('path'))
             })
             .catch(err => {
@@ -83,7 +84,6 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
-        console.log('2');
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -148,7 +148,6 @@ function App() {
     function handleRegistration({ email, password, name }) {
         register(email, password, name)
             .then((res) => {
-                console.log(res);
                 navigate("/movies", { replace: true });
             })
             .catch((err) => {
@@ -221,9 +220,6 @@ function App() {
     }
     // функция возвращает найденные фильмы
     function findMovies(moviesArr, name) {
-        console.log(`inside find movies : ${moviesArr.length} movies`);
-        console.log(`looking for : ${name}`);
-
         // заносим в переменную is Short значение из локального хранилища
         const isShort = JSON.parse(localStorage.getItem('isShort'))
         // если искомое значение - звездочка
@@ -246,26 +242,20 @@ function App() {
 
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name) {
-        console.log('search movies func called');
-        console.log(`is it SavedMovies page search: ${isSavedMoviesPage}`);
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
-            console.log('подгружаем новые фильмы и ...')
             // включаем прелоадер
             setLoading(true)
             // обращаемся к апишке за фильмамиа
             moviesApi.getMovies()
                 // если данные из сервера пришли
                 .then(res => {
-                    console.log(res);
-                    console.log('successfully got movies');
                     // формируем из полученных фильмов строку 
                     const moviesToStore = JSON.stringify(res);
                     // и кладём в локальное хранилище
                     localStorage.setItem('movies', moviesToStore);
-                    console.log(localStorage);
                 })
                 // если пришла ошибка
                 .catch(err => {
@@ -278,7 +268,6 @@ function App() {
                     setLoading(false)
                 })
         }
-        console.log('производим обычный поиск')
         // в переменную массива для поиска заносим значение
         const items = isSavedMoviesPage
             // если флаг isSavedMoviesPage

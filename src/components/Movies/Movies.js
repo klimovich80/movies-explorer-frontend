@@ -1,7 +1,6 @@
 import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import { useEffect } from 'react'
 
 export default function Movies({
     currentUser,
@@ -16,11 +15,6 @@ export default function Movies({
     showMore,
     connectionError
 }) {
-
-    useEffect(() => {
-        const name = localStorage.getItem('searchInput') || ''
-        console.log(name);
-    })
     return (<section className='movies'>
         <SearchForm
             searchMovie={searchMovie}

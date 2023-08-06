@@ -1,7 +1,6 @@
 import './SavedMovies.css'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { useEffect } from 'react';
 
 export default function SavedMovies({
     currentUser,
@@ -16,9 +15,6 @@ export default function SavedMovies({
     connectionError
 }) {
     const isSavedMoviesPage = true;
-    useEffect(() => {
-        console.log('saved movies page use effect');
-    })
 
     return (
         <section className='saved-movies movies'>
