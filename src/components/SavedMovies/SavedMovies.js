@@ -1,15 +1,14 @@
 import './SavedMovies.css'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { useEffect } from 'react';
 
 export default function SavedMovies({
     currentUser,
-    isShort,
-    setShort,
     searchMovie,
-    searchInput,
     isLoading,
     savedMovies,
+    movies,
     setSavedMovies,
     maxMovies,
     setMaxMovies,
@@ -17,11 +16,14 @@ export default function SavedMovies({
     connectionError
 }) {
     const isSavedMoviesPage = true;
+    useEffect(() => {
+        console.log('saved movies page use effect');
+    })
+
     return (
         <section className='saved-movies movies'>
             <SearchForm
                 searchMovie={searchMovie}
-                searchInput={searchInput}
                 isSavedMoviesPage={isSavedMoviesPage}
                 movies={savedMovies}
             />
@@ -29,7 +31,7 @@ export default function SavedMovies({
                 currentUser={currentUser}
                 isSavedMoviesPage={isSavedMoviesPage}
                 isLoading={isLoading}
-                movies={savedMovies}
+                movies={movies}
                 setSavedMovies={setSavedMovies}
                 savedMovies={savedMovies}
                 maxMovies={maxMovies}

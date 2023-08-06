@@ -25,7 +25,8 @@ export default function SearchForm({
         values.movie = (
             isSavedMoviesPage
                 ? ''
-                : searchInput
+                :
+                searchInput
         );
         errors.movie = '';
         console.log('calling a function to show movies');

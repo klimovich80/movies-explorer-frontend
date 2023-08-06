@@ -45,6 +45,7 @@ function App() {
     const [connectionError, setConnectionError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [foundMovies, setFoundMovies] = useState('');
+    const [foundSavedMovies, setFoundSavedMovies] = useState([]);
     const [isEditableForm, setEditableForm] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -62,7 +63,6 @@ function App() {
     // initial rendering
     useEffect(() => {
         console.log('1');
-        console.log(localStorage);
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -71,7 +71,6 @@ function App() {
         ])
             .then((data) => {
                 setCurrentUser(data);
-                // setMovies(items);
                 setLoggedIn(true);
                 navigate(localStorage.getItem('path'))
             })
@@ -85,7 +84,6 @@ function App() {
     // rendering on conditions
     useEffect(() => {
         console.log('2');
-        console.log(localStorage);
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -114,7 +112,7 @@ function App() {
         window.addEventListener('resize', resizeWindow)
         handleResize()
 
-        // remove the event listener when the component unmounts
+        // remove event listener when a component unmounts
         return () => {
             window.removeEventListener('resize', resizeWindow);
         };
@@ -224,6 +222,8 @@ function App() {
     // функция возвращает найденные фильмы
     function findMovies(moviesArr, name) {
         console.log(`inside find movies : ${moviesArr.length} movies`);
+        console.log(`looking for : ${name}`);
+
         // заносим в переменную is Short значение из локального хранилища
         const isShort = JSON.parse(localStorage.getItem('isShort'))
         // если искомое значение - звездочка
@@ -235,20 +235,21 @@ function App() {
                 // возвращаем все фильмы
                 : moviesArr
         }
-        // исходя из положения чекбокса короткометражек
+        filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
+        // // исходя из положения чекбокса короткометражек
         return isShort
             // возвращаем найденные короктометражные фильмы
             ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
             // возвращаем найденные фильмы
             : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
+
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name) {
         console.log('search movies func called');
-        console.log(localStorage);
+        console.log(`is it SavedMovies page search: ${isSavedMoviesPage}`);
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
-        console.log(movies.length);
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
             console.log('подгружаем новые фильмы и ...')
@@ -288,9 +289,13 @@ function App() {
         // переменная в которую возвращаются найденные фильмы
         const foundItems = findMovies(items, name);
         // заносим все найденные фильмы в стэйт переменную
-        setFoundMovies(foundItems);
+        isSavedMoviesPage
+            ? setFoundSavedMovies(foundItems)
+            : setFoundMovies(foundItems);
         // запоминаем значение строки поиска для перезагрузки страницы
-        localStorage.setItem('searchInput', name || '')
+        if (!isSavedMoviesPage) {
+            localStorage.setItem('searchInput', name || '')
+        }
         // формируем из полученных фильмов строку 
         const moviesToStore = JSON.stringify(movies)
         // и кладём в локальное хранилище
@@ -352,8 +357,8 @@ function App() {
                                         currentUser={currentUser}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
-                                        //searchInput={localStorage.getItem('searchInput') || ''}
                                         savedMovies={savedMovies}
+                                        movies={foundSavedMovies}
                                         setSavedMovies={setSavedMovies}
                                         maxMovies={maxMovies}
                                         setMaxMovies={setMaxMovies}

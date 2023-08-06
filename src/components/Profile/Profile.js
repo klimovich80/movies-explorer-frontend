@@ -66,7 +66,6 @@ export default function Profile({
                     : err.includes('409')
                         ? setErrorText('Пользователь с таким email уже существует.')
                         : setErrorText('При обновлении профиля произошла ошибка.')
-                console.log(errorText);
             })
     }
 
