@@ -72,7 +72,6 @@ function App() {
         ])
             .then(([data, items]) => {
                 setCurrentUser(data);
-                setLoggedIn(true);
                 setSavedMovies(items);
             })
             .catch(err => {
@@ -88,6 +87,7 @@ function App() {
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
+            console.log('no token');
             return;
         }
         Promise.all([
@@ -208,7 +208,7 @@ function App() {
         // обнуляем всё локальное хранилище
         localStorage.clear();
         // переходим на главную страницу
-        navigate("/", { replace: true });
+        navigate(ENDPOINT_MAIN);
     }
 
     // функция фильтрации короткометражек
@@ -306,7 +306,7 @@ function App() {
                         element={
                             <>
                                 <Header
-                                    isLoggedIn={isLoggedIn}
+                                    isLoggedIn={isLoggedIn || token !== null}
                                     onOpen={openPopup}
                                 />
                                 <Main />
@@ -319,7 +319,7 @@ function App() {
                             <ProtectedRoute element={
                                 <>
                                     <Header
-                                        isLoggedIn={isLoggedIn}
+                                        isLoggedIn={isLoggedIn || token !== null}
                                         onOpen={openPopup} />
                                     <Movies
                                         currentUser={currentUser}
@@ -343,7 +343,7 @@ function App() {
                         element={
                             <ProtectedRoute element={
                                 <>
-                                    <Header isLoggedIn={isLoggedIn} onOpen={openPopup} />
+                                    <Header isLoggedIn={isLoggedIn || token !== null} onOpen={openPopup} />
                                     <SavedMovies
                                         currentUser={currentUser}
                                         searchMovie={searchMovie}
@@ -358,7 +358,7 @@ function App() {
                                     />
                                     <Footer />
                                 </>
-                            } isLoggedIn={isLoggedIn} />
+                            } isLoggedIn={isLoggedIn || token !== null} />
                         } />
                     <Route
                         path={ENDPOINT_PROFILE}
@@ -366,7 +366,7 @@ function App() {
                             <ProtectedRoute element={
                                 <>
                                     <Header
-                                        isLoggedIn={isLoggedIn}
+                                        isLoggedIn={isLoggedIn || token !== null}
                                         onOpen={openPopup}
                                     />
                                     <Profile
@@ -381,7 +381,7 @@ function App() {
                                         setSaved={setSaved}
                                     />
                                 </>
-                            } isLoggedIn={isLoggedIn} />
+                            } isLoggedIn={isLoggedIn || token !== null} />
                         } />
                     <Route
                         path={ENDPOINT_LOGIN}

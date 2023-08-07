@@ -13,6 +13,8 @@ export default function Navigation({
     isLoggedIn,
     onOpen
 }) {
+    const authorizedHeader = isLoggedIn || localStorage.getItem('token') !== null;
+
     function setActiveLink(e) {
         const activeClass = 'navigation__link_active';
         const links = e.target.closest('ul').querySelectorAll('.navigation__link')
@@ -23,7 +25,7 @@ export default function Navigation({
     }
     return (
         <>
-            {isLoggedIn ? (
+            {authorizedHeader ? (
                 <nav className='navigation logged-in'>
                     <ul className='navigation__list list navigation__movies navigation__list_logged-in'>
                         <li className='navigation__item'>

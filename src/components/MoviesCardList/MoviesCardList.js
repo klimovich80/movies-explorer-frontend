@@ -2,7 +2,6 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 import { mainApi } from '../../utils/MainApi';
-import { useEffect } from 'react';
 
 export default function MoviesCardList({
     currentUser,
