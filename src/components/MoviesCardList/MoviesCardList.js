@@ -55,8 +55,10 @@ export default function MoviesCardList({
     let isEmpty = isSavedMoviesPage
         ? formValue === ''
         : localStorage.getItem('searchInput') === ''
+    console.log(`ShowMovies: ${showMovies.length}`);
     console.log(`isEmpty: ${isEmpty}`);
-
+    const foundNothing = showMovies.length === 0 || isEmpty
+    console.log(`foundNothing : ${foundNothing}`);
     return (
         <section className='movies-card' >
             {

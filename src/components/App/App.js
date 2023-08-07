@@ -219,8 +219,8 @@ function App() {
     }
 
     // функция фильтрации короткометражек
-    const filterShortMovies = (items) => {
-        console.log(`фильтруем короткие фильмы из`);
+    function filterShortMovies(items) {
+        console.log('filter movies');
         console.log(items);
         // возвращаем отфильтрованный массив 
         return items.filter((movie) => {
@@ -230,24 +230,22 @@ function App() {
     }
     // функция возвращает найденные фильмы
     function findMovies(name, isSavedMoviesPage, isShort) {
-        console.log('find movie func->');
-        console.log(`finding name: '${name}'`);
+        console.log('find movies');
+        console.log(name);
+        console.log(isSavedMoviesPage);
+        console.log(isShort);
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
-        console.log('const movies');
-        console.log(movies);
-        console.log(`isShort ? :'${isShort}'`);
-        console.log(`isSavedMoviesPage ? :'${isSavedMoviesPage}'`);
+
+        // если флаг isSavedMoviesPage
         const items = isSavedMoviesPage
-            // если флаг isSavedMoviesPage
             //true - передаем массив сохраненных фильмов
             ? savedMovies
             // false - передаем массив фильмов
             : movies
-        console.log('const items: ');
-        console.log(items);
+
         // если искомое значение - звездочка
         if (name === '*') {
-            console.log('вернуть все фильмы');
+            console.log('all movies');
             // исходя из положения чекбокса короткометражек
             return isShort
                 // возвращаем все короктометражные фильмы
@@ -257,7 +255,7 @@ function App() {
         }
         //filterShortMovies(items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
         // исходя из положения чекбокса короткометражек
-        console.log('фильтруем результат');
+        console.log('calling filters');
         return isShort
             // возвращаем найденные короктометражные фильмы
             ? filterShortMovies(items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
@@ -267,6 +265,8 @@ function App() {
 
     function storeFoundMovies(isSavedMoviesPage, name, movies, isShort) {
         const foundItems = findMovies(name, isSavedMoviesPage, isShort);
+        console.log('found Items: ');
+        console.log(foundItems);
         isSavedMoviesPage
             ? setFoundSavedMovies(foundItems)
             : setFoundMovies(foundItems);
@@ -276,19 +276,18 @@ function App() {
         }
         // формируем из полученных фильмов строку 
         const moviesToStore = JSON.stringify(movies)
+        console.log('moviesToStore: ');
+        console.log(moviesToStore);
         // и кладём в локальное хранилище
         localStorage.setItem('movies', moviesToStore || '')
     }
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
         console.log('search movie func->');
-        console.log(`serachin name: '${name}'`);
-        console.log(`isShortFlag ? :'${isShortFlag}'`);
-        console.log(`isSavedMoviesPage: ${isSavedMoviesPage}`);
+        console.log(`ищем имя: '${name}'`);
         const isShort = isSavedMoviesPage
             ? isShortFlag
             : JSON.parse(localStorage.getItem('isShort'))
-        console.log(`isShort ? :'${isShort}'`);
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
@@ -301,12 +300,15 @@ function App() {
                 // если данные из сервера пришли
                 .then(res => {
                     console.log('got the movies');
-                    console.log(res);
                     // формируем из полученных фильмов строку 
                     const moviesToStore = JSON.stringify(res);
                     // и кладём в локальное хранилище
                     localStorage.setItem('movies', moviesToStore);
-                    storeFoundMovies(isSavedMoviesPage, name, movies, isShort)
+                    localStorage.setItem('searchInput', name)
+                    // storeFoundMovies(isSavedMoviesPage, name, movies, isShort)
+                    setFoundMovies(findMovies(name, isSavedMoviesPage, isShort));
+                    console.log(`found movies in promise`);
+                    console.log(foundMovies);
                 })
                 // если пришла ошибка
                 .catch(err => {
@@ -318,8 +320,10 @@ function App() {
                     // отключаем прелоадер
                     setLoading(false)
                 })
+        } else {
+            console.log('calling normal search');
+            storeFoundMovies(isSavedMoviesPage, name, movies, isShort)
         }
-        storeFoundMovies(isSavedMoviesPage, name, movies, isShort)
     }
 
     // layout
