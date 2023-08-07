@@ -1,7 +1,7 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import MyInput from '../UI/MyInput/MyInput'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormWithValidation } from '../hooks/useForm'
 
 export default function SearchForm({
@@ -11,6 +11,8 @@ export default function SearchForm({
     isSavedMoviesShort,
     setSavedMoviesShort
 }) {
+
+    const [checked, setChecked] = useState(false)
     const buttonText = 'Поиск';
 
     const {
@@ -30,12 +32,16 @@ export default function SearchForm({
                 : searchInput
         );
         errors.movie = '';
-        searchMovie(isSavedMoviesPage, values.movie);
+        const isSearched = JSON.parse(localStorage.getItem('movies')) || []
+        isSearched.length
+            ? searchMovie(isSavedMoviesPage, values.movie, checked)
+            : console.log('no movies to display')
     }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
-        searchMovie(isSavedMoviesPage, values.movie);
+        console.log('search movie called from searchform submit');
+        searchMovie(isSavedMoviesPage, values.movie, checked);
     }
 
     return (
@@ -74,6 +80,8 @@ export default function SearchForm({
                     isSavedMoviesPage={isSavedMoviesPage}
                     isSavedMoviesShort={isSavedMoviesShort}
                     setSavedMoviesShort={setSavedMoviesShort}
+                    checked={checked}
+                    setChecked={setChecked}
                 />
             </form>
         </section>

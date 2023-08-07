@@ -4,10 +4,12 @@ import './FilterCheckbox.css'
 export default function FilterCheckbox({
     searchMovie,
     inputValue,
-    isSavedMoviesPage
+    isSavedMoviesPage,
+    checked,
+    setChecked
 }) {
     // стэйт для чекбокса
-    const [checked, setChecked] = useState(false)
+    //const [checked, setChecked] = useState(false)
     // при первом рендеринге страницы
     useEffect(() => {
         // если мы на странице Сохраненных фильмов

@@ -221,7 +221,6 @@ function App() {
     }
     // функция возвращает найденные фильмы
     function findMovies(moviesArr, name, isShortFlag) {
-        console.log(`isShortFlag in findMovie func: ${isShortFlag}`);
         // если искомое значение - звездочка
         if (name === '*') {
             // исходя из положения чекбокса короткометражек
@@ -242,7 +241,6 @@ function App() {
 
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
-        console.log(`isShortFlag in searchmovie func: ${isShortFlag}`);
         const isShort = isSavedMoviesPage
             ? isShortFlag
             : JSON.parse(localStorage.getItem('isShort'))
