@@ -73,6 +73,7 @@ function App() {
             .then(([data, items]) => {
                 setCurrentUser(data);
                 setSavedMovies(items);
+                setFoundSavedMovies(items);
             })
             .catch(err => {
                 console.log(err)
@@ -87,7 +88,6 @@ function App() {
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
-            console.log('no token');
             return;
         }
         Promise.all([

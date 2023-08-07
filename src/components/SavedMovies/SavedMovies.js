@@ -6,8 +6,6 @@ export default function SavedMovies({
     currentUser,
     searchMovie,
     isLoading,
-    isSavedMoviesShort,
-    setSavedMoviesShort,
     savedMovies,
     movies,
     setSavedMovies,
