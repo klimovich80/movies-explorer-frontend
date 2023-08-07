@@ -1,6 +1,7 @@
 import './SavedMovies.css'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { useState } from 'react';
 
 export default function SavedMovies({
     currentUser,
@@ -15,13 +16,14 @@ export default function SavedMovies({
     connectionError
 }) {
     const isSavedMoviesPage = true;
-
+    const [formValue, setFormValue] = useState('')
     return (
         <section className='saved-movies movies'>
             <SearchForm
                 searchMovie={searchMovie}
                 isSavedMoviesPage={isSavedMoviesPage}
                 movies={savedMovies}
+                setFormValue={setFormValue}
             />
             <MoviesCardList
                 currentUser={currentUser}
@@ -34,6 +36,8 @@ export default function SavedMovies({
                 setMaxMovies={setMaxMovies}
                 showMore={showMore}
                 connectionError={connectionError}
+                searchMovie={searchMovie}
+                formValue={formValue}
             />
         </section>
     )

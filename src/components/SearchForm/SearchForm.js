@@ -9,11 +9,11 @@ export default function SearchForm({
     searchInput,
     isSavedMoviesPage,
     isSavedMoviesShort,
-    setSavedMoviesShort
+    setSavedMoviesShort,
+    setFormValue,
 }) {
     // стэйт для чекбокса
     const [checked, setChecked] = useState(false)
-    const [isEmptyInput, setEmptyInput] = useState(true)
     const buttonText = 'Поиск';
 
     const {
@@ -26,6 +26,7 @@ export default function SearchForm({
         isValid: false
     });
 
+    const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         values.movie = (
@@ -43,10 +44,11 @@ export default function SearchForm({
     function handleSubmit(e) {
         e.preventDefault();
         console.log('search movie called from searchform submit');
+        setSearchValue(values.movie)
+        if (isSavedMoviesPage) {
+            setFormValue(searchValue)
+        }
         searchMovie(isSavedMoviesPage, values.movie, checked);
-        // values.movie === ''
-        //     ? console.log('need to show no result')
-        //     : console.log(values.movie)
     }
 
     return (

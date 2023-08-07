@@ -13,7 +13,8 @@ export default function MoviesCardList({
     maxMovies,
     setMaxMovies,
     showMore,
-    connectionError
+    connectionError,
+    formValue
 }) {
     const token = localStorage.getItem('token');
     function deleteFromList(movie) {
@@ -51,8 +52,11 @@ export default function MoviesCardList({
 
     let showMovies = movies.slice(0, maxMovies);
     const isSearched = JSON.parse(localStorage.getItem('movies')) || [];
-    const isEmpty = localStorage.getItem('searchInput') === '';
+    let isEmpty = isSavedMoviesPage
+        ? formValue === ''
+        : localStorage.getItem('searchInput') === ''
     console.log(`isEmpty: ${isEmpty}`);
+
     return (
         <section className='movies-card' >
             {

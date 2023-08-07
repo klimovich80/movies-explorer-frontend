@@ -219,47 +219,70 @@ function App() {
     }
 
     // функция фильтрации короткометражек
-    const filterShortMovies = (moviesArr) => {
+    const filterShortMovies = (items) => {
+        console.log(`фильтруем короткие фильмы из`);
+        console.log(items);
         // возвращаем отфильтрованный массив 
-        return moviesArr.filter((movie) => {
+        return items.filter((movie) => {
             // в который заносятся все фильмы с заданными параметрами длительности
             return movie.duration <= SHORT_MOVIE_DURATION;
         })
     }
     // функция возвращает найденные фильмы
-    function findMovies(moviesArr, name, isShortFlag) {
+    function findMovies(name, isSavedMoviesPage, isShort) {
+        console.log('find movie func->');
+        console.log(`finding name: '${name}'`);
+        const movies = JSON.parse(localStorage.getItem('movies')) || [];
+        console.log('const movies');
+        console.log(movies);
+        console.log(`isShort ? :'${isShort}'`);
+        console.log(`isSavedMoviesPage ? :'${isSavedMoviesPage}'`);
+        const items = isSavedMoviesPage
+            // если флаг isSavedMoviesPage
+            //true - передаем массив сохраненных фильмов
+            ? savedMovies
+            // false - передаем массив фильмов
+            : movies
+        console.log('const items: ');
+        console.log(items);
         // если искомое значение - звездочка
         if (name === '*') {
+            console.log('вернуть все фильмы');
             // исходя из положения чекбокса короткометражек
-            return isShortFlag
+            return isShort
                 // возвращаем все короктометражные фильмы
-                ? filterShortMovies(moviesArr)
+                ? filterShortMovies(items)
                 // возвращаем все фильмы
-                : moviesArr
+                : items
         }
-        filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
-        // // исходя из положения чекбокса короткометражек
-        return isShortFlag
+        //filterShortMovies(items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
+        // исходя из положения чекбокса короткометражек
+        console.log('фильтруем результат');
+        return isShort
             // возвращаем найденные короктометражные фильмы
-            ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
+            ? filterShortMovies(items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
             // возвращаем найденные фильмы
-            : moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
+            : items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
 
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
+        console.log('search movie func->');
+        console.log(`serachin name: '${name}'`);
+        console.log(`isShortFlag ? :'${isShortFlag}'`);
+        console.log(`isSavedMoviesPage: ${isSavedMoviesPage}`);
         const isShort = isSavedMoviesPage
             ? isShortFlag
             : JSON.parse(localStorage.getItem('isShort'))
+        console.log(`isShort ? :'${isShort}'`);
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
-        console.log(movies);
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
             // включаем прелоадер
             setLoading(true)
             // обращаемся к апишке за фильмамиа
-            console.log('calling the movies api');
+            console.log('calling the movies api!!!');
             moviesApi.getMovies()
                 // если данные из сервера пришли
                 .then(res => {
@@ -281,15 +304,11 @@ function App() {
                     setLoading(false)
                 })
         }
-        // в переменную массива для поиска заносим значение
-        const items = isSavedMoviesPage
-            // если флаг isSavedMoviesPage
-            //true - передаем массив сохраненных фильмов
-            ? savedMovies
-            // false - передаем массив фильмов
-            : movies
+
         // переменная в которую возвращаются найденные фильмы
-        const foundItems = findMovies(items, name, isShort);
+        const foundItems = findMovies(name, isSavedMoviesPage, isShort);
+        console.log('foundItems');
+        console.log(foundItems);
         // заносим все найденные фильмы в стэйт переменную
         isSavedMoviesPage
             ? setFoundSavedMovies(foundItems)

@@ -20,6 +20,7 @@ export default function Movies({
             searchMovie={searchMovie}
             searchInput={searchInput}
             movies={movies}
+            isSavedMoviesPage={false}
         />
         <MoviesCardList
             currentUser={currentUser}
