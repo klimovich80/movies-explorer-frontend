@@ -13,6 +13,7 @@ export default function SearchForm({
 }) {
     // стэйт для чекбокса
     const [checked, setChecked] = useState(false)
+    const [isEmptyInput, setEmptyInput] = useState(true)
     const buttonText = 'Поиск';
 
     const {
@@ -22,8 +23,9 @@ export default function SearchForm({
         isValid
     } = useFormWithValidation({
         movie: '',
-        isValid: true
+        isValid: false
     });
+
 
     useEffect(() => {
         values.movie = (
@@ -42,6 +44,9 @@ export default function SearchForm({
         e.preventDefault();
         console.log('search movie called from searchform submit');
         searchMovie(isSavedMoviesPage, values.movie, checked);
+        // values.movie === ''
+        //     ? console.log('need to show no result')
+        //     : console.log(values.movie)
     }
 
     return (

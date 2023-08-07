@@ -51,6 +51,8 @@ export default function MoviesCardList({
 
     let showMovies = movies.slice(0, maxMovies);
     const isSearched = JSON.parse(localStorage.getItem('movies')) || [];
+    const isEmpty = localStorage.getItem('searchInput') === '';
+    console.log(`isEmpty: ${isEmpty}`);
     return (
         <section className='movies-card' >
             {
@@ -62,7 +64,7 @@ export default function MoviesCardList({
                     </p>
                     : isLoading
                         ? <Preloader />
-                        : showMovies.length === 0
+                        : (showMovies.length === 0 || isEmpty)
                             ? isSearched.length
                                 ? <p className='movies-card__not-found'>Ничего не найдено</p>
                                 : <></>
@@ -87,12 +89,14 @@ export default function MoviesCardList({
             }
             {
                 showMovies.length > 3 && showMovies.length < movies.length
-                    ? <button
-                        className='movies-card__button'
-                        aria-label='Eщё'
-                        type='button'
-                        onClick={handleMoreClick}
-                    >Eщё</button>
+                    ? !isEmpty
+                        ? <button
+                            className='movies-card__button'
+                            aria-label='Eщё'
+                            type='button'
+                            onClick={handleMoreClick}
+                        >Eщё</button>
+                        : <></>
                     : <></>
             }
         </section >
