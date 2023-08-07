@@ -265,6 +265,20 @@ function App() {
             : items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase()))
     }
 
+    function storeFoundMovies(isSavedMoviesPage, name, movies, isShort) {
+        const foundItems = findMovies(name, isSavedMoviesPage, isShort);
+        isSavedMoviesPage
+            ? setFoundSavedMovies(foundItems)
+            : setFoundMovies(foundItems);
+        // запоминаем значение строки поиска для перезагрузки страницы
+        if (!isSavedMoviesPage) {
+            localStorage.setItem('searchInput', name || '')
+        }
+        // формируем из полученных фильмов строку 
+        const moviesToStore = JSON.stringify(movies)
+        // и кладём в локальное хранилище
+        localStorage.setItem('movies', moviesToStore || '')
+    }
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
         console.log('search movie func->');
@@ -292,6 +306,7 @@ function App() {
                     const moviesToStore = JSON.stringify(res);
                     // и кладём в локальное хранилище
                     localStorage.setItem('movies', moviesToStore);
+                    storeFoundMovies(isSavedMoviesPage, name, movies, isShort)
                 })
                 // если пришла ошибка
                 .catch(err => {
@@ -304,23 +319,7 @@ function App() {
                     setLoading(false)
                 })
         }
-
-        // переменная в которую возвращаются найденные фильмы
-        const foundItems = findMovies(name, isSavedMoviesPage, isShort);
-        console.log('foundItems');
-        console.log(foundItems);
-        // заносим все найденные фильмы в стэйт переменную
-        isSavedMoviesPage
-            ? setFoundSavedMovies(foundItems)
-            : setFoundMovies(foundItems);
-        // запоминаем значение строки поиска для перезагрузки страницы
-        if (!isSavedMoviesPage) {
-            localStorage.setItem('searchInput', name || '')
-        }
-        // формируем из полученных фильмов строку 
-        const moviesToStore = JSON.stringify(movies)
-        // и кладём в локальное хранилище
-        localStorage.setItem('movies', moviesToStore || '')
+        storeFoundMovies(isSavedMoviesPage, name, movies, isShort)
     }
 
     // layout
