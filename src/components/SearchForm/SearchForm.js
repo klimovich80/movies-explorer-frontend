@@ -11,7 +11,7 @@ export default function SearchForm({
     isSavedMoviesShort,
     setSavedMoviesShort
 }) {
-
+    // стэйт для чекбокса
     const [checked, setChecked] = useState(false)
     const buttonText = 'Поиск';
 

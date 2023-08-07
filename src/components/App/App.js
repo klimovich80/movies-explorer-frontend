@@ -146,10 +146,12 @@ function App() {
         setPopupOpen(false)
     }
 
-    function handleRegistration({ email, password, name }) {
+    function handleRegistration(data, setValidForm) {
+        const { email, password, name } = data;
+        setValidForm(false)
         register(email, password, name)
             .then((res) => {
-                handleLogin({ password, email })
+                handleLogin({ password, email }, setValidForm)
             })
             .catch((err) => {
                 console.log(err);
@@ -167,9 +169,13 @@ function App() {
                     }
                 }
             })
+            .finally(() => {
+                setValidForm(true)
+            })
     }
 
-    function handleLogin({ password, email }) {
+    function handleLogin({ password, email }, setValid) {
+        setValid(false);
         login(password, email)
             .then(({ token }) => {
                 localStorage.setItem("token", token);
@@ -187,6 +193,7 @@ function App() {
                     }
                 }
             })
+            .finally(() => setValid(true))
     }
 
     function handleLogout() {
@@ -221,6 +228,10 @@ function App() {
     }
     // функция возвращает найденные фильмы
     function findMovies(moviesArr, name, isShortFlag) {
+        // убрать эту иф для сохраненок
+        if (name === '') {
+            return []
+        }
         // если искомое значение - звездочка
         if (name === '*') {
             // исходя из положения чекбокса короткометражек
@@ -246,15 +257,18 @@ function App() {
             : JSON.parse(localStorage.getItem('isShort'))
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
+        console.log(movies);
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
             // включаем прелоадер
             setLoading(true)
             // обращаемся к апишке за фильмамиа
-            console.log('calling th e movies api');
+            console.log('calling the movies api');
             moviesApi.getMovies()
                 // если данные из сервера пришли
                 .then(res => {
+                    console.log('got the movies');
+                    console.log(res);
                     // формируем из полученных фильмов строку 
                     const moviesToStore = JSON.stringify(res);
                     // и кладём в локальное хранилище

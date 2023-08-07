@@ -8,8 +8,6 @@ export default function FilterCheckbox({
     checked,
     setChecked
 }) {
-    // стэйт для чекбокса
-    //const [checked, setChecked] = useState(false)
     // при первом рендеринге страницы
     useEffect(() => {
         // если мы на странице Сохраненных фильмов

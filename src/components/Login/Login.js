@@ -1,7 +1,7 @@
 import './Login.css'
 import { Link } from 'react-router-dom';
 import { validate, res } from 'react-email-validator';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormWithValidation } from '../hooks/useForm';
 import MyInput from '../UI/MyInput/MyInput';
 import { ENDPOINT_MAIN, ENDPOINT_REGISTER } from '../../vendor/constants/endpoints';
@@ -21,6 +21,9 @@ export default function Login({
         email: '',
         password: ''
     });
+
+    const [isValidForm, setValidForm] = useState(isValid);
+
     useEffect(() => {
         values.email = "";
         values.password = "";
@@ -30,7 +33,7 @@ export default function Login({
 
     function handleSubmit(e) {
         e.preventDefault();
-        handleLogin(values)
+        handleLogin(values, setValidForm)
     }
     return (
         <section className='login'>
@@ -82,12 +85,12 @@ export default function Login({
                 }
                 <button
                     className={
-                        isValid
+                        isValidForm
                             ? 'login__button button'
                             : 'login__button button button_disabled'
                     }
                     aria-label={buttonText}
-                    disabled={!isValid}
+                    disabled={!isValidForm}
                     onClick={handleSubmit}
                 >
                     {buttonText}
