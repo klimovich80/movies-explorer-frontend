@@ -220,13 +220,11 @@ function App() {
         })
     }
     // функция возвращает найденные фильмы
-    function findMovies(moviesArr, name) {
-        // заносим в переменную is Short значение из локального хранилища
-        const isShort = JSON.parse(localStorage.getItem('isShort'))
+    function findMovies(moviesArr, name, isShortFlag) {
         // если искомое значение - звездочка
         if (name === '*') {
             // исходя из положения чекбокса короткометражек
-            return isShort
+            return isShortFlag
                 // возвращаем все короктометражные фильмы
                 ? filterShortMovies(moviesArr)
                 // возвращаем все фильмы
@@ -234,7 +232,7 @@ function App() {
         }
         filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
         // // исходя из положения чекбокса короткометражек
-        return isShort
+        return isShortFlag
             // возвращаем найденные короктометражные фильмы
             ? filterShortMovies(moviesArr.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
             // возвращаем найденные фильмы
@@ -245,6 +243,9 @@ function App() {
     function searchMovie(isSavedMoviesPage, name) {
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
+        const isShortFlag = isSavedMoviesPage
+            ? JSON.parse(localStorage.getItem('isShortSavedMovies'))
+            : JSON.parse(localStorage.getItem('isShort'))
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
             // включаем прелоадер
@@ -277,7 +278,7 @@ function App() {
             // false - передаем массив фильмов
             : movies
         // переменная в которую возвращаются найденные фильмы
-        const foundItems = findMovies(items, name);
+        const foundItems = findMovies(items, name, isShortFlag);
         // заносим все найденные фильмы в стэйт переменную
         isSavedMoviesPage
             ? setFoundSavedMovies(foundItems)
@@ -335,7 +336,7 @@ function App() {
                                     />
                                     <Footer />
                                 </>
-                            } isLoggedIn={isLoggedIn} />
+                            } isLoggedIn={isLoggedIn || token !== null} />
                         } />
                     <Route
                         path={ENDPOINT_SAVED_MOVIES}

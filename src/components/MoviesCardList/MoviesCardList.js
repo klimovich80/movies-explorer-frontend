@@ -16,10 +16,6 @@ export default function MoviesCardList({
     showMore,
     connectionError
 }) {
-    useEffect(() => {
-        console.log('card list use effect');
-        console.log(localStorage);
-    })
     const token = localStorage.getItem('token');
     function deleteFromList(movie) {
         const movieToDelete = savedMovies.find(
@@ -56,7 +52,6 @@ export default function MoviesCardList({
 
     let showMovies = movies.slice(0, maxMovies);
     const isSearched = JSON.parse(localStorage.getItem('movies')) || [];
-    console.log(isSearched);
     return (
         <section className='movies-card' >
             {

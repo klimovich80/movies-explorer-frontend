@@ -8,6 +8,8 @@ export default function SearchForm({
     searchMovie,
     searchInput,
     isSavedMoviesPage,
+    isSavedMoviesShort,
+    setSavedMoviesShort
 }) {
     const buttonText = 'Поиск';
 
@@ -70,6 +72,8 @@ export default function SearchForm({
                     searchMovie={searchMovie}
                     inputValue={values.movie}
                     isSavedMoviesPage={isSavedMoviesPage}
+                    isSavedMoviesShort={isSavedMoviesShort}
+                    setSavedMoviesShort={setSavedMoviesShort}
                 />
             </form>
         </section>
