@@ -49,9 +49,6 @@ function App() {
     const [isEditableForm, setEditableForm] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
-    console.log('initial state');
-    console.log(localStorage);
-    console.log(isLoggedIn);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isSaved, setSaved] = useState(false);
     const [maxMovies, setMaxMovies] = useState(DESKTOP_CARDS_DISPLAY);
@@ -62,20 +59,10 @@ function App() {
     // constants
     const navigate = useNavigate();
 
-    function checkLoggedIn() {
-        if (localStorage.length > 0) {
-            console.log('there are data in local storage');
-            return true;
-        }
-        return false;
-    }
-
     // useEffects
     // initial rendering
     useEffect(() => {
         console.log('1');
-        console.log(localStorage);
-        console.log(isLoggedIn)
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -98,8 +85,6 @@ function App() {
     // rendering on conditions
     useEffect(() => {
         console.log('2');
-        console.log(localStorage);
-        console.log(isLoggedIn);
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -222,7 +207,6 @@ function App() {
         setWindowSize(window.innerWidth)
         // обнуляем всё локальное хранилище
         localStorage.clear();
-        console.log(localStorage);
         // переходим на главную страницу
         navigate("/", { replace: true });
     }
@@ -351,7 +335,7 @@ function App() {
                                     />
                                     <Footer />
                                 </>
-                            } isLoggedIn={checkLoggedIn()} />
+                            } isLoggedIn={isLoggedIn} />
                         } />
                     <Route
                         path={ENDPOINT_SAVED_MOVIES}

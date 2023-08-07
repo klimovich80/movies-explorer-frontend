@@ -2,6 +2,7 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 import { mainApi } from '../../utils/MainApi';
+import { useEffect } from 'react';
 
 export default function MoviesCardList({
     currentUser,
@@ -15,7 +16,10 @@ export default function MoviesCardList({
     showMore,
     connectionError
 }) {
-
+    useEffect(() => {
+        console.log('card list use effect');
+        console.log(localStorage);
+    })
     const token = localStorage.getItem('token');
     function deleteFromList(movie) {
         const movieToDelete = savedMovies.find(
@@ -50,8 +54,9 @@ export default function MoviesCardList({
         setMaxMovies(maxMovies + showMore);
     }
 
-    let showMovies = movies.slice(0, maxMovies)
-
+    let showMovies = movies.slice(0, maxMovies);
+    const isSearched = JSON.parse(localStorage.getItem('movies')) || [];
+    console.log(isSearched);
     return (
         <section className='movies-card' >
             {
@@ -64,7 +69,9 @@ export default function MoviesCardList({
                     : isLoading
                         ? <Preloader />
                         : showMovies.length === 0
-                            ? <p className='movies-card__not-found'>Ничего не найдено</p>
+                            ? isSearched.length
+                                ? <p className='movies-card__not-found'>Ничего не найдено</p>
+                                : <></>
                             : <ul className='movies-card__list list'>
                                 {showMovies.map(movie => (
                                     <li
