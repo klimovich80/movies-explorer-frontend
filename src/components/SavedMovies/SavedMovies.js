@@ -1,7 +1,7 @@
 import './SavedMovies.css'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SavedMovies({
     currentUser,
@@ -15,6 +15,17 @@ export default function SavedMovies({
     showMore,
     connectionError
 }) {
+    console.log(`saved savedMovies items:`);
+    console.log(savedMovies);
+    console.log(`saved movies items`);
+    console.log(movies);
+    const [items, setItems] = useState([])
+    useEffect(() => {
+        console.log(`saved movies use effect`);
+        setItems(savedMovies);
+        console.log('inside use effect items');
+        console.log(items);
+    }, [])
     const isSavedMoviesPage = true;
     const [formValue, setFormValue] = useState('')
     return (
@@ -29,7 +40,11 @@ export default function SavedMovies({
                 currentUser={currentUser}
                 isSavedMoviesPage={isSavedMoviesPage}
                 isLoading={isLoading}
-                movies={movies}
+                movies={
+                    items
+                        ? items
+                        : movies
+                }
                 setSavedMovies={setSavedMovies}
                 savedMovies={savedMovies}
                 maxMovies={maxMovies}

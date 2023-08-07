@@ -220,8 +220,6 @@ function App() {
 
     // функция фильтрации короткометражек
     function filterShortMovies(items) {
-        console.log('filter movies');
-        console.log(items);
         // возвращаем отфильтрованный массив 
         return items.filter((movie) => {
             // в который заносятся все фильмы с заданными параметрами длительности
@@ -231,9 +229,6 @@ function App() {
     // функция возвращает найденные фильмы
     function findMovies(name, isSavedMoviesPage, isShort) {
         console.log('find movies');
-        console.log(name);
-        console.log(isSavedMoviesPage);
-        console.log(isShort);
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
 
         // если флаг isSavedMoviesPage
@@ -265,8 +260,6 @@ function App() {
 
     function storeFoundMovies(isSavedMoviesPage, name, movies, isShort) {
         const foundItems = findMovies(name, isSavedMoviesPage, isShort);
-        console.log('found Items: ');
-        console.log(foundItems);
         isSavedMoviesPage
             ? setFoundSavedMovies(foundItems)
             : setFoundMovies(foundItems);
@@ -276,15 +269,12 @@ function App() {
         }
         // формируем из полученных фильмов строку 
         const moviesToStore = JSON.stringify(movies)
-        console.log('moviesToStore: ');
-        console.log(moviesToStore);
         // и кладём в локальное хранилище
         localStorage.setItem('movies', moviesToStore || '')
     }
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
         console.log('search movie func->');
-        console.log(`ищем имя: '${name}'`);
         const isShort = isSavedMoviesPage
             ? isShortFlag
             : JSON.parse(localStorage.getItem('isShort'))
