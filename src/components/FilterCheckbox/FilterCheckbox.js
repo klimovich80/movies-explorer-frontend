@@ -29,11 +29,12 @@ export default function FilterCheckbox({
         // получаем актуальное положение чекбокса
         const isCheckBoxSetShort = e.target.checked;
         // заносим его значение в локальную память
-        isSavedMoviesPage
-            ? localStorage.setItem('isShortSavedMovies', isCheckBoxSetShort)
-            : localStorage.setItem('isShort', isCheckBoxSetShort)
+        if (!isSavedMoviesPage) {
+            localStorage.setItem('isShort', isCheckBoxSetShort)
+        }
         // запускаем функцию поиска фильмов
-        searchMovie(isSavedMoviesPage, inputValue);
+        console.log('вызываем moviesApi из фильтра');
+        searchMovie(isSavedMoviesPage, inputValue, isCheckBoxSetShort);
         // меняем его на нужное визуальное положение
         setChecked(!checked);
     }

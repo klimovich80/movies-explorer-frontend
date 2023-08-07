@@ -191,13 +191,13 @@ function App() {
 
     function handleLogout() {
         // очищаем все стэйты
-        setToken(null);
-        setLoggedIn(false);
+        setConnectionError(false)
         setCurrentUser({});
         setErrorMessage('');
-        setSavedMovies([]);
-        setConnectionError(false)
         setFoundMovies('');
+        setLoggedIn(false);
+        setToken(null);
+        setSavedMovies([]);
         setEditableForm(false);
         setLoading(true);
         setPopupOpen(false);
@@ -221,6 +221,7 @@ function App() {
     }
     // функция возвращает найденные фильмы
     function findMovies(moviesArr, name, isShortFlag) {
+        console.log(`isShortFlag in findMovie func: ${isShortFlag}`);
         // если искомое значение - звездочка
         if (name === '*') {
             // исходя из положения чекбокса короткометражек
@@ -240,17 +241,19 @@ function App() {
     }
 
     // функция поиска фильмов
-    function searchMovie(isSavedMoviesPage, name) {
+    function searchMovie(isSavedMoviesPage, name, isShortFlag) {
+        console.log(`isShortFlag in searchmovie func: ${isShortFlag}`);
+        const isShort = isSavedMoviesPage
+            ? isShortFlag
+            : JSON.parse(localStorage.getItem('isShort'))
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
-        const isShortFlag = isSavedMoviesPage
-            ? JSON.parse(localStorage.getItem('isShortSavedMovies'))
-            : JSON.parse(localStorage.getItem('isShort'))
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
         if (movies.length === 0) {
             // включаем прелоадер
             setLoading(true)
             // обращаемся к апишке за фильмамиа
+            console.log('calling th e movies api');
             moviesApi.getMovies()
                 // если данные из сервера пришли
                 .then(res => {
@@ -278,7 +281,7 @@ function App() {
             // false - передаем массив фильмов
             : movies
         // переменная в которую возвращаются найденные фильмы
-        const foundItems = findMovies(items, name, isShortFlag);
+        const foundItems = findMovies(items, name, isShort);
         // заносим все найденные фильмы в стэйт переменную
         isSavedMoviesPage
             ? setFoundSavedMovies(foundItems)
