@@ -49,19 +49,33 @@ function App() {
     const [isEditableForm, setEditableForm] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setLoggedIn] = useState(false);
+    console.log('initial state');
+    console.log(localStorage);
+    console.log(isLoggedIn);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [isSaved, setSaved] = useState(false);
     const [maxMovies, setMaxMovies] = useState(DESKTOP_CARDS_DISPLAY);
     const [savedMovies, setSavedMovies] = useState([])
     const [showMore, setShowMore] = useState(DESKTOP_CARDS_MORE);
-    const [token, setToken] = useState(null);
-    const [windowSize, setWindowSize] = useState(window.innerWidth)
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
     // constants
     const navigate = useNavigate();
+
+    function checkLoggedIn() {
+        if (localStorage.length > 0) {
+            console.log('there are data in local storage');
+            return true;
+        }
+        return false;
+    }
 
     // useEffects
     // initial rendering
     useEffect(() => {
+        console.log('1');
+        console.log(localStorage);
+        console.log(isLoggedIn)
         setLoading(true);
         const jwt = localStorage.getItem("token");
         setToken(jwt);
@@ -73,10 +87,9 @@ function App() {
                 setCurrentUser(data);
                 setLoggedIn(true);
                 setSavedMovies(items);
-                navigate(localStorage.getItem('path'))
             })
             .catch(err => {
-                console.log(err.message)
+                console.log(err)
             })
             .finally(() => {
                 setLoading(false)
@@ -84,6 +97,9 @@ function App() {
     }, [])
     // rendering on conditions
     useEffect(() => {
+        console.log('2');
+        console.log(localStorage);
+        console.log(isLoggedIn);
         setLoading(true);
         const path = window.location.pathname;
         if (!token) {
@@ -148,7 +164,7 @@ function App() {
     function handleRegistration({ email, password, name }) {
         register(email, password, name)
             .then((res) => {
-                navigate("/movies", { replace: true });
+                handleLogin({ password, email })
             })
             .catch((err) => {
                 console.log(err);
@@ -174,7 +190,7 @@ function App() {
                 localStorage.setItem("token", token);
                 setToken(token);
                 setLoggedIn(true);
-                navigate('/movies');
+                navigate(ENDPOINT_MOVIES);
             })
             .catch(err => {
                 console.log(err)
@@ -206,6 +222,7 @@ function App() {
         setWindowSize(window.innerWidth)
         // обнуляем всё локальное хранилище
         localStorage.clear();
+        console.log(localStorage);
         // переходим на главную страницу
         navigate("/", { replace: true });
     }
@@ -323,7 +340,7 @@ function App() {
                                         currentUser={currentUser}
                                         searchMovie={searchMovie}
                                         isLoading={isLoading}
-                                        searchInput={localStorage.getItem('searchInput')}
+                                        searchInput={localStorage.getItem('searchInput') || ''}
                                         movies={foundMovies}
                                         setSavedMovies={setSavedMovies}
                                         savedMovies={savedMovies}
@@ -334,7 +351,7 @@ function App() {
                                     />
                                     <Footer />
                                 </>
-                            } isLoggedIn={isLoggedIn} />
+                            } isLoggedIn={checkLoggedIn()} />
                         } />
                     <Route
                         path={ENDPOINT_SAVED_MOVIES}
@@ -357,7 +374,6 @@ function App() {
                                     <Footer />
                                 </>
                             } isLoggedIn={isLoggedIn} />
-
                         } />
                     <Route
                         path={ENDPOINT_PROFILE}
@@ -381,7 +397,6 @@ function App() {
                                     />
                                 </>
                             } isLoggedIn={isLoggedIn} />
-
                         } />
                     <Route
                         path={ENDPOINT_LOGIN}
@@ -403,9 +418,8 @@ function App() {
                         } />
                     <Route
                         path={ENDPOINT_UNKNOWN}
-                        element={
-                            <PageNotFound />
-                        } />
+                        element={<PageNotFound />}
+                    />
                 </Routes>
                 {/* menu popup */}
                 <PopupMenu
