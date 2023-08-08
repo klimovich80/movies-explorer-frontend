@@ -33,7 +33,7 @@ export default function FilterCheckbox({
             localStorage.setItem('isShort', isCheckBoxSetShort)
         }
         // запускаем функцию поиска фильмов
-        console.log('вызываем moviesApi из фильтра');
+        console.log('check box initiated movie search');
         searchMovie(isSavedMoviesPage, inputValue, isCheckBoxSetShort);
         // меняем его на нужное визуальное положение
         setChecked(!checked);

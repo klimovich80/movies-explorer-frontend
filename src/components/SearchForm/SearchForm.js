@@ -29,25 +29,27 @@ export default function SearchForm({
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
+        console.log(`searchForm use effect possible serach movie`);
         values.movie = (
             isSavedMoviesPage
                 ? ''
                 : searchInput
         );
         errors.movie = '';
-        const isSearched = JSON.parse(localStorage.getItem('movies')) || []
-        isSearched.length
-            ? searchMovie(isSavedMoviesPage, values.movie, checked)
-            : console.log('no movies to display')
+        // if there are movies find them
+        const isSearched = JSON.parse(localStorage.getItem('movies')) !== null
+        if (isSearched) {
+            searchMovie(isSavedMoviesPage, values.movie, checked)
+        }
     }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('search movie called from searchform submit');
         setSearchValue(values.movie)
-        if (isSavedMoviesPage) {
-            setFormValue(searchValue)
-        }
+        isSavedMoviesPage
+            ? setFormValue(searchValue)
+            : localStorage.setItem('searchInput', searchValue);
+        console.log(`search form initiated search movie`);
         searchMovie(isSavedMoviesPage, values.movie, checked);
     }
 
