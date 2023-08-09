@@ -29,7 +29,7 @@ export default function SearchForm({
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        console.log(`searchForm use effect possible serach movie`);
+        console.log(`searchForm use effect possible search movie`);
         values.movie = (
             isSavedMoviesPage
                 ? ''

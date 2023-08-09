@@ -99,6 +99,7 @@ function App() {
                 setLoggedIn(true);
                 setCurrentUser(data);
                 localStorage.setItem('path', path);
+                handleResize();
             })
             .catch((err) => {
                 console.log(err);
@@ -277,8 +278,8 @@ function App() {
     }
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
-        console.log(`search movie name: '${name}'`);
-        console.log(localStorage.getItem('searchInput'));
+        // console.log(`search movie name from input: '${name}'`);
+        // console.log(`localStorage input value:` + localStorage.getItem('searchInput'));
         const isShort = isSavedMoviesPage
             ? isShortFlag
             : JSON.parse(localStorage.getItem('isShort'))
