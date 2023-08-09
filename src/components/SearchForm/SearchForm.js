@@ -29,7 +29,6 @@ export default function SearchForm({
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        //console.log(`searchForm use effect possible search`);
         values.movie = (
             isSavedMoviesPage
                 ? ''
@@ -45,12 +44,10 @@ export default function SearchForm({
 
     function handleSubmit(e) {
         e.preventDefault();
-        //console.log(`sending value from search form: ${searchValue}`);
         setSearchValue(values.movie)
         isSavedMoviesPage
             ? setFormValue(values.movie)
             : localStorage.setItem('searchInput', searchValue);
-        //console.log(`search form initiated search movie`);
         searchMovie(isSavedMoviesPage, values.movie, checked);
     }
 

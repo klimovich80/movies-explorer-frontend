@@ -2,7 +2,6 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 import { mainApi } from '../../utils/MainApi';
-import { useEffect } from 'react';
 
 export default function MoviesCardList({
     currentUser,
@@ -15,18 +14,27 @@ export default function MoviesCardList({
     setMaxMovies,
     showMore,
     connectionError,
+    searchMovie,
     formValue
 }) {
+
     const token = localStorage.getItem('token');
 
     function deleteFromList(movie) {
+        // переменная поиска удаляемого фильма
         const movieToDelete = savedMovies.find(
+            // только фильмы текущего пользователя с соответсвующим id
             m => m.owner === currentUser._id && (m.movieId === (movie.id || movie.movieId))
         )
+        // если фильм не найден - покидаем функцию
         if (!movieToDelete) return
+        // вызываем апишку и удаляем на сервере найденный фильм из списка пользователя
         mainApi.deleteMovie(movieToDelete._id, token)
             .then((res) => {
+                console.log(res);
+                // создаем новый список без удаленного фильма
                 setSavedMovies(savedMovies.filter(m => m._id !== movieToDelete._id))
+                if (isSavedMoviesPage) { searchMovie(isSavedMoviesPage, formValue, false) }
             })
             .catch(err => {
                 console.log(err)
@@ -40,9 +48,6 @@ export default function MoviesCardList({
             })
             .catch(err => console.log(err))
     }
-    // useEffect(() => {
-    //     console.log(`card list use effect`);
-    // }, [])
 
     function isSavedMovie(movie) {
         return savedMovies.some(
@@ -66,9 +71,6 @@ export default function MoviesCardList({
 
     // устанавливаем количество фильмов к показу
     let showMovies = movies.slice(0, maxMovies);
-    console.log(`movies quantity: "${movies.length}"`);
-    console.log(`showMovies quantity: "${showMovies.length}"`);
-    console.log(`значение поля: '${formValue}'`);
 
 
 
@@ -134,21 +136,21 @@ export default function MoviesCardList({
                                 ? isSavedMoviesPage
                                     // да сохраненка
                                     ? <>
-                                        <p>показать все(savedMovies, был поиск в локалке, пустая строка)</p>
+                                        {/* <p>показать все(savedMovies, был поиск в локалке, пустая строка)</p> */}
                                         {Cards()}
                                         {MoreButton()}
                                     </>
                                     // нет не сохраненка
-                                    : <p className='movies-card__not-found'>ничего не найдено...(movies, был поиск в локалке, пустая строка )</p>
+                                    : <p className='movies-card__not-found'>ничего не найдено...</p>
                                 // нет не пустая
                                 //есть ли результат поиска?
                                 : showMovies.length > 0
                                     ? <>
-                                        <p>Показать результат(не пустая строка)</p>
+                                        {/* <p>Показать результат(не пустая строка)</p> */}
                                         {Cards()}
                                         {MoreButton()}
                                     </>
-                                    : <p className='movies-card__not-found'>ничего не найдено...(результат поиска)</p>
+                                    : <p className='movies-card__not-found'>ничего не найдено...</p>
 
                             // нет не было
                             // сохраненка
@@ -158,7 +160,7 @@ export default function MoviesCardList({
                                 ? formValue === ''
                                     // да, пустая. Показать все
                                     ? <>
-                                        <p>показать все(savedMovies, поиска не было в локалке, пустая строка)</p>
+                                        {/* <p>показать все(savedMovies, поиска не было в локалке, пустая строка)</p> */}
                                         {Cards()}
                                         {MoreButton()}
                                     </>
@@ -166,13 +168,14 @@ export default function MoviesCardList({
                                     //есть ли результат поиска?
                                     : showMovies.length > 0
                                         ? <>
-                                            <p>показать результат поиска(savedMovies, поиска не было в локалке, не пустая строка('{formValue}'))</p>
+                                            {/* <p>показать результат поиска(savedMovies, поиска не было в локалке, не пустая строка('{formValue}'))</p> */}
                                             {Cards()}
                                             {MoreButton()}
                                         </>
-                                        : <p className='movies-card__not-found'>ничего не найдено...(результат поиска поиска не было в локалке, не пустая строка)</p>
+                                        : <p className='movies-card__not-found'>ничего не найдено...</p>
                                 // нет не сохраненка
-                                : <p>не показывать ничего(поиска не было)</p>
+                                // <p>не показывать ничего(поиска не было)</p>
+                                : <></>
             }
         </section>
     )
