@@ -74,6 +74,8 @@ function App() {
                 setCurrentUser(data);
                 setSavedMovies(items);
                 setFoundSavedMovies(items);
+                console.log('foundMovies in 1');
+                console.log(foundSavedMovies);
             })
             .catch(err => {
                 console.log(err)
@@ -98,8 +100,11 @@ function App() {
                 setSavedMovies(savedItems);
                 setLoggedIn(true);
                 setCurrentUser(data);
+                setFoundSavedMovies(savedItems);
                 localStorage.setItem('path', path);
                 handleResize();
+                console.log('foundMovies in 2');
+                console.log(foundSavedMovies);
             })
             .catch((err) => {
                 console.log(err);
@@ -267,18 +272,19 @@ function App() {
         console.log(`notSearchedYet: ${notSearchedYet}`);
         const toStoreToLocal = !isSavedMoviesPage && !notSearchedYet;
         console.log(`to store to local: '${toStoreToLocal}'`);
+
         if (toStoreToLocal) {
             console.log('setting input to local from storeFoundMovies');
             localStorage.setItem('searchInput', name || '')
+            // формируем из полученных фильмов строку 
+            const moviesToStore = JSON.stringify(movies)
+            // и кладём в локальное хранилище
+            localStorage.setItem('movies', moviesToStore || '')
         }
-        // формируем из полученных фильмов строку 
-        const moviesToStore = JSON.stringify(movies)
-        // и кладём в локальное хранилище
-        localStorage.setItem('movies', moviesToStore || '')
     }
     // функция поиска фильмов
     function searchMovie(isSavedMoviesPage, name, isShortFlag) {
-        // console.log(`search movie name from input: '${name}'`);
+        console.log(`searchMovie name from input: '${name}'`);
         // console.log(`localStorage input value:` + localStorage.getItem('searchInput'));
         const isShort = isSavedMoviesPage
             ? isShortFlag
@@ -286,7 +292,7 @@ function App() {
         // достаем из локального хранилища фильмы
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
         // если поиск фильмов ещё не производился и в локальном хранилище ничего нет
-        if (movies.length === 0) {
+        if (movies.length === 0 && !isSavedMoviesPage) {
             // включаем прелоадер
             setLoading(true)
             // обращаемся к апишке за фильмамиа

@@ -40,9 +40,9 @@ export default function MoviesCardList({
             })
             .catch(err => console.log(err))
     }
-    useEffect(() => {
-        console.log(`card list use effect`);
-    }, [])
+    // useEffect(() => {
+    //     console.log(`card list use effect`);
+    // }, [])
 
     function isSavedMovie(movie) {
         return savedMovies.some(
@@ -92,25 +92,6 @@ export default function MoviesCardList({
                 </li>))}
         </ul>
     }
-
-    // const MoreButton = () => {
-    //     //  если размер массива показываемых фильмов больше 3 и меньше рамзера массива фильмов
-    //     return showMovies.length > 3 && showMovies.length < movies.length
-    //         // соответсвует условию
-    //         // если не пустая строка
-    //         ? !isEmpty
-    //             //не пустая - показать кнопку 
-    //             ? <button
-    //                 className='movies-card__button'
-    //                 aria-label='Eщё'
-    //                 type='button'
-    //                 onClick={handleMoreClick}
-    //             >Eщё</button>
-    //             //пустая - скрыть кнопку
-    //             : <></>
-    //         // не соответсвует условию - скрыть кнопку
-    //         : <></>
-    // }
 
     const MoreButton = () => {
         //  если размер массива показываемых фильмов больше 3 и меньше рамзера массива фильмов
@@ -185,7 +166,7 @@ export default function MoviesCardList({
                                     //есть ли результат поиска?
                                     : showMovies.length > 0
                                         ? <>
-                                            <p>показать результат поиска(savedMovies, поиска не было в локалке, не пустая строка)</p>
+                                            <p>показать результат поиска(savedMovies, поиска не было в локалке, не пустая строка('{formValue}'))</p>
                                             {Cards()}
                                             {MoreButton()}
                                         </>
