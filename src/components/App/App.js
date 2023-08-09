@@ -228,6 +228,7 @@ function App() {
     }
     // функция возвращает найденные фильмы
     function findMovies(name, isSavedMoviesPage, isShort) {
+        ('inside findMovies');
         const movies = JSON.parse(localStorage.getItem('movies')) || [];
 
         // если флаг isSavedMoviesPage
@@ -246,7 +247,6 @@ function App() {
                 // возвращаем все фильмы
                 : items
         }
-        //filterShortMovies(items.filter(m => m.nameRU.toLowerCase().includes(name.toLowerCase())))
         // исходя из положения чекбокса короткометражек
         return isShort
             // возвращаем найденные короктометражные фильмы

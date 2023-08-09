@@ -2,6 +2,7 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 import { mainApi } from '../../utils/MainApi';
+import { useEffect, useState } from 'react';
 
 export default function MoviesCardList({
     currentUser,
@@ -15,26 +16,32 @@ export default function MoviesCardList({
     showMore,
     connectionError,
     searchMovie,
-    formValue
+    formValue,
+    isShort
 }) {
 
+    // устанавливаем количество фильмов к показу
+    const [showMovies, setShowMovies] = useState([])
+
+    useEffect(() => {
+        setShowMovies(movies.slice(0, maxMovies))
+    }, [movies, maxMovies])
+
+    useEffect(() => {
+        if (isSavedMoviesPage) {
+            searchMovie(isSavedMoviesPage, formValue, isShort)
+        }
+    }, [savedMovies])
     const token = localStorage.getItem('token');
 
     function deleteFromList(movie) {
-        // переменная поиска удаляемого фильма
         const movieToDelete = savedMovies.find(
-            // только фильмы текущего пользователя с соответсвующим id
             m => m.owner === currentUser._id && (m.movieId === (movie.id || movie.movieId))
         )
-        // если фильм не найден - покидаем функцию
         if (!movieToDelete) return
-        // вызываем апишку и удаляем на сервере найденный фильм из списка пользователя
         mainApi.deleteMovie(movieToDelete._id, token)
             .then((res) => {
-                console.log(res);
-                // создаем новый список без удаленного фильма
                 setSavedMovies(savedMovies.filter(m => m._id !== movieToDelete._id))
-                if (isSavedMoviesPage) { searchMovie(isSavedMoviesPage, formValue, false) }
             })
             .catch(err => {
                 console.log(err)
@@ -68,11 +75,6 @@ export default function MoviesCardList({
 
     // смотрим в локальное хранилище, определяем был ли поиск 
     const isSearched = localStorage.getItem('searchInput') !== null;
-
-    // устанавливаем количество фильмов к показу
-    let showMovies = movies.slice(0, maxMovies);
-
-
 
     const Cards = () => {
         return <ul className='movies-card__list list'>
@@ -109,7 +111,7 @@ export default function MoviesCardList({
             // не соответсвует условию - скрыть кнопку
             : <></>
     }
-    //----------------------------------------------------------------------
+
     return (
         <section className='movies-card' >
             {
@@ -180,3 +182,5 @@ export default function MoviesCardList({
         </section>
     )
 }
+
+// TODO на первом поиске короткометражек в сохраненках показать отсутсвие результата а не пустой лист?

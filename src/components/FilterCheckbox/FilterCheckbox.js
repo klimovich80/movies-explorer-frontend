@@ -6,7 +6,8 @@ export default function FilterCheckbox({
     inputValue,
     isSavedMoviesPage,
     checked,
-    setChecked
+    setChecked,
+    setShort
 }) {
     // при первом рендеринге страницы
     useEffect(() => {
@@ -35,6 +36,9 @@ export default function FilterCheckbox({
         // запускаем функцию поиска фильмов
         searchMovie(isSavedMoviesPage, inputValue, isCheckBoxSetShort);
         // меняем его на нужное визуальное положение
+        if (isSavedMoviesPage) {
+            setShort(!checked);
+        }
         setChecked(!checked);
     }
 

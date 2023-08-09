@@ -11,6 +11,7 @@ export default function SearchForm({
     isSavedMoviesShort,
     setSavedMoviesShort,
     setFormValue,
+    setShort
 }) {
     // стэйт для чекбокса
     const [checked, setChecked] = useState(false)
@@ -89,6 +90,7 @@ export default function SearchForm({
                     setSavedMoviesShort={setSavedMoviesShort}
                     checked={checked}
                     setChecked={setChecked}
+                    setShort={setShort}
                 />
             </form>
         </section>

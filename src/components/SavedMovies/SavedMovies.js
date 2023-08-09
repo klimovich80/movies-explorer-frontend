@@ -16,7 +16,8 @@ export default function SavedMovies({
     connectionError
 }) {
     const isSavedMoviesPage = true;
-    const [formValue, setFormValue] = useState('')
+    const [formValue, setFormValue] = useState('');
+    const [isShort, setShort] = useState(false);
     return (
         <section className='saved-movies movies'>
             <SearchForm
@@ -24,6 +25,7 @@ export default function SavedMovies({
                 isSavedMoviesPage={isSavedMoviesPage}
                 movies={savedMovies}
                 setFormValue={setFormValue}
+                setShort={setShort}
             />
             <MoviesCardList
                 currentUser={currentUser}
@@ -38,6 +40,7 @@ export default function SavedMovies({
                 connectionError={connectionError}
                 searchMovie={searchMovie}
                 formValue={formValue}
+                isShort={isShort}
             />
         </section>
     )
