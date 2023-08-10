@@ -31,6 +31,12 @@
     line-height: normal;
 }
 
+.button_disabled {
+    color: var(--button-error_text-color);
+    background-color: var(--button-error_color);
+    cursor: not-allowed;
+}
+
 .button:hover {
     opacity: .8;
 }
@@ -59,6 +65,13 @@
 input:focus {
     outline: none;
     border-bottom: 1px solid var(--input-focus_underline-color);
+}
+
+.form__error-message {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: var(--error_text-color);
 }
 
 @media screen and (max-width:767px) {

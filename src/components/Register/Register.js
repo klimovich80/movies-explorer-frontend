@@ -1,19 +1,30 @@
 import './Register.css'
-import { useEffect } from 'react'
-import useForm from '../hooks/useForm'
-import { endpointMain, endpointLogin } from '../../vendor/constants/endpoints'
+import { validate, res } from 'react-email-validator'
+import { useEffect, useState } from 'react'
+import { useFormWithValidation } from '../hooks/useForm'
+import { ENDPOINT_MAIN, ENDPOINT_LOGIN } from '../../vendor/constants/endpoints'
 import logo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
 import MyInput from '../UI/MyInput/MyInput'
 
-export default function Register() {
+export default function Register({
+    errorMessage,
+    handleRegistration
+}) {
     const buttonText = 'Зарегистрироваться';
 
-    const { values, errors, handleChange } = useForm({
+    const {
+        values,
+        errors,
+        handleChange,
+        isValid
+    } = useFormWithValidation({
         name: '',
         email: '',
         password: ''
     });
+
+    const [isValidForm, setValidForm] = useState(isValid)
 
     useEffect(() => {
         values.name = "";
@@ -24,18 +35,15 @@ export default function Register() {
         errors.password = "";
     }, []);
 
-    const disableButton = errors.name !== "" || errors.email !== "";
-
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitting register form');
-        console.log(values);
+        handleRegistration(values, setValidForm);
     }
 
     return (
         <section className='register'>
             <form className='register__form'>
-                <Link to={endpointMain}>
+                <Link to={ENDPOINT_MAIN}>
                     <img className='register__logo button' src={logo} alt='логотип' />
                 </Link>
                 <h2 className='register__title'>Добро пожаловать!</h2>
@@ -59,14 +67,30 @@ export default function Register() {
                     <MyInput
                         id='register__email'
                         name="email"
-                        error={errors.email}
+                        error={
+                            // валидация прошла успешно
+                            res
+                                // да пишем то что определено в ошибках
+                                ? errors.email
+                                // нет, а есть ли дефолтные ошибки
+                                : errors.email
+                                    // они есть, их и пишем
+                                    ? errors.email
+                                    // их нет, пишем свою
+                                    : 'email должен быть в формате user@domain.any'
+                        }
                         type='email'
                         required
                         minLength="2"
                         maxLength="30"
                         placeholder='введите е-майл'
                         value={values.email}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                            // валидируем данные
+                            validate(e.target.value);
+                            // реагируем на изменения через валидатор хука формы
+                            handleChange(e)
+                        }}
                     />
                 </label>
                 <label className='register__label' htmlFor='register__password'>
@@ -82,17 +106,25 @@ export default function Register() {
                         onChange={handleChange}
                     />
                 </label>
+                {errorMessage
+                    ? <p className='form__error-message'>{errorMessage}</p>
+                    : <></>
+                }
                 <button
-                    className='register__button button'
+                    className={
+                        isValidForm
+                            ? 'register__button button'
+                            : 'register__button button button_disabled'
+                    }
                     aria-label={buttonText}
-                    disabled={disableButton}
+                    disabled={!isValidForm}
                     onClick={handleSubmit}
                 >
                     {buttonText}
                 </button>
                 <p className='register__paragraph'>
                     Уже зарегистрированы ?
-                    <Link className='register__link link' to={endpointLogin}> Войти</Link>
+                    <Link className='register__link link' to={ENDPOINT_LOGIN}> Войти</Link>
                 </p>
             </form>
 

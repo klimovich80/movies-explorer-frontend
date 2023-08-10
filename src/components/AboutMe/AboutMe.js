@@ -1,6 +1,6 @@
 import './AboutMe.css'
 import { Link } from 'react-router-dom'
-import { endpointMyGithub } from '../../vendor/constants/endpoints'
+import { ENDPOINT_MY_GITHUB } from '../../vendor/constants/endpoints'
 import myPortfolioImage from '../../images/portfolio.jpg'
 
 export default function AboutMe() {
@@ -18,7 +18,7 @@ export default function AboutMe() {
                     Захотел систематизировать свои знания и подойти к вопросу на профессииональном уровне.
                     Сейчас заканчиваю курс веб-разработки от Яндекс Практикума. Планирую создать интересный цифровой продукт и немного фрилансить.
                 </p>
-                <Link className='about-me__link link' to={endpointMyGithub} target='_blank'>Github</Link>
+                <Link className='about-me__link link' to={ENDPOINT_MY_GITHUB} target='_blank'>Github</Link>
             </article>
         </section>
     )

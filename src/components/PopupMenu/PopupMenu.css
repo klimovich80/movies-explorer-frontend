@@ -5,7 +5,8 @@
 }
 
 .link_active {
-    text-decoration: underline;
+    border-bottom: 2px solid var(--underline_color);
+    padding-bottom: 4px;
 }
 
 .popup_disabled {

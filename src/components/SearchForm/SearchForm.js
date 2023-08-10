@@ -1,28 +1,55 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 import MyInput from '../UI/MyInput/MyInput'
-import { useEffect } from 'react'
-import useForm from '../hooks/useForm'
+import { useEffect, useState } from 'react'
+import { useFormWithValidation } from '../hooks/useForm'
 
-export default function SearchForm({ isShort, setShort }) {
-
+export default function SearchForm({
+    searchMovie,
+    searchInput,
+    isSavedMoviesPage,
+    isSavedMoviesShort,
+    setSavedMoviesShort,
+    setFormValue,
+    setShort
+}) {
+    // стэйт для чекбокса
+    const [checked, setChecked] = useState(false)
     const buttonText = 'Поиск';
 
-    const { values, errors, handleChange } = useForm({
-        movie: ''
+    const {
+        values,
+        errors,
+        handleChange,
+        isValid
+    } = useFormWithValidation({
+        movie: '',
+        isValid: false
     });
 
-    useEffect(() => {
-        values.movie = '';
-        errors.movie = '';
-    }, []);
+    const [searchValue, setSearchValue] = useState('');
 
-    const disableButton = errors.movie !== '';
+    useEffect(() => {
+        values.movie = (
+            isSavedMoviesPage
+                ? ''
+                : searchInput
+        );
+        errors.movie = '';
+        // if there are movies find them
+        const isSearched = JSON.parse(localStorage.getItem('movies')) !== null
+        if (isSearched) {
+            searchMovie(isSavedMoviesPage, values.movie, checked)
+        }
+    }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitting search form');
-        console.log(values);
+        setSearchValue(values.movie)
+        isSavedMoviesPage
+            ? setFormValue(values.movie)
+            : localStorage.setItem('searchInput', searchValue);
+        searchMovie(isSavedMoviesPage, values.movie, checked);
     }
 
     return (
@@ -32,30 +59,39 @@ export default function SearchForm({ isShort, setShort }) {
                     <MyInput
                         id='search__movie'
                         name="movie"
-                        error={errors.movie}
+                        error={errors.movie && 'Нужно ввести ключевое слово'}
                         type='search'
                         required
                         minLength="1"
                         maxLength="50"
                         placeholder='Фильм'
-                        value={values.name}
+                        value={values.movie}
                         onChange={handleChange}
                     />
                     <button
                         className={
-                            disableButton
-                                ? 'search__button search__button_disabled button'
-                                : 'search__button button'
+                            isValid
+                                ? 'search__button button'
+                                : 'search__button search__button_disabled button'
                         }
                         type='submit'
                         aria-label={buttonText}
-                        disabled={disableButton}
+                        disabled={!isValid}
                         onClick={handleSubmit}
                     >
                         {buttonText}
                     </button>
                 </div>
-                <FilterCheckbox isShort={isShort} setShort={setShort} />
+                <FilterCheckbox
+                    searchMovie={searchMovie}
+                    inputValue={values.movie}
+                    isSavedMoviesPage={isSavedMoviesPage}
+                    isSavedMoviesShort={isSavedMoviesShort}
+                    setSavedMoviesShort={setSavedMoviesShort}
+                    checked={checked}
+                    setChecked={setChecked}
+                    setShort={setShort}
+                />
             </form>
         </section>
     )

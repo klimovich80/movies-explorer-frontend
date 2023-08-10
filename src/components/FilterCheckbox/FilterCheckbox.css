@@ -15,31 +15,35 @@
 }
 
 .filter__checkbox {
-    position: absolute;
-    width: 1px;
-    /* если у элемента не будет размеров, некоторые браузеры посчитают, что его вообще нет */
-    height: 1px;
-    -webkit-clip-path: inset(0 0 0 0);
-    clip-path: inset(0 0 0 0);
-}
-
-.filter__visible-checkbox {
-    display: block;
-    min-height: 20px;
+    appearance: none;
+    background: var(--checkbox_background_color-black);
+    border-radius: 100px;
+    cursor: pointer;
+    height: 20px;
+    position: relative;
     width: 36px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-.filter__visible-checkbox {
-    margin: 0;
-    padding: 0;
+.filter__checkbox::after {
+    background: var(--checkbox_switch_color-grey);
+    border-radius: 100%;
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 16px;
+    width: 16px;
 }
 
-.filter__checkbox:checked+.filter__visible-checkbox {
-    background: url('../../images/checkbox-active.svg') center no-repeat;
+.filter__checkbox:checked {
+    background: var(--checkbox_background_color-green);
 }
 
-.filter__checkbox+.filter__visible-checkbox {
-    background: url('../../images/checkbox-inactive.svg')center no-repeat;
+.filter__checkbox:checked::after {
+    background: var(--checkbox_switch_color-white);
+    left: 18px;
 }
 
 @media screen and (max-width: 1279px) {

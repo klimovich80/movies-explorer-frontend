@@ -1,18 +1,28 @@
 import './Login.css'
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import useForm from '../hooks/useForm';
+import { validate, res } from 'react-email-validator';
+import { useEffect, useState } from 'react';
+import { useFormWithValidation } from '../hooks/useForm';
 import MyInput from '../UI/MyInput/MyInput';
-import { endpointMain, endpointRegister } from '../../vendor/constants/endpoints';
+import { ENDPOINT_MAIN, ENDPOINT_REGISTER } from '../../vendor/constants/endpoints';
 import logo from '../../images/logo.svg';
 
-export default function Login() {
+export default function Login({
+    errorMessage,
+    handleLogin
+}) {
     const buttonText = 'Войти';
-
-    const { values, errors, handleChange } = useForm({
+    const {
+        values,
+        errors,
+        handleChange,
+        isValid
+    } = useFormWithValidation({
         email: '',
         password: ''
     });
+
+    const [isValidForm, setValidForm] = useState(isValid);
 
     useEffect(() => {
         values.email = "";
@@ -21,17 +31,14 @@ export default function Login() {
         errors.password = "";
     }, []);
 
-    const disableButton = errors.password !== "" || errors.email !== "";
-
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('submitting login form');
-        console.log(values);
+        handleLogin(values, setValidForm)
     }
     return (
         <section className='login'>
             <form className='login__form'>
-                <Link to={endpointMain}>
+                <Link to={ENDPOINT_MAIN}>
                     <img className='login__logo button' src={logo} alt='логотип' />
                 </Link>
                 <h2 className='login__title'>Рады видеть!</h2>
@@ -40,14 +47,23 @@ export default function Login() {
                     <MyInput
                         id='login__email'
                         name="email"
-                        error={errors.email}
+                        error={
+                            res
+                                ? errors.email
+                                : errors.email
+                                    ? errors.email
+                                    : 'email должен быть в формате user@domain.any'
+                        }
                         type='email'
                         required
                         minLength="2"
                         maxLength="30"
                         placeholder='введите е-майл'
                         value={values.email}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                            validate(e.target.value);
+                            handleChange(e)
+                        }}
                     />
                 </label>
                 <label className='login__label' htmlFor='login__password'>
@@ -63,17 +79,25 @@ export default function Login() {
                         onChange={handleChange}
                     />
                 </label>
+                {errorMessage
+                    ? <p className='form__error-message'>{errorMessage}</p>
+                    : <></>
+                }
                 <button
-                    className='login__button button'
+                    className={
+                        isValidForm
+                            ? 'login__button button'
+                            : 'login__button button button_disabled'
+                    }
                     aria-label={buttonText}
-                    disabled={disableButton}
+                    disabled={!isValidForm}
                     onClick={handleSubmit}
                 >
                     {buttonText}
                 </button>
                 <p className='login__paragraph'>
                     Ещё не зарегистрированы ?
-                    <Link className='login__link link' to={endpointRegister}> Регистрация</Link>
+                    <Link className='login__link link' to={ENDPOINT_REGISTER}> Регистрация</Link>
                 </p>
             </form>
 
